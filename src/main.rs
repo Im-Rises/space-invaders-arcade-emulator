@@ -1,5 +1,5 @@
 mod binary_lib;
-mod my_sdl2;
+// mod my_sdl2;
 mod si_arcade;
 
 fn main() {

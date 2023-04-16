@@ -1,10 +1,4 @@
 [package]
-name = "space_invaders_arcade_emulator"
+name = "space-invaders-arcade-emulator"
 version = "0.1.0"
 edition = "2021"
-build = "build.rs"
-
-[dependencies.sdl2]
-version = "0.35"
-default-features = false
-features = ["mixer"]
