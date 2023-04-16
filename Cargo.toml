@@ -2,3 +2,11 @@
 name = "space-invaders-arcade-emulator"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+authors = ["Quentin MOREL (Im-Rises)"]
+description = "Space Invaders Arcade Emulator"
+repository = "https:://github.com/Im-Rises/space-invaders-arcade-emulator"
+documentation = "https:://github.com/Im-Rises/space-invaders-arcade-emulator"
+readme = "README.md"
+keywords = ["space-invaders", "arcade", "emulator"]
+categories = ["emulators"]
