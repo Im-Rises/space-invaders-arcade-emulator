@@ -2,22 +2,19 @@
 
 <p align="center">
       <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="rustLogo" style="height:60px;"/>
-      <img src="https://user-images.githubusercontent.com/59691442/181630275-92b292b4-854c-447c-8da9-f8281c1e89c4.png" alt="sdl2Logo" style="height:60px;"/>
 </p>
 
 ## Description
 
-Space Invaders' arcade game emulator in development made in Rust with SDL2 and SDL2_mixer.
+Space Invaders' arcade game emulator written in Rust for WebAssembly.
 
 Complete Emulator of the Intel 8080, the app is implemented to run the Space Invaders Arcade game.
-
-Everything is working including the Space Invaders Easter Egg.
 
 ## Features
 
 - Full emulation
 - Sound
-- two-players mode
+- Two-players mode
 - Window resizing without deformation
 
 [//]: # (joystick support)
@@ -40,81 +37,7 @@ https://user-images.githubusercontent.com/59691442/183045566-0a3df947-06e7-4c46-
 
 ## Quick start
 
-To download the emulator, you can click one of the icons below depending on your operating system, or you can click the
-release section of the GitHub page.
-
-For each version when you unzip the downloaded release, you will get the executable and two folder, one
-named `game_roms` where you must put the game's roms:
-
-- invaders.h
-- invaders.g
-- invaders.e
-- invaders.f
-
-Depending on you `operating system` you will need to install some libs, they are installed differently depending on your
-system, please follow one of the section below `Windows` or `Linux` or `MacOs`.
-
-### Windows
-
-<a href="https://github.com/Im-Rises/space_invaders_arcade_emulator/releases/latest"><img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="cmakeLogo" style="height:40px;"/></a>
-
-For Windows users you don't need to install the libs, you just need to be carefully that you have the `SDL2.dll`
-and `SDL2_mixer.dll` next to the `space_invaders_arcade_emulator.exe` or the emulator won't start.
-
-Once everything is set up by you can start the emulator by double-clicking the executable of typing the following
-command next to it:
-
-```bash
-.\space_invaders_arcade_emulator.exe
-```
-
-### Linux
-
-<a href="https://github.com/Im-Rises/space_invaders_arcade_emulator/releases/latest"><img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="cmakeLogo" style="height:40px;"/></a>
-
-For Linux users, you need to install the SDL2 lib, to do so type one of the following commands:
-
-```bash
-sudo apt-get install libsdl2-2.0-0 libsdl2-mixer-2.0-0
-```
-
-or if you're a developer and want to compile the Emulator, please install this version of SDL2:
-
-```bash
-sudo apt-get install libsdl2-dev libsdl2-mixer-dev
-```
-
-Then you can start by double-clicking the executable of typing the following command next to it:
-
-```bash
-./space_invaders_arcade_emulator
-```
-
-### MacOs
-
-<a href="https://github.com/Im-Rises/space_invaders_arcade_emulator/releases/latest"><img src="https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white" alt="cmakeLogo" style="height:40px;"/></a>
-
-For macOS users you will need to install Brew, please follow the instruction in the link below:  
-<https://brew.sh>
-
-Once it is installed, you can type the following command to install SDL2.
-
-```bash
-brew install sdl2
-brew install sdl2_mixer
-```
-
-You also need to add `SDL2` to the paths by typing:
-
-```bash
-export LIBRARY_PATH="$LIBRARY_PATH:$(brew --prefix)/lib"
-```
-
-Then you can start by double-clicking the executable of typing the following command next to it:
-
-```bash
-./space_invaders_arcade_emulator
-```
+PLACEHOLDER
 
 ## Controls
 
@@ -150,7 +73,7 @@ Before pressing start with player 1 or 2, you can choose the number of life you 
 
 ## Code architecture
 
-The Emulator is divided into 3 parts:
+The Emulator is divided into 4 parts:
 
 - main (starter)
 - si_arcade (console emulation)
@@ -162,90 +85,7 @@ interpreted in the `my_sdl2` part.
 
 ## Compilation
 
-First thing you need is to install cargo and rust. You can find them by following the instructions in the link below:  
-<https://www.rust-lang.org/tools/install>
-
-You also need to download the following audio files:
-
-- 0.wav
-- 1.wav
-- 2.wav
-- 3.wav
-- 4.wav
-- 5.wav
-- 6.wav
-- 7.wav
-- 8.wav
-
-The `wav` files wan be downloaded in the links below:  
-<https://samples.mameworld.info>  
-<https://www.classicgaming.cc/classics/space-invaders/sounds>
-
-They all must be put in the `game_audios` folder.
-
-> **Warning**  
-> Be carefully when downloading the .wav files, some files pay have the wrong name.
-
-[//]: # (> &#40;For example, 0.wav and 8.wav are swapped&#41;)
-
-Depending on your OS, you will need to follow specific steps to compile the app. Please refer to the sections
-below `Windows`, `Linux` and `macOs`.
-
-### Windows
-
-~~Windows users need to install SDL2 for your OS. The setup instruction can be followed in the link below:~~  
-<https://github.com/Rust-SDL2/rust-sdl2>
-
-I set up a static SDL2 Linking so Windows user just need to download the project and everything will be set up for SDL2.
-I used the instructions in the link below to set up the dynamic linking:  
-<https://github.com/Rust-SDL2/rust-sdl2#user-content-windows-with-build-script>
-
-### Linux
-
-Linux Users need to install the SDL2 libs (SDL2 and SDL2_mixer). To do so, type in your bash system the following
-commands.
-
-If you want to compile the program, install the developer version with the command below:
-
-```bash
-sudo apt-get install libsdl2-dev libsdl2-mixer-dev
-```
-
-### MacOs
-
-For macOS users you will need to install Brew, please follow the instruction in the link below:  
-<https://brew.sh>
-
-Once it is installed, you can type the following command to install SDL2.
-
-```bash
-brew install sdl2
-brew install sdl2_mixer
-```
-
-You also need to add `SDL2` to the paths by typing:
-
-```bash
-export LIBRARY_PATH="$LIBRARY_PATH:$(brew --prefix)/lib"
-```
-
----
-
-With Rust and SDL2 libs installed, you can now compile the project in two-way, debug or release. To compile go to the
-project root folder and type one of the two following commands below (If you want to use the emulator please compile
-using the second command).
-
-```bash
-cargo build
-```
-
-or
-
-```bash
-cargo build --release
-```
-
-The compiled app will be in the folder `target/debug` or `target/release` depending on the compilation you did.
+PLACEHOLDER
 
 ## Rust tests
 
@@ -289,10 +129,22 @@ You can start them individuality by typing:
 cargo test <test_name>
 ```
 
+or
+
+```bash
+cargo test --release
+```
+
 Example: If you want to start the cpu_test_rom_tst8080 test.
 
 ```bash
 cargo test cpu_test_rom_tst8080
+```
+
+or
+
+```bash
+cargo test cpu_test_rom_tst8080 --release
 ```
 
 You can also debug the processes by uncommenting the two lines following lines in the `cpu.rs` file in the `test`
@@ -311,36 +163,23 @@ module.
 > https://github.com/superzazu/8080  
 > http://www.emulator101.com/full-8080-emulation.html
 >
-> The last test (cpu_test_rom_8080exm) can take a lot of time, so it is commented to prevent an issue with the GitHub
-> Actions. Uncomment it if you need it.
-> You will also need to comment the ram mirroring for the read and write functions in the Mmu struct methods in the mmu
-> files to allow the last test to work (the ram banking is enabled for the Space invaders game to work correctly).
-
-> **Warning**  
-> Be carefully, the last test (cpu_test_rom_8080exm for the 8080EXM.COM rom) may take a long time to proceed.  
-> All tests take a lot more time if you output all the disassembly code by uncommenting the two lines.
-
-<!--
-or if you want to see the output
-
-```bash
-cargo test cpu_test_rom_tst8080 -- --show-output
-```
--->
+> The last test (cpu_test_rom_8080exm) can take a lot of time in debug mode, you should test it in release mode, use the
+> command below:
+> ```bash
+> cargo test cpu_test_rom_8080exm --release
+> ```
 
 ## GitHub Actions
 
 [![Rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
 [![rust-clippy analyze](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml)
 [![rustfmt check](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml)
-[![rust-publish](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-publish.yaml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-publish.yaml)
 
 The project is set with a set of different scripts:
 
 - rust : Check the code compilation.
 - rust-clippy analyze : Evaluate the code quality (error, warnings, etc...).
 - rustfmt check :  Check the code good formatting
-- rust-publisher : Publish the app to releases when pushing to the main branch.
 
 ## Documentation
 
@@ -388,6 +227,9 @@ Test Roms for the Intel 8080:
 Space Invaders Audio files:  
 <https://samples.mameworld.info>  
 <https://www.classicgaming.cc/classics/space-invaders/sounds>
+
+WebGL:  
+<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>
 
 ## Contributors
 

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>space-invaders-arcade-emulator</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script type="module">
+    import init from './space-invaders-arcade-emulator.js';
+    init().then(() => {
+        wasm_bindgen.draw();
+    });
+</script>
+</body>
+</html>
