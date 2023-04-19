@@ -6,16 +6,20 @@
 
 ## Description
 
-Space Invaders' arcade game emulator written in Rust for WebAssembly.
+Space Invaders' arcade game emulator written in Rust for the web.
 
 Complete Emulator of the Intel 8080, the app is implemented to run the Space Invaders Arcade game.
 
-## Features
+[//]: # (## Features)
 
-- Full emulation
-- Sound
-- Two-players mode
-- Window resizing without deformation
+[//]: # ()
+[//]: # (- Full emulation)
+
+[//]: # (- Sound)
+
+[//]: # (- Two-players mode)
+
+[//]: # (- Window resizing without deformation)
 
 [//]: # (joystick support)
 
@@ -71,21 +75,13 @@ Before pressing start with player 1 or 2, you can choose the number of life you 
 > In the same way, you can enable the extra ship to came at 1000 points instead of 1500, but you just need to press
 > the button one time (a confirmation will be displayed in the console).
 
-## Code architecture
-
-The Emulator is divided into 4 parts:
-
-- main (starter)
-- si_arcade (console emulation)
-- my_sdl2 (video, audio and inputs si_arcade interpreter)
-- binary_lib (a set of binary functions to manipulate data)
-
-The sound is implemented using `.wav` files, they are loaded in the `si_aracade` part of the program and totally
-interpreted in the `my_sdl2` part.
-
 ## Compilation
 
 PLACEHOLDER
+
+```bash
+cargo build --release --target wasm32-unknown-unknown
+```
 
 ## Rust tests
 
@@ -99,13 +95,11 @@ It will start a test rom for the Intel 8080 CPU. You can find it in the link bel
 cargo test
 ```
 
-<!--
-If you want some debug infos about the cpu type:
+or
 
 ```bash
-cargo test -- --show-output
+cargo test --release
 ```
--->
 
 Currently, the CPU is passing the following tests:
 
@@ -113,6 +107,7 @@ Currently, the CPU is passing the following tests:
 - [x] TST8080.COM
 - [x] 8080PRE.COM
 - [x] CPUTEST.COM
+- [x] 8080EXER.COM
 - [x] 8080EXM.COM
 
 The tests are named:
@@ -121,6 +116,7 @@ The tests are named:
 - cpu_test_rom_tst8080
 - cpu_test_rom_8080pre
 - cpu_test_rom_cputest
+- cpu_test_rom_8080exer
 - cpu_test_rom_8080exm
 
 You can start them individuality by typing:
@@ -132,7 +128,7 @@ cargo test <test_name>
 or
 
 ```bash
-cargo test --release
+cargo test <test_name> --release
 ```
 
 Example: If you want to start the cpu_test_rom_tst8080 test.
@@ -147,7 +143,13 @@ or
 cargo test cpu_test_rom_tst8080 --release
 ```
 
-You can also debug the processes by uncommenting the two lines following lines in the `cpu.rs` file in the `test`
+To show the CPU test logs, you can use the `--show-output` flag.
+
+```bash
+cargo test --release -- --show-output
+```
+
+You can also debug disassembly by uncommenting the two following lines in the `cpu.rs` file in the `test`
 module.
 
 ~~~
@@ -157,6 +159,8 @@ module.
 ~~~
 // write_debug_to_file(&mut cpu_debug, &mut f, cycles_counter);
 ~~~
+
+This will output the complete disassembly of the CPU in the `test_roms/my_output.log` file.
 
 > **Note**  
 > Depending on the test the output is different. Refer to this project for more explanation about how they work.  
@@ -228,8 +232,10 @@ Space Invaders Audio files:
 <https://samples.mameworld.info>  
 <https://www.classicgaming.cc/classics/space-invaders/sounds>
 
-WebGL:  
-<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>
+rustwasm:  
+<https://rustwasm.github.io/wasm-bindgen/examples/hello-world.html>  
+<https://rustwasm.github.io/wasm-bindgen/examples/web-audio.html>  
+<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>  
 
 ## Contributors
 
