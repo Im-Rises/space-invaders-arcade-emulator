@@ -232,6 +232,9 @@ Space Invaders Audio files:
 <https://samples.mameworld.info>  
 <https://www.classicgaming.cc/classics/space-invaders/sounds>
 
+Mozzila Rust to WebAssembly:  
+<https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm>  
+
 rustwasm:  
 <https://rustwasm.github.io/wasm-bindgen/examples/hello-world.html>  
 <https://rustwasm.github.io/wasm-bindgen/examples/web-audio.html>  
