@@ -18,14 +18,23 @@ impl Mmu {
             memory: vec![0; MEMORY_SIZE],
         };
 
-        let array_h: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.h").unwrap();
-        let array_g: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.g").unwrap();
-        let array_f: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.f").unwrap();
-        let array_e: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.e").unwrap();
-        mmu.memory[0..0x800].clone_from_slice(&array_h);
-        mmu.memory[0x800..0x1000].clone_from_slice(&array_g);
-        mmu.memory[0x1000..0x1800].clone_from_slice(&array_f);
-        mmu.memory[0x1800..0x2000].clone_from_slice(&array_e);
+        // let array_h: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.h").unwrap();
+        // let array_g: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.g").unwrap();
+        // let array_f: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.f").unwrap();
+        // let array_e: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.e").unwrap();
+        // mmu.memory[0..0x800].clone_from_slice(&array_h);
+        // mmu.memory[0x800..0x1000].clone_from_slice(&array_g);
+        // mmu.memory[0x1000..0x1800].clone_from_slice(&array_f);
+        // mmu.memory[0x1800..0x2000].clone_from_slice(&array_e);
+
+        // let array_h: [u8; 0x800] = include_bytes!("../../game_roms/invaders.h").to_vec().try_into().unwrap();
+        // let array_g: [u8; 0x800] = include_bytes!("../../game_roms/invaders.g").to_vec().try_into().unwrap();
+        // let array_f: [u8; 0x800] = include_bytes!("../../game_roms/invaders.f").to_vec().try_into().unwrap();
+        // let array_e: [u8; 0x800] = include_bytes!("../../game_roms/invaders.e").to_vec().try_into().unwrap();
+        // mmu.memory[0..0x800].clone_from_slice(&array_h);
+        // mmu.memory[0x800..0x1000].clone_from_slice(&array_g);
+        // mmu.memory[0x1000..0x1800].clone_from_slice(&array_f);
+        // mmu.memory[0x1800..0x2000].clone_from_slice(&array_e);
 
         mmu
     }
@@ -49,42 +58,13 @@ impl Mmu {
 
         mmu
     }
-    //Wrong implementation of RAM banking, I implemented like Rom/Ram banking
-    //It is only Ram Banking
+
     pub fn read(&self, address: u16) -> u8 {
-        // if address < 0x4000 {
         self.memory[address as usize]
-        // } else if address < 0x6000 {
-        //     self.memory[(address - 0x2000) as usize]
-        // } else if address < 0x8000 {
-        //     self.memory[(address - 0x4000) as usize]
-        // } else if address < 0xA000 {
-        //     self.memory[(address - 0x6000) as usize]
-        // } else if address < 0xC000 {
-        //     self.memory[(address - 0x8000) as usize]
-        // } else if address < 0xE000 {
-        //     self.memory[(address - 0xA000) as usize]
-        // } else {
-        //     self.memory[(address - 0xE000) as usize]
-        // }
     }
 
     pub fn write(&mut self, address: u16, data: u8) {
-        // if address < 0x4000 {
         self.memory[address as usize] = data;
-        // } else if address < 0x6000 {
-        //     self.memory[(address - 0x2000) as usize] = data;
-        // } else if address < 0x8000 {
-        //     self.memory[(address - 0x4000) as usize] = data;
-        // } else if address < 0xA000 {
-        //     self.memory[(address - 0x6000) as usize] = data;
-        // } else if address < 0xC000 {
-        //     self.memory[(address - 0x8000) as usize] = data;
-        // } else if address < 0xE000 {
-        //     self.memory[(address - 0xA000) as usize] = data;
-        // } else {
-        //     self.memory[(address - 0xE000) as usize] = data;
-        // }
     }
 
     pub fn get_vram(&self) -> &[u8] {

@@ -325,10 +325,9 @@ impl Cpu {
             0xFD => call(self),
             0xFE => cpi(self),
             0xFF => rst(self, 7),
-            // _ => {
-            //     println!("Error: unknown opcode");
-            //     exit(1);
-            // }
+            _ => {
+                panic!("Error: unknown opcode");
+            }
         }
     }
 
@@ -400,12 +399,17 @@ pub mod tests {
         cpu_test("test_roms/CPUTEST.COM", 255653383);
     }
 
-    // // Commented because take to much time to proceed.
-    // #[test]
-    // fn cpu_test_rom_8080exm() {
-    //     println!("------------------------------------8080EXM------------------------------------");
-    //     cpu_test("test_roms/8080EXM.COM", 23803381171);
-    // }
+    #[test]
+    fn cpu_test_rom_8080exer() {
+        println!("------------------------------------8080EXEROM------------------------------------");
+        cpu_test("test_roms/8080EXER.COM", 23803307039);
+    }
+
+    #[test]
+    fn cpu_test_rom_8080exm() {
+        println!("------------------------------------8080EXM------------------------------------");
+        cpu_test("test_roms/8080EXM.COM", 23803381171);
+    }
 
     pub fn cpu_test(rom_path: &str, cycles_to_do: u64) {
         let mmu_debug = Rc::new(RefCell::new(Mmu::new_debug(rom_path)));
