@@ -243,9 +243,9 @@ Mozzila Rust to WebAssembly:
 <https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm>
 
 rustwasm:  
-<https://rustwasm.github.io/wasm-bindgen/examples/hello-world.html>  
 <https://rustwasm.github.io/wasm-bindgen/examples/web-audio.html>  
-<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>
+<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>  
+<https://rustwasm.github.io/docs/wasm-bindgen/examples/request-animation-frame.html>
 
 ## Contributors
 
