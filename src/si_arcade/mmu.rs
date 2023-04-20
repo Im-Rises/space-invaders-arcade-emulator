@@ -27,14 +27,26 @@ impl Mmu {
         // mmu.memory[0x1000..0x1800].clone_from_slice(&array_f);
         // mmu.memory[0x1800..0x2000].clone_from_slice(&array_e);
 
-        // let array_h: [u8; 0x800] = include_bytes!("../../game_roms/invaders.h").to_vec().try_into().unwrap();
-        // let array_g: [u8; 0x800] = include_bytes!("../../game_roms/invaders.g").to_vec().try_into().unwrap();
-        // let array_f: [u8; 0x800] = include_bytes!("../../game_roms/invaders.f").to_vec().try_into().unwrap();
-        // let array_e: [u8; 0x800] = include_bytes!("../../game_roms/invaders.e").to_vec().try_into().unwrap();
-        // mmu.memory[0..0x800].clone_from_slice(&array_h);
-        // mmu.memory[0x800..0x1000].clone_from_slice(&array_g);
-        // mmu.memory[0x1000..0x1800].clone_from_slice(&array_f);
-        // mmu.memory[0x1800..0x2000].clone_from_slice(&array_e);
+        let array_h: [u8; 0x800] = include_bytes!("../../game_roms/invaders.h")
+            .to_vec()
+            .try_into()
+            .unwrap();
+        let array_g: [u8; 0x800] = include_bytes!("../../game_roms/invaders.g")
+            .to_vec()
+            .try_into()
+            .unwrap();
+        let array_f: [u8; 0x800] = include_bytes!("../../game_roms/invaders.f")
+            .to_vec()
+            .try_into()
+            .unwrap();
+        let array_e: [u8; 0x800] = include_bytes!("../../game_roms/invaders.e")
+            .to_vec()
+            .try_into()
+            .unwrap();
+        mmu.memory[0..0x800].clone_from_slice(&array_h);
+        mmu.memory[0x800..0x1000].clone_from_slice(&array_g);
+        mmu.memory[0x1000..0x1800].clone_from_slice(&array_f);
+        mmu.memory[0x1800..0x2000].clone_from_slice(&array_e);
 
         mmu
     }

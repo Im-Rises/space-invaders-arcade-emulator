@@ -2,6 +2,7 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use crate::binary_lib::*;
+use crate::my_webgl2::MyWebGl2;
 
 mod cpu;
 mod inputs_outputs;
@@ -18,6 +19,7 @@ pub struct SpaceInvadersArcade {
     ppu: ppu::Ppu,
     mmu: Rc<RefCell<mmu::Mmu>>,
     pub inputs_outputs: inputs_outputs::InputsOutputs,
+    my_webgl2: MyWebGl2,
 }
 
 impl SpaceInvadersArcade {
@@ -28,6 +30,7 @@ impl SpaceInvadersArcade {
             ppu: ppu::Ppu::new(&mmu_init),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
+            my_webgl2: MyWebGl2::new().unwrap(),
         }
     }
     pub fn start(&mut self) {

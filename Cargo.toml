@@ -19,7 +19,7 @@ js-sys = "0.3.61"
 wasm-bindgen = "0.2.84"
 
 [dependencies.web-sys]
-version = "0.3.4"
+version = "0.3.61"
 features = [
     'Document',
     'Element',
@@ -30,5 +30,6 @@ features = [
     'WebGlProgram',
     'WebGlShader',
     'Window',
-    'console'
+    'console',
+    'WebGlTexture'
 ]

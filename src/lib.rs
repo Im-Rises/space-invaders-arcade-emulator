@@ -1,6 +1,24 @@
 #![allow(unused_variables)]
 
 mod binary_lib;
+mod my_webgl2;
+mod si_arcade;
+
+fn main() {
+    use wasm_bindgen::prelude::*;
+    use web_sys::{
+        WebGl2RenderingContext, WebGlBuffer, WebGlProgram, WebGlShader, WebGlTexture, WebGlVertexArrayObject,
+    };
+
+    #[wasm_bindgen(start)]
+    fn start() -> Result<(), JsValue> {
+        Ok(())
+    }
+}
+
+/*#![allow(unused_variables)]
+
+mod binary_lib;
 mod si_arcade;
 
 fn main() {
@@ -22,11 +40,11 @@ fn main() {
             &context,
             WebGl2RenderingContext::VERTEX_SHADER,
             r##"#version 300 es
- 
+
         in vec4 position;
 
         void main() {
-        
+
             gl_Position = position;
         }
         "##,
@@ -36,10 +54,10 @@ fn main() {
             &context,
             WebGl2RenderingContext::FRAGMENT_SHADER,
             r##"#version 300 es
-    
+
         precision highp float;
         out vec4 outColor;
-        
+
         void main() {
             outColor = vec4(1, 1, 1, 1);
         }
@@ -155,3 +173,4 @@ fn main() {
         }
     }
 }
+*/
