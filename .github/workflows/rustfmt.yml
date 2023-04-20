@@ -3,7 +3,6 @@
 name: rustfmt check
 
 on:
-  push:
   pull_request:
 
 jobs:
