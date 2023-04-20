@@ -143,7 +143,7 @@ impl MyWebGl2 {
         Ok(texture.clone())
     }
 
-    fn draw(self) {
+    pub fn draw(&self) {
         self.gl.clear_color(0.0, 0.0, 0.0, 1.0);
         self.gl.clear(WebGl2RenderingContext::COLOR_BUFFER_BIT);
 

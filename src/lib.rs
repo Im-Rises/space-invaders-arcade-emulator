@@ -12,6 +12,9 @@ fn main() {
 
     #[wasm_bindgen(start)]
     fn start() -> Result<(), JsValue> {
+        let mut space_invaders_arcade = si_arcade::SpaceInvadersArcade::new();
+        space_invaders_arcade.emulate_cycle();
+
         Ok(())
     }
 }

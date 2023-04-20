@@ -20,6 +20,8 @@ pub struct SpaceInvadersArcade {
     mmu: Rc<RefCell<mmu::Mmu>>,
     pub inputs_outputs: inputs_outputs::InputsOutputs,
     my_webgl2: MyWebGl2,
+    frequency_counter: usize,
+    last_frequency_counter: usize,
 }
 
 impl SpaceInvadersArcade {
@@ -31,9 +33,10 @@ impl SpaceInvadersArcade {
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
             my_webgl2: MyWebGl2::new().unwrap(),
+            frequency_counter: 0,
+            last_frequency_counter: 0,
         }
-    }
-    pub fn start(&mut self) {
+
         // let mut time = Instant::now();
         // let mut sdl2_video: my_sdl2::MySdl2 = my_sdl2::MySdl2::new(
         //     spu::SOUND_0,
@@ -46,12 +49,11 @@ impl SpaceInvadersArcade {
         //     spu::SOUND_7,
         //     spu::SOUND_8,
         // );
-        let mut frequency_counter: usize = 0;
-        let mut last_frequency_counter: usize = 0;
+    }
 
+    pub fn emulate_cycle(&mut self) {
         // Handle CPU
         // while sdl2_video.get_window_active(self) {
-        // loop {
         if !self.cpu.get_halted() {
             if self.cpu.get_cycles() == 0 {
                 let opcode = self.cpu.fetch_opcode();
@@ -64,7 +66,6 @@ impl SpaceInvadersArcade {
                 } else if opcode == 0xd3 {
                     let port = self.cpu.fetch_byte();
                     self.outputs(port, self.cpu.get_a());
-                    // self.outputs(port, self.cpu.get_a(), &mut sdl2_video);
                     self.cpu.set_cycles(10);
                 } else {
                     let cycles = self.cpu.compute_opcode(opcode);
@@ -84,7 +85,14 @@ impl SpaceInvadersArcade {
                 cpu::interrupts::interrupt(&mut self.cpu, 2);
                 frequency_counter = 0;
                 self.ppu.clock();
-                // sdl2_video.update_screen(self);
+                self.my_webgl2
+                    .u8array_to_texture(
+                        self.ppu.get_screen(),
+                        ppu::SCREEN_WIDTH as i32,
+                        ppu::SCREEN_WIDTH as i32,
+                    )
+                    .expect("Error cannot update texture");
+                self.my_webgl2.draw();
                 // if time.elapsed().as_millis() < SCREEN_REFRESH_TIME {
                 //     std::thread::sleep(std::time::Duration::from_millis(SCREEN_REFRESH_TIME as u64 - time.elapsed().as_millis() as u64));
                 // }
@@ -95,7 +103,6 @@ impl SpaceInvadersArcade {
         }
 
         last_frequency_counter = frequency_counter;
-        // }
     }
 
     fn inputs(&mut self, port: u8, mut data: u8) -> u8 {
@@ -154,33 +161,6 @@ impl SpaceInvadersArcade {
             }
         }
     }
-
-    // fn outputs(&mut self, port: u8, data: u8, sdl2_video: &mut MySdl2) {
-    //     match port {
-    //         2 => self.inputs_outputs.shift_offset = data & 0b0000_0111,
-    //         3 => {
-    //             sdl2_video.play_audio_sound(port, data);
-    //         }
-    //         4 => self.inputs_outputs.shift_register = self.inputs_outputs.shift_register >> 8 | (data as u16) << 8,
-    //         5 => {
-    //             sdl2_video.play_audio_sound(port, data);
-    //         }
-    //         6 => (), //Watch dog
-    //         _ => {
-    //             panic!(
-    //                 "Error: Reading from port not implemented at port {} with data {}",
-    //                 port, data
-    //             );
-    //         }
-    //     }
-    // }
-
-    // fn pause_emulation(&self) {}
-    // fn restart_emulation(&self) {}
-    // fn save_state(&self) {}
-    // fn load_state(&self) {}
-
-    // Getters
 
     pub fn get_screen(&self) -> &[u8; ppu::SCREEN_WIDTH * ppu::SCREEN_HEIGHT * 3] {
         self.ppu.get_screen()
