@@ -13,6 +13,7 @@ Complete Emulator of the Intel 8080, the app is implemented to run the Space Inv
 [//]: # (## Features)
 
 [//]: # ()
+
 [//]: # (- Full emulation)
 
 [//]: # (- Sound)
@@ -81,6 +82,12 @@ PLACEHOLDER
 
 ```bash
 cargo build --release --target wasm32-unknown-unknown
+```
+
+or
+
+```bash
+wasm-pack build --target web
 ```
 
 ## Rust tests
@@ -233,12 +240,12 @@ Space Invaders Audio files:
 <https://www.classicgaming.cc/classics/space-invaders/sounds>
 
 Mozzila Rust to WebAssembly:  
-<https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm>  
+<https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm>
 
 rustwasm:  
 <https://rustwasm.github.io/wasm-bindgen/examples/hello-world.html>  
 <https://rustwasm.github.io/wasm-bindgen/examples/web-audio.html>  
-<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>  
+<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>
 
 ## Contributors
 
