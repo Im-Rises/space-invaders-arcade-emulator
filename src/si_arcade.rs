@@ -1,10 +1,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use std::time::Instant;
 
 use crate::binary_lib::*;
-// use crate::my_sdl2;
-// use crate::my_sdl2::MySdl2;
 
 mod cpu;
 mod inputs_outputs;
@@ -34,7 +31,7 @@ impl SpaceInvadersArcade {
         }
     }
     pub fn start(&mut self) {
-        let mut time = Instant::now();
+        // let mut time = Instant::now();
         // let mut sdl2_video: my_sdl2::MySdl2 = my_sdl2::MySdl2::new(
         //     spu::SOUND_0,
         //     spu::SOUND_1,
@@ -51,51 +48,51 @@ impl SpaceInvadersArcade {
 
         // Handle CPU
         // while sdl2_video.get_window_active(self) {
-        loop {
-            if !self.cpu.get_halted() {
-                if self.cpu.get_cycles() == 0 {
-                    let opcode = self.cpu.fetch_opcode();
-                    // println!("Opcode {}", opcode);
-                    if opcode == 0xDB {
-                        let port = self.cpu.fetch_byte();
-                        let a = self.inputs(port, self.cpu.get_a());
-                        self.cpu.set_a(a);
-                        self.cpu.set_cycles(10);
-                    } else if opcode == 0xd3 {
-                        let port = self.cpu.fetch_byte();
-                        self.outputs(port, self.cpu.get_a());
-                        // self.outputs(port, self.cpu.get_a(), &mut sdl2_video);
-                        self.cpu.set_cycles(10);
-                    } else {
-                        let cycles = self.cpu.compute_opcode(opcode);
-                        self.cpu.set_cycles(cycles);
-                    }
+        // loop {
+        if !self.cpu.get_halted() {
+            if self.cpu.get_cycles() == 0 {
+                let opcode = self.cpu.fetch_opcode();
+                // println!("Opcode {}", opcode);
+                if opcode == 0xDB {
+                    let port = self.cpu.fetch_byte();
+                    let a = self.inputs(port, self.cpu.get_a());
+                    self.cpu.set_a(a);
+                    self.cpu.set_cycles(10);
+                } else if opcode == 0xd3 {
+                    let port = self.cpu.fetch_byte();
+                    self.outputs(port, self.cpu.get_a());
+                    // self.outputs(port, self.cpu.get_a(), &mut sdl2_video);
+                    self.cpu.set_cycles(10);
+                } else {
+                    let cycles = self.cpu.compute_opcode(opcode);
+                    self.cpu.set_cycles(cycles);
                 }
-                self.cpu.set_cycles(self.cpu.get_cycles() - 1);
             }
-            frequency_counter += 1;
-
-            // Handle Interrupts and PPU
-            if self.cpu.get_inte() {
-                if frequency_counter > INTERRUPT_MIDDLE_VBLANK && last_frequency_counter <= INTERRUPT_MIDDLE_VBLANK {
-                    cpu::interrupts::interrupt(&mut self.cpu, 1);
-                }
-                if frequency_counter > INTERRUPT_VBLANK_COUNTER {
-                    cpu::interrupts::interrupt(&mut self.cpu, 2);
-                    frequency_counter = 0;
-                    self.ppu.clock();
-                    // sdl2_video.update_screen(self);
-                    if time.elapsed().as_millis() < SCREEN_REFRESH_TIME {
-                        std::thread::sleep(std::time::Duration::from_millis(SCREEN_REFRESH_TIME as u64 - time.elapsed().as_millis() as u64));
-                    }
-                    time = Instant::now();
-                }
-            } else {
-                frequency_counter = 0;
-            }
-
-            last_frequency_counter = frequency_counter;
+            self.cpu.set_cycles(self.cpu.get_cycles() - 1);
         }
+        frequency_counter += 1;
+
+        // Handle Interrupts and PPU
+        if self.cpu.get_inte() {
+            if frequency_counter > INTERRUPT_MIDDLE_VBLANK && last_frequency_counter <= INTERRUPT_MIDDLE_VBLANK {
+                cpu::interrupts::interrupt(&mut self.cpu, 1);
+            }
+            if frequency_counter > INTERRUPT_VBLANK_COUNTER {
+                cpu::interrupts::interrupt(&mut self.cpu, 2);
+                frequency_counter = 0;
+                self.ppu.clock();
+                // sdl2_video.update_screen(self);
+                // if time.elapsed().as_millis() < SCREEN_REFRESH_TIME {
+                //     std::thread::sleep(std::time::Duration::from_millis(SCREEN_REFRESH_TIME as u64 - time.elapsed().as_millis() as u64));
+                // }
+                // time = Instant::now();
+            }
+        } else {
+            frequency_counter = 0;
+        }
+
+        last_frequency_counter = frequency_counter;
+        // }
     }
 
     fn inputs(&mut self, port: u8, mut data: u8) -> u8 {

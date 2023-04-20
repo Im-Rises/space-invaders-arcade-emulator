@@ -1,5 +1,8 @@
 #![allow(unused_variables)]
 
+mod binary_lib;
+mod si_arcade;
+
 fn main() {
     use wasm_bindgen::prelude::*;
     use web_sys::{WebGl2RenderingContext, WebGlProgram, WebGlShader};
@@ -88,6 +91,9 @@ fn main() {
 
         let vert_count = (vertices.len() / 3) as i32;
         draw(&context, vert_count);
+
+        let mut space_invaders_arcade = si_arcade::SpaceInvadersArcade::new();
+        space_invaders_arcade.start();
 
         Ok(())
     }
