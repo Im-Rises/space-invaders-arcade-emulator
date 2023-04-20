@@ -349,6 +349,10 @@ impl Cpu {
         self.regs.a
     }
 
+    pub fn get_pc(&self) -> u16 {
+        self.pc
+    }
+
     // Setters
 
     pub fn set_a(&mut self, value: u8) {

@@ -171,4 +171,8 @@ impl SpaceInvadersArcade {
     pub fn get_si_arcade_screen_width_height(&self) -> (usize, usize) {
         (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
     }
+
+    pub fn get_cpu(&self) -> &cpu::Cpu {
+        &self.cpu
+    }
 }
