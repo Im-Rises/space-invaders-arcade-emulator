@@ -32,7 +32,7 @@ impl SpaceInvadersArcade {
             ppu: ppu::Ppu::new(&mmu_init),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
-            my_webgl2: MyWebGl2::new().unwrap(),
+            my_webgl2: MyWebGl2::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32).unwrap(),
             frequency_counter: 0,
             last_frequency_counter: 0,
         }
@@ -74,16 +74,18 @@ impl SpaceInvadersArcade {
             }
             self.cpu.set_cycles(self.cpu.get_cycles() - 1);
         }
-        frequency_counter += 1;
+        self.frequency_counter += 1;
 
         // Handle Interrupts and PPU
         if self.cpu.get_inte() {
-            if frequency_counter > INTERRUPT_MIDDLE_VBLANK && last_frequency_counter <= INTERRUPT_MIDDLE_VBLANK {
+            if self.frequency_counter > INTERRUPT_MIDDLE_VBLANK
+                && self.last_frequency_counter <= INTERRUPT_MIDDLE_VBLANK
+            {
                 cpu::interrupts::interrupt(&mut self.cpu, 1);
             }
-            if frequency_counter > INTERRUPT_VBLANK_COUNTER {
+            if self.frequency_counter > INTERRUPT_VBLANK_COUNTER {
                 cpu::interrupts::interrupt(&mut self.cpu, 2);
-                frequency_counter = 0;
+                self.frequency_counter = 0;
                 self.ppu.clock();
                 self.my_webgl2
                     .u8array_to_texture(
@@ -99,10 +101,10 @@ impl SpaceInvadersArcade {
                 // time = Instant::now();
             }
         } else {
-            frequency_counter = 0;
+            self.frequency_counter = 0;
         }
 
-        last_frequency_counter = frequency_counter;
+        self.last_frequency_counter = self.frequency_counter;
     }
 
     fn inputs(&mut self, port: u8, mut data: u8) -> u8 {

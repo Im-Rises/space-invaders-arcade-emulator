@@ -30,6 +30,6 @@ features = [
     'WebGlProgram',
     'WebGlShader',
     'Window',
-    'console',
-    'WebGlTexture'
+    'WebGlTexture',
 ]
+

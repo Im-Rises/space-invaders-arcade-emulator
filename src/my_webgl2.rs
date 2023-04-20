@@ -13,7 +13,7 @@ pub struct MyWebGl2 {
 }
 
 impl MyWebGl2 {
-    pub fn new() -> Result<MyWebGl2, (JsValue)> {
+    pub fn new(canvas_width: u32, canvas_height: u32) -> Result<MyWebGl2, (JsValue)> {
         let window = web_sys::window().expect("no global `window` exists");
         let document = window.document().expect("should have a document on window");
         let canvas = document
@@ -22,6 +22,9 @@ impl MyWebGl2 {
             .dyn_into::<web_sys::HtmlCanvasElement>()
             .map_err(|_| ())
             .expect("canvas element should be a `HtmlCanvasElement`");
+
+        canvas.set_width(canvas_width);
+        canvas.set_height(canvas_height);
 
         let gl = canvas
             .get_context("webgl2")
