@@ -1,6 +1,6 @@
 mod binary_lib;
-mod si_arcade;
 mod my_webgl2;
+mod si_arcade;
 
 fn main() {
     println!("+--------------------------------------+");
