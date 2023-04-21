@@ -20,7 +20,6 @@ fn main() {
         let mut i = 0;
         *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
             space_invaders_arcade.emulate_cycle();
-            web_sys::console::log_1(&format!("{}: {}", i, space_invaders_arcade.get_cpu().get_pc()).into());
             request_animation_frame(f.borrow().as_ref().unwrap());
         }) as Box<dyn FnMut()>));
 

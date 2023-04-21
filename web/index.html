@@ -7,11 +7,10 @@
 <body>
 <canvas class="canvas-webgl" id="canvas"></canvas>
 <script type="module">
-    import init, {start} from "./pkg/space_invaders_arcade_emulator.js";
+    import init from "./pkg/space_invaders_arcade_emulator.js";
 
     async function run() {
         await init();
-        start();
     }
 
     run();
