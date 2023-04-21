@@ -53,9 +53,12 @@ impl MyWebGl2 {
 
         precision highp float;
         out vec4 outColor;
+        
+        uniform sampler2D u_texture;
 
         void main() {
             outColor = vec4(1, 1, 1, 1);
+            // outColor = texture(u_texture, vec2(0.5, 0.5));
         }
         "##,
         )?;
@@ -138,6 +141,11 @@ impl MyWebGl2 {
             WebGl2RenderingContext::NEAREST as i32,
         );
 
+        // Link texture to the program
+        // let texture_location = context.get_uniform_location(&program, "u_texture");
+        // context.use_program(Some(&program)); // bind the program
+        // context.uniform1i(texture_location.as_ref(), 0);
+
         // Unbind the texture
         context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
 
@@ -176,31 +184,6 @@ impl MyWebGl2 {
         Ok(texture.clone())
     }
 
-    // pub fn u8array_to_texture(&self, data: &[u8], width: i32, height: i32) -> Result<WebGlTexture, JsValue> {
-    //     let gl = &self.gl;
-    //     let texture = &self.texture;
-    //
-    //     gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
-    //
-    //     gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
-    //         WebGl2RenderingContext::TEXTURE_2D,
-    //         0,
-    //         WebGl2RenderingContext::RGB as i32,
-    //         width,
-    //         height,
-    //         0,
-    //         WebGl2RenderingContext::RGB,
-    //         WebGl2RenderingContext::UNSIGNED_BYTE,
-    //         Some(data),
-    //     )?;
-    //
-    //     gl.generate_mipmap(WebGl2RenderingContext::TEXTURE_2D);
-    //
-    //     gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
-    //
-    //     Ok(texture.clone())
-    // }
-
     pub fn draw(&self) {
         self.gl.clear_color(0.0, 0.0, 0.0, 1.0);
         self.gl.clear(WebGl2RenderingContext::COLOR_BUFFER_BIT);
@@ -211,7 +194,9 @@ impl MyWebGl2 {
         self.gl
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.texture));
 
+        let texture_location = self.gl.get_uniform_location(&self.program, "u_texture");
         self.gl.use_program(Some(&self.program));
+        self.gl.uniform1i(texture_location.as_ref(), 0);
 
         self.gl
             .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count as i32);
