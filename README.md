@@ -10,21 +10,13 @@ Space Invaders' arcade game emulator written in Rust for the web.
 
 Complete Emulator of the Intel 8080, the app is implemented to run the Space Invaders Arcade game.
 
-[//]: # (## Features)
+TODO:
 
-[//]: # ()
-
-[//]: # (- Full emulation)
-
-[//]: # (- Sound)
-
-[//]: # (- Two-players mode)
-
-[//]: # (- Window resizing without deformation)
-
-[//]: # (joystick support)
-
-[//]: # (high score automatically saved)
+- [ ] Add controls
+- [ ] Add audio
+- [x] Add video
+- [ ] Add the rom loader
+- [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
 
 ## Images
 
@@ -79,16 +71,6 @@ Before pressing start with player 1 or 2, you can choose the number of life you 
 ## Compilation
 
 PLACEHOLDER
-
-```bash
-cargo build --release --target wasm32-unknown-unknown
-```
-
-or
-
-```bash
-wasm-pack build --target web
-```
 
 ## Rust tests
 
@@ -185,12 +167,16 @@ This will output the complete disassembly of the CPU in the `test_roms/my_output
 [![Rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
 [![rust-clippy analyze](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml)
 [![rustfmt check](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml)
+[![Wasm build](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml)
+[![Rust-wasm-publish](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-build-publish.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-build-publish.yml)
 
 The project is set with a set of different scripts:
 
-- rust : Check the code compilation.
+- rust : Check the code compilation and unit tests.
 - rust-clippy analyze : Evaluate the code quality (error, warnings, etc...).
 - rustfmt check :  Check the code good formatting
+- Wasm build : Build the project in WebAssembly.
+- Rust-wasm-publish : Publish the WebAssembly build on GitHub Pages.
 
 ## Documentation
 
