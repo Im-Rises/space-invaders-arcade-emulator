@@ -1,15 +1,18 @@
 use wasm_bindgen::{JsCast, JsValue};
 
+mod my_webaudio;
 mod my_webgl2;
 
 pub struct MyWebApi {
     my_webgl2: my_webgl2::MyWebGl2,
+    my_webaudio: my_webaudio::MyWebAudio,
 }
 
 impl MyWebApi {
     pub fn new(canvas_width: u32, canvas_height: u32) -> MyWebApi {
         MyWebApi {
             my_webgl2: my_webgl2::MyWebGl2::new(canvas_width, canvas_height).unwrap(),
+            my_webaudio: my_webaudio::MyWebAudio::new().unwrap(),
         }
     }
 
