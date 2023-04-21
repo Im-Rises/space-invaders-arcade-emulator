@@ -1,7 +1,7 @@
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{WebGl2RenderingContext, WebGlBuffer, WebGlProgram, WebGlShader, WebGlTexture, WebGlVertexArrayObject};
 
-pub struct MyWebGl2 {
+pub struct MyWebApi {
     gl: WebGl2RenderingContext,
     vao: WebGlVertexArrayObject,
     vbo: WebGlBuffer,
@@ -10,8 +10,8 @@ pub struct MyWebGl2 {
     texture: WebGlTexture,
 }
 
-impl MyWebGl2 {
-    pub fn new(canvas_width: u32, canvas_height: u32) -> Result<MyWebGl2, (JsValue)> {
+impl MyWebApi {
+    pub fn new(canvas_width: u32, canvas_height: u32) -> Result<MyWebApi, (JsValue)> {
         // Get the canvas element
         let document = web_sys::window().unwrap().document().unwrap();
         let canvas = document.get_element_by_id("canvas").unwrap();
@@ -146,7 +146,7 @@ impl MyWebGl2 {
         context.bind_vertex_array(None);
 
         // Create the struct
-        Ok(MyWebGl2 {
+        Ok(MyWebApi {
             gl: context,
             vao,
             vbo,

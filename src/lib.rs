@@ -1,7 +1,7 @@
 #![allow(unused_variables)]
 
 mod binary_lib;
-mod my_webgl2;
+mod my_webapi;
 mod si_arcade;
 
 fn main() {

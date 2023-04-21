@@ -2,7 +2,7 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use crate::binary_lib::*;
-use crate::my_webgl2::MyWebGl2;
+use crate::my_webapi::MyWebApi;
 
 mod cpu;
 mod inputs_outputs;
@@ -19,7 +19,7 @@ pub struct SpaceInvadersArcade {
     ppu: ppu::Ppu,
     mmu: Rc<RefCell<mmu::Mmu>>,
     pub inputs_outputs: inputs_outputs::InputsOutputs,
-    my_webgl2: MyWebGl2,
+    my_webgl2: MyWebApi,
     frequency_counter: usize,
     last_frequency_counter: usize,
 }
@@ -32,7 +32,7 @@ impl SpaceInvadersArcade {
             ppu: ppu::Ppu::new(&mmu_init),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
-            my_webgl2: MyWebGl2::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32).unwrap(),
+            my_webgl2: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32).unwrap(),
             frequency_counter: 0,
             last_frequency_counter: 0,
         }
