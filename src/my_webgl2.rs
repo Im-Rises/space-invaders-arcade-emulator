@@ -7,6 +7,7 @@ pub struct MyWebGl2 {
     vbo: WebGlBuffer,
     program: WebGlProgram,
     vertex_count: i32,
+    texture: WebGlTexture,
 }
 
 impl MyWebGl2 {
@@ -112,6 +113,34 @@ impl MyWebGl2 {
         // Unbind the VAO
         context.bind_vertex_array(None);
 
+        // Create the texture
+        let texture = context.create_texture().ok_or("Failed to create texture")?;
+        context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
+
+        context.tex_parameteri(
+            WebGl2RenderingContext::TEXTURE_2D,
+            WebGl2RenderingContext::TEXTURE_WRAP_S,
+            WebGl2RenderingContext::CLAMP_TO_EDGE as i32,
+        );
+        context.tex_parameteri(
+            WebGl2RenderingContext::TEXTURE_2D,
+            WebGl2RenderingContext::TEXTURE_WRAP_T,
+            WebGl2RenderingContext::CLAMP_TO_EDGE as i32,
+        );
+        context.tex_parameteri(
+            WebGl2RenderingContext::TEXTURE_2D,
+            WebGl2RenderingContext::TEXTURE_MIN_FILTER,
+            WebGl2RenderingContext::NEAREST as i32,
+        );
+        context.tex_parameteri(
+            WebGl2RenderingContext::TEXTURE_2D,
+            WebGl2RenderingContext::TEXTURE_MAG_FILTER,
+            WebGl2RenderingContext::NEAREST as i32,
+        );
+
+        // Unbind the texture
+        context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
+
         // Create the struct
         Ok(MyWebGl2 {
             gl: context,
@@ -119,7 +148,32 @@ impl MyWebGl2 {
             vbo,
             program,
             vertex_count: (vertices.len() / 3) as i32,
+            texture,
         })
+    }
+
+    pub fn u8array_to_texture(&self, data: &[u8], width: i32, height: i32) -> Result<WebGlTexture, JsValue> {
+        let gl = &self.gl;
+        let texture = &self.texture;
+
+        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
+
+        gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
+            WebGl2RenderingContext::TEXTURE_2D,
+            0,
+            WebGl2RenderingContext::RGB as i32,
+            width,
+            height,
+            0,
+            WebGl2RenderingContext::RGB,
+            WebGl2RenderingContext::UNSIGNED_BYTE,
+            Some(data),
+        )?;
+
+        // Unbind the texture
+        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
+
+        Ok(texture.clone())
     }
 
     // pub fn u8array_to_texture(&self, data: &[u8], width: i32, height: i32) -> Result<WebGlTexture, JsValue> {
@@ -154,6 +208,8 @@ impl MyWebGl2 {
         self.gl.bind_vertex_array(Some(&self.vao));
         self.gl
             .bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&self.vbo));
+        self.gl
+            .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.texture));
 
         self.gl.use_program(Some(&self.program));
 
@@ -162,6 +218,7 @@ impl MyWebGl2 {
 
         self.gl.bind_vertex_array(None);
         self.gl.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, None);
+        self.gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
     }
 }
 
