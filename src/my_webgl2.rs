@@ -9,6 +9,7 @@ pub struct MyWebGl2 {
     vertex_buffer: WebGlBuffer,
     program: WebGlProgram,
     texture: WebGlTexture,
+    vertex_count: i32,
     // audio_context: AudioContext,
 }
 
@@ -61,13 +62,15 @@ impl MyWebGl2 {
         let program = link_program(&gl, &vert_shader, &frag_shader).unwrap();
 
         // Create vertex buffer
-        let vertices: [f32; 12] = [
-            -1.0, -1.0, // bottom left
-            1.0, -1.0, // bottom right
-            -1.0, 1.0, // top left
-            -1.0, 1.0, // top left
-            1.0, -1.0, // bottom right
-            1.0, 1.0, // top right
+        let vertices: [f32; 18] = [
+            // first triangle
+            0.5, 0.5, 0.0, // top right
+            0.5, -0.5, 0.0, // bottom right
+            -0.5, 0.5, 0.0, // top left
+            // second triangle
+            0.5, -0.5, 0.0, // bottom right
+            -0.5, -0.5, 0.0, // bottom left
+            -0.5, 0.5, 0.0, // top left
         ];
         let vertex_buffer = gl.create_buffer().ok_or("failed to create buffer").unwrap();
         gl.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&vertex_buffer));
@@ -118,6 +121,7 @@ impl MyWebGl2 {
             vertex_buffer,
             program,
             texture,
+            vertex_count: (vertices.len() / 3) as i32,
         })
     }
 
@@ -155,7 +159,8 @@ impl MyWebGl2 {
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.texture));
 
         self.gl.use_program(Some(&self.program));
-        self.gl.draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, 6);
+        self.gl
+            .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count);
 
         self.gl.bind_vertex_array(None);
         self.gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
