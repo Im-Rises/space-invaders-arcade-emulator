@@ -93,7 +93,7 @@ impl SpaceInvadersArcade {
                         .u8array_to_texture(
                             self.ppu.get_screen(),
                             ppu::SCREEN_WIDTH as i32,
-                            ppu::SCREEN_WIDTH as i32,
+                            ppu::SCREEN_HEIGHT as i32,
                         )
                         .expect("Error cannot update texture");
                     self.my_webgl2.draw();
