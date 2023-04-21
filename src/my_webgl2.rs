@@ -39,9 +39,9 @@ impl MyWebGl2 {
             &gl,
             WebGl2RenderingContext::VERTEX_SHADER,
             r##"#version 300 es
-            in vec2 a_texcoord;
+            in vec3 a_texcoord;
             void main() {
-                gl_Position = vec4(a_texcoord, 0, 1);
+                gl_Position = vec4(a_texcoord, 1);
             }
             "##,
         )?;
