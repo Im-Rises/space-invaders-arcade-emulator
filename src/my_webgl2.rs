@@ -71,13 +71,13 @@ impl MyWebGl2 {
         // Vertices
         let vertices: [f32; 18] = [
             // first triangle
-            0.5, 0.5, 0.0, // top right
-            0.5, -0.5, 0.0, // bottom right
-            -0.5, 0.5, 0.0, // top left
+            1.0, 1.0, 0.0, // top right
+            1.0, -1.0, 0.0, // bottom right
+            -1.0, 1.0, 0.0, // top left
             // second triangle
-            0.5, -0.5, 0.0, // bottom right
-            -0.5, -0.5, 0.0, // bottom left
-            -0.5, 0.5, 0.0, // top left
+            1.0, -1.0, 0.0, // bottom right
+            -1.0, -1.0, 0.0, // bottom left
+            -1.0, 1.0, 0.0, // top left
         ];
 
         // Create the VBO
@@ -182,7 +182,7 @@ impl MyWebGl2 {
     }
 
     pub fn draw(&self) {
-        self.gl.clear_color(0.5, 0.0, 0.0, 1.0);
+        self.gl.clear_color(0.0, 0.0, 0.0, 1.0);
         self.gl.clear(WebGl2RenderingContext::COLOR_BUFFER_BIT);
 
         self.gl.bind_vertex_array(Some(&self.vao));
