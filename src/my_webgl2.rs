@@ -37,9 +37,10 @@ impl MyWebGl2 {
             r##"#version 300 es
 
         in vec4 position;
+        out vec2 v_texcoord;
 
         void main() {
-
+            v_texcoord = position.xy * 0.5 + 0.5;
             gl_Position = position;
         }
         "##,
@@ -55,10 +56,11 @@ impl MyWebGl2 {
         out vec4 outColor;
         
         uniform sampler2D u_texture;
+        in vec2 v_texcoord;
 
         void main() {
-            outColor = vec4(1, 1, 1, 1);
-            // outColor = texture(u_texture, vec2(0.5, 0.5));
+            // outColor = vec4(1, 1, 1, 1);
+            outColor = texture(u_texture, v_texcoord);
         }
         "##,
         )?;
@@ -111,11 +113,6 @@ impl MyWebGl2 {
         );
         context.enable_vertex_attrib_array(position_attribute_location as u32);
 
-        // Unbind the VBO
-        context.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, None);
-        // Unbind the VAO
-        context.bind_vertex_array(None);
-
         // Create the texture
         let texture = context.create_texture().ok_or("Failed to create texture")?;
         context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
@@ -141,13 +138,13 @@ impl MyWebGl2 {
             WebGl2RenderingContext::NEAREST as i32,
         );
 
-        // Link texture to the program
-        // let texture_location = context.get_uniform_location(&program, "u_texture");
-        // context.use_program(Some(&program)); // bind the program
-        // context.uniform1i(texture_location.as_ref(), 0);
-
         // Unbind the texture
         context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
+
+        // Unbind the VBO
+        context.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, None);
+        // Unbind the VAO
+        context.bind_vertex_array(None);
 
         // Create the struct
         Ok(MyWebGl2 {
@@ -185,7 +182,7 @@ impl MyWebGl2 {
     }
 
     pub fn draw(&self) {
-        self.gl.clear_color(0.0, 0.0, 0.0, 1.0);
+        self.gl.clear_color(0.5, 0.0, 0.0, 1.0);
         self.gl.clear(WebGl2RenderingContext::COLOR_BUFFER_BIT);
 
         self.gl.bind_vertex_array(Some(&self.vao));
@@ -194,9 +191,7 @@ impl MyWebGl2 {
         self.gl
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.texture));
 
-        let texture_location = self.gl.get_uniform_location(&self.program, "u_texture");
         self.gl.use_program(Some(&self.program));
-        self.gl.uniform1i(texture_location.as_ref(), 0);
 
         self.gl
             .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count as i32);
