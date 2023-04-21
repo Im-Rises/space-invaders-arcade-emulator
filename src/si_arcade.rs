@@ -32,7 +32,7 @@ impl SpaceInvadersArcade {
             ppu: ppu::Ppu::new(&mmu_init),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
-            my_webgl2: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32).unwrap(),
+            my_webgl2: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32),
             frequency_counter: 0,
             last_frequency_counter: 0,
         }
@@ -89,13 +89,11 @@ impl SpaceInvadersArcade {
                     cpu::interrupts::interrupt(&mut self.cpu, 2);
                     self.frequency_counter = 0;
                     self.ppu.clock();
-                    self.my_webgl2
-                        .u8array_to_texture(
-                            self.ppu.get_screen(),
-                            ppu::SCREEN_WIDTH as i32,
-                            ppu::SCREEN_HEIGHT as i32,
-                        )
-                        .expect("Error cannot update texture");
+                    self.my_webgl2.update_u8array_to_texture(
+                        self.ppu.get_screen(),
+                        ppu::SCREEN_WIDTH as i32,
+                        ppu::SCREEN_HEIGHT as i32,
+                    );
                     self.my_webgl2.draw();
                     // if time.elapsed().as_millis() < SCREEN_REFRESH_TIME {
                     //     std::thread::sleep(std::time::Duration::from_millis(SCREEN_REFRESH_TIME as u64 - time.elapsed().as_millis() as u64));
