@@ -1,67 +1,68 @@
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{WebGl2RenderingContext, WebGlBuffer, WebGlProgram, WebGlShader, WebGlTexture, WebGlVertexArrayObject};
 
-//AudioBuffer, AudioBufferSourceNode, AudioContext,
-
 pub struct MyWebGl2 {
     gl: WebGl2RenderingContext,
     vao: WebGlVertexArrayObject,
-    vertex_buffer: WebGlBuffer,
+    vbo: WebGlBuffer,
     program: WebGlProgram,
-    texture: WebGlTexture,
     vertex_count: i32,
-    // audio_context: AudioContext,
 }
 
 impl MyWebGl2 {
     pub fn new(canvas_width: u32, canvas_height: u32) -> Result<MyWebGl2, (JsValue)> {
-        let window = web_sys::window().expect("no global `window` exists");
-        let document = window.document().expect("should have a document on window");
-        let canvas = document
-            .get_element_by_id("canvas")
-            .expect("should have a canvas element with id `canvas`")
-            .dyn_into::<web_sys::HtmlCanvasElement>()
-            .map_err(|_| ())
-            .expect("canvas element should be a `HtmlCanvasElement`");
+        // Get the canvas element
+        let document = web_sys::window().unwrap().document().unwrap();
+        let canvas = document.get_element_by_id("canvas").unwrap();
+        let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
 
+        // Set the canvas width and height
         canvas.set_width(canvas_width);
         canvas.set_height(canvas_height);
 
-        let gl = canvas
-            .get_context("webgl2")
-            .expect("should have a webgl2 context")
+        // Get the WebGL2 context
+        let context = canvas
+            .get_context("webgl2")?
             .unwrap()
-            .dyn_into::<WebGl2RenderingContext>()
-            .unwrap();
+            .dyn_into::<WebGl2RenderingContext>()?;
 
-        // Create shader
+        // Set the viewport
+        context.viewport(0, 0, canvas_width as i32, canvas_height as i32);
+
+        // Create the vertex shader
         let vert_shader = compile_shader(
-            &gl,
+            &context,
             WebGl2RenderingContext::VERTEX_SHADER,
             r##"#version 300 es
-            in vec3 a_texcoord;
-            void main() {
-                gl_Position = vec4(a_texcoord, 1);
-            }
-            "##,
+
+        in vec4 position;
+
+        void main() {
+
+            gl_Position = position;
+        }
+        "##,
         )?;
 
+        // Create the fragment shader
         let frag_shader = compile_shader(
-            &gl,
+            &context,
             WebGl2RenderingContext::FRAGMENT_SHADER,
             r##"#version 300 es
-            precision highp float;
-            uniform sampler2D u_image;
-            out vec4 outColor;
-            void main() {
-                outColor = texture(u_image, gl_FragCoord.xy);
-            }
-            "##,
+
+        precision highp float;
+        out vec4 outColor;
+
+        void main() {
+            outColor = vec4(1, 1, 1, 1);
+        }
+        "##,
         )?;
 
-        let program = link_program(&gl, &vert_shader, &frag_shader).unwrap();
+        // Create the program
+        let program = link_program(&context, &vert_shader, &frag_shader)?;
 
-        // Create vertex buffer
+        // Vertices
         let vertices: [f32; 18] = [
             // first triangle
             0.5, 0.5, 0.0, // top right
@@ -72,83 +73,79 @@ impl MyWebGl2 {
             -0.5, -0.5, 0.0, // bottom left
             -0.5, 0.5, 0.0, // top left
         ];
-        let vertex_buffer = gl.create_buffer().ok_or("failed to create buffer").unwrap();
-        gl.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&vertex_buffer));
+
+        // Create the VBO
+        let position_attribute_location = context.get_attrib_location(&program, "position");
+        let vbo = context.create_buffer().ok_or("Failed to create buffer")?;
+        context.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&vbo));
+
+        // Fill the buffer with the vertices
         unsafe {
-            let vert_array = js_sys::Float32Array::view(&vertices);
-            gl.buffer_data_with_array_buffer_view(
+            let positions_array_buf_view = js_sys::Float32Array::view(&vertices);
+
+            context.buffer_data_with_array_buffer_view(
                 WebGl2RenderingContext::ARRAY_BUFFER,
-                &vert_array,
+                &positions_array_buf_view,
                 WebGl2RenderingContext::STATIC_DRAW,
             );
         }
 
-        // Create VAO
-        let vao = gl.create_vertex_array().ok_or("failed to create VAO").unwrap();
-        gl.bind_vertex_array(Some(&vao));
+        // Create the VAO
+        let vao = context
+            .create_vertex_array()
+            .ok_or("Could not create vertex array object")?;
+        context.bind_vertex_array(Some(&vao));
 
-        gl.enable_vertex_attrib_array(0);
-        gl.vertex_attrib_pointer_with_i32(0, 2, WebGl2RenderingContext::FLOAT, false, 0, 0);
+        // Associate the VBO with the vertex attribute pointer for the position attribute of the vertex data
+        context.vertex_attrib_pointer_with_i32(
+            position_attribute_location as u32,
+            3,
+            WebGl2RenderingContext::FLOAT,
+            false,
+            0,
+            0,
+        );
+        context.enable_vertex_attrib_array(position_attribute_location as u32);
 
-        // create texture
-        let texture = gl.create_texture().ok_or("failed to create texture")?;
-        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
-        gl.tex_parameteri(
-            WebGl2RenderingContext::TEXTURE_2D,
-            WebGl2RenderingContext::TEXTURE_WRAP_S,
-            WebGl2RenderingContext::CLAMP_TO_EDGE as i32,
-        );
-        gl.tex_parameteri(
-            WebGl2RenderingContext::TEXTURE_2D,
-            WebGl2RenderingContext::TEXTURE_WRAP_T,
-            WebGl2RenderingContext::CLAMP_TO_EDGE as i32,
-        );
-        gl.tex_parameteri(
-            WebGl2RenderingContext::TEXTURE_2D,
-            WebGl2RenderingContext::TEXTURE_MIN_FILTER,
-            WebGl2RenderingContext::LINEAR_MIPMAP_LINEAR as i32,
-        );
-        gl.tex_parameteri(
-            WebGl2RenderingContext::TEXTURE_2D,
-            WebGl2RenderingContext::TEXTURE_MAG_FILTER,
-            WebGl2RenderingContext::LINEAR as i32,
-        );
-        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
+        // Unbind the VBO
+        context.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, None);
+        // Unbind the VAO
+        context.bind_vertex_array(None);
 
+        // Create the struct
         Ok(MyWebGl2 {
-            gl,
+            gl: context,
             vao,
-            vertex_buffer,
+            vbo,
             program,
-            texture,
             vertex_count: (vertices.len() / 3) as i32,
         })
     }
 
-    pub fn u8array_to_texture(&self, data: &[u8], width: i32, height: i32) -> Result<WebGlTexture, JsValue> {
-        let gl = &self.gl;
-        let texture = &self.texture;
-
-        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
-
-        gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
-            WebGl2RenderingContext::TEXTURE_2D,
-            0,
-            WebGl2RenderingContext::RGB as i32,
-            width,
-            height,
-            0,
-            WebGl2RenderingContext::RGB,
-            WebGl2RenderingContext::UNSIGNED_BYTE,
-            Some(data),
-        )?;
-
-        gl.generate_mipmap(WebGl2RenderingContext::TEXTURE_2D);
-
-        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
-
-        Ok(texture.clone())
-    }
+    // pub fn u8array_to_texture(&self, data: &[u8], width: i32, height: i32) -> Result<WebGlTexture, JsValue> {
+    //     let gl = &self.gl;
+    //     let texture = &self.texture;
+    //
+    //     gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
+    //
+    //     gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
+    //         WebGl2RenderingContext::TEXTURE_2D,
+    //         0,
+    //         WebGl2RenderingContext::RGB as i32,
+    //         width,
+    //         height,
+    //         0,
+    //         WebGl2RenderingContext::RGB,
+    //         WebGl2RenderingContext::UNSIGNED_BYTE,
+    //         Some(data),
+    //     )?;
+    //
+    //     gl.generate_mipmap(WebGl2RenderingContext::TEXTURE_2D);
+    //
+    //     gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
+    //
+    //     Ok(texture.clone())
+    // }
 
     pub fn draw(&self) {
         self.gl.clear_color(0.0, 0.0, 0.0, 1.0);
@@ -156,14 +153,15 @@ impl MyWebGl2 {
 
         self.gl.bind_vertex_array(Some(&self.vao));
         self.gl
-            .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.texture));
+            .bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&self.vbo));
 
         self.gl.use_program(Some(&self.program));
+
         self.gl
-            .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count);
+            .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count as i32);
 
         self.gl.bind_vertex_array(None);
-        self.gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
+        self.gl.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, None);
     }
 }
 
