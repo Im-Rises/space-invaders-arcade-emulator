@@ -54,57 +54,61 @@ impl SpaceInvadersArcade {
     pub fn emulate_cycle(&mut self) {
         // Handle CPU
         // while sdl2_video.get_window_active(self) {
-        if !self.cpu.get_halted() {
-            if self.cpu.get_cycles() == 0 {
-                let opcode = self.cpu.fetch_opcode();
-                // println!("Opcode {}", opcode);
-                if opcode == 0xDB {
-                    let port = self.cpu.fetch_byte();
-                    let a = self.inputs(port, self.cpu.get_a());
-                    self.cpu.set_a(a);
-                    self.cpu.set_cycles(10);
-                } else if opcode == 0xd3 {
-                    let port = self.cpu.fetch_byte();
-                    self.outputs(port, self.cpu.get_a());
-                    self.cpu.set_cycles(10);
-                } else {
-                    let cycles = self.cpu.compute_opcode(opcode);
-                    self.cpu.set_cycles(cycles);
+        let mut do_loop = true;
+        while do_loop {
+            if !self.cpu.get_halted() {
+                if self.cpu.get_cycles() == 0 {
+                    let opcode = self.cpu.fetch_opcode();
+                    // println!("Opcode {}", opcode);
+                    if opcode == 0xDB {
+                        let port = self.cpu.fetch_byte();
+                        let a = self.inputs(port, self.cpu.get_a());
+                        self.cpu.set_a(a);
+                        self.cpu.set_cycles(10);
+                    } else if opcode == 0xd3 {
+                        let port = self.cpu.fetch_byte();
+                        self.outputs(port, self.cpu.get_a());
+                        self.cpu.set_cycles(10);
+                    } else {
+                        let cycles = self.cpu.compute_opcode(opcode);
+                        self.cpu.set_cycles(cycles);
+                    }
                 }
+                self.cpu.set_cycles(self.cpu.get_cycles() - 1);
             }
-            self.cpu.set_cycles(self.cpu.get_cycles() - 1);
-        }
-        self.frequency_counter += 1;
+            self.frequency_counter += 1;
 
-        // Handle Interrupts and PPU
-        if self.cpu.get_inte() {
-            if self.frequency_counter > INTERRUPT_MIDDLE_VBLANK
-                && self.last_frequency_counter <= INTERRUPT_MIDDLE_VBLANK
-            {
-                cpu::interrupts::interrupt(&mut self.cpu, 1);
-            }
-            if self.frequency_counter > INTERRUPT_VBLANK_COUNTER {
-                cpu::interrupts::interrupt(&mut self.cpu, 2);
+            // Handle Interrupts and PPU
+            if self.cpu.get_inte() {
+                if self.frequency_counter > INTERRUPT_MIDDLE_VBLANK
+                    && self.last_frequency_counter <= INTERRUPT_MIDDLE_VBLANK
+                {
+                    cpu::interrupts::interrupt(&mut self.cpu, 1);
+                }
+                if self.frequency_counter > INTERRUPT_VBLANK_COUNTER {
+                    cpu::interrupts::interrupt(&mut self.cpu, 2);
+                    self.frequency_counter = 0;
+                    self.ppu.clock();
+                    self.my_webgl2
+                        .u8array_to_texture(
+                            self.ppu.get_screen(),
+                            ppu::SCREEN_WIDTH as i32,
+                            ppu::SCREEN_WIDTH as i32,
+                        )
+                        .expect("Error cannot update texture");
+                    self.my_webgl2.draw();
+                    // if time.elapsed().as_millis() < SCREEN_REFRESH_TIME {
+                    //     std::thread::sleep(std::time::Duration::from_millis(SCREEN_REFRESH_TIME as u64 - time.elapsed().as_millis() as u64));
+                    // }
+                    // time = Instant::now();
+                    do_loop = false;
+                }
+            } else {
                 self.frequency_counter = 0;
-                self.ppu.clock();
-                self.my_webgl2
-                    .u8array_to_texture(
-                        self.ppu.get_screen(),
-                        ppu::SCREEN_WIDTH as i32,
-                        ppu::SCREEN_WIDTH as i32,
-                    )
-                    .expect("Error cannot update texture");
-                self.my_webgl2.draw();
-                // if time.elapsed().as_millis() < SCREEN_REFRESH_TIME {
-                //     std::thread::sleep(std::time::Duration::from_millis(SCREEN_REFRESH_TIME as u64 - time.elapsed().as_millis() as u64));
-                // }
-                // time = Instant::now();
             }
-        } else {
-            self.frequency_counter = 0;
-        }
 
-        self.last_frequency_counter = self.frequency_counter;
+            self.last_frequency_counter = self.frequency_counter;
+        }
     }
 
     fn inputs(&mut self, port: u8, mut data: u8) -> u8 {
