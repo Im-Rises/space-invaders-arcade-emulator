@@ -13,7 +13,7 @@ fn main() {
     #[wasm_bindgen(start)]
     pub fn start() -> Result<(), JsValue> {
         let mut space_invaders_arcade = si_arcade::SpaceInvadersArcade::new();
-
+        // web_sys::console::log_1(&format!("Started webassembly run").into());
         let f = Rc::new(RefCell::new(None));
         let g = f.clone();
 
