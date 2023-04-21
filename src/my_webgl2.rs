@@ -36,12 +36,12 @@ impl MyWebGl2 {
             WebGl2RenderingContext::VERTEX_SHADER,
             r##"#version 300 es
 
-        in vec4 position;
+        in vec4 a_texcoord;
         out vec2 v_texcoord;
 
         void main() {
-            v_texcoord = position.xy * 0.5 + 0.5;
-            gl_Position = position;
+            v_texcoord = a_texcoord.xy * 0.5 + 0.5;
+            gl_Position = a_texcoord;
         }
         "##,
         )?;
@@ -59,7 +59,6 @@ impl MyWebGl2 {
         in vec2 v_texcoord;
 
         void main() {
-            // outColor = vec4(1, 1, 1, 1);
             outColor = texture(u_texture, v_texcoord);
         }
         "##,
@@ -81,7 +80,7 @@ impl MyWebGl2 {
         ];
 
         // Create the VBO
-        let position_attribute_location = context.get_attrib_location(&program, "position");
+        let position_attribute_location = context.get_attrib_location(&program, "a_texcoord");
         let vbo = context.create_buffer().ok_or("Failed to create buffer")?;
         context.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&vbo));
 
