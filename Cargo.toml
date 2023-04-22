@@ -37,4 +37,5 @@ features = [
     'AudioContext',
     'AudioNode',
     'AudioBufferSourceNode',
+    'AudioDestinationNode',
 ]
