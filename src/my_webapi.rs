@@ -6,7 +6,7 @@ mod my_webinputs;
 
 pub struct MyWebApi {
     my_webgl2: my_webgl2::MyWebGl2,
-    // my_webaudio: my_webaudio::MyWebAudio,
+    my_webaudio: my_webaudio::MyWebAudio,
     my_webinputs: my_webinputs::MyWebInputs,
 }
 
@@ -14,7 +14,7 @@ impl MyWebApi {
     pub fn new(canvas_width: u32, canvas_height: u32) -> MyWebApi {
         MyWebApi {
             my_webgl2: my_webgl2::MyWebGl2::new(canvas_width, canvas_height).unwrap(),
-            // my_webaudio: my_webaudio::MyWebAudio::new(),
+            my_webaudio: my_webaudio::MyWebAudio::new(),
             my_webinputs: my_webinputs::MyWebInputs::new(),
         }
     }

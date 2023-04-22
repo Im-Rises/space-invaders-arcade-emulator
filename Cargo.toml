@@ -17,6 +17,7 @@ crate-type = ["cdylib"]
 [dependencies]
 js-sys = "0.3.61"
 wasm-bindgen = "0.2.84"
+wasm-bindgen-futures = "0.4.34"
 
 [dependencies.web-sys]
 version = "0.3.61"
@@ -38,4 +39,7 @@ features = [
     'AudioNode',
     'AudioBufferSourceNode',
     'AudioDestinationNode',
+    'HtmlAudioElement',
+    'Blob',
+    'BlobPropertyBag',
 ]

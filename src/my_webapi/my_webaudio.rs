@@ -1,67 +1,68 @@
-use js_sys::{ArrayBuffer, Uint8Array};
+use js_sys::{ArrayBuffer, Promise, Uint8Array};
 use wasm_bindgen::{JsCast, JsValue};
-use web_sys::{AudioBuffer, AudioContext, AudioNode};
-
-// struct PreloadedAudio {
-//     // buffer: AudioBuffer,
-//     // source_node: AudioNode,
-// }
-//
-// impl PreloadedAudio {
-//     fn new(context: &AudioContext, data: &[u8]) -> Result<Self, JsValue> {
-//         // // Create a buffer from the ArrayBuffer
-//         // let array_buffer = ArrayBuffer::new(data.len() as u32);
-//         // let mut uint8_array = Uint8Array::new(&array_buffer);
-//         // uint8_array.set(&Uint8Array::from(&data[..]).unchecked_ref(), 0);
-//         // let buffer = context.decode_audio_data(&array_buffer)?;
-//         //
-//         // let source = context.create_buffer_source()?;
-//         //
-//         // source.set_buffer(Some(&buffer?));
-//
-//         // source.connect_with_audio_node(context.destination())?;
-//         //
-//         // source.start()?;
-//
-//         Ok(Self {
-//             // buffer,
-//             // source_node: source_node.into(),
-//         })
-//     }
-//
-//     fn play(&self) {
-//         // self.source_node.start(0.0)?;
-//     }
-// }
+use web_sys::{window, AudioBuffer, AudioContext, AudioNode};
 
 pub struct MyWebAudio {
-    context: AudioContext,
+    sdsqdqs: i32,
+    // context: AudioContext,
+    // buffers: Vec<Option<AudioBuffer>>,
 }
 
 impl MyWebAudio {
-    pub async fn new() -> Result<Self, JsValue> {
-        let context = AudioContext::new()?;
+    pub fn new() -> Self {
+        let result = web_sys::HtmlAudioElement::new_with_src("../game_audios/0.wav").unwrap();
+        result.play();
 
-        // Load the audio file into memory
-        let data = include_bytes!("../../game_audios/0.wav");
-        let array_buffer = ArrayBuffer::new(data.len() as u32);
-
-        let mut uint8_array = Uint8Array::new(&array_buffer);
-        uint8_array.set(&Uint8Array::from(&data[..]).unchecked_ref(), 0);
-
-        // let buffer = context.decode_audio_data(&array_buffer).await?;
-        let buffer = context.decode_audio_data(&array_buffer)?;
-
-        let source = context.create_buffer_source()?;
-
-        // source.set_buffer(Some(&buffer?));
-        source.connect_with_audio_node(&context.destination())?;
-        // source.start()?;
-
-        Ok(Self { context })
+        Self { sdsqdqs: 0 }
     }
 
-    pub fn play(&self, index: usize) {
-        // self.audios[index].play();
+    pub fn load_audio_from_u8array(u8array: &[u8]) -> Result<web_sys::HtmlAudioElement, JsValue> {
+        // Create a blob from the u8 array
+        let blob = web_sys::Blob::new_with_u8_array_sequence_and_options(
+            u8array,
+            web_sys::BlobPropertyBag::new().type_("audio/mp3"),
+        )?;
+
+        // Create a new HtmlAudioElement and set the src attribute to the blob URL
+        let audio = web_sys::HtmlAudioElement::new_with_src(blob.as_ref().as_blob_url().as_str())?;
+
+        Ok(audio)
     }
+
+    // pub async fn new() -> Result<Self, JsValue> {
+    //     let context = AudioContext::new().map_err(|e| e.into())?;
+    //
+    //     // Load the audio files into memory
+    //     // let filenames = ["audio1.mp3", "audio2.mp3", "audio3.mp3"];
+    //     let mut buffers = Vec::with_capacity(9);
+    //     for _ in 0..9 {
+    //         // let data = include_bytes!(filename);
+    //         let data = include_bytes!("../../game_audios/0.wav");
+    //         let array_buffer = Uint8Array::new_with_length(data.len() as u32);
+    //         array_buffer.copy_from(data);
+    //
+    //         let buffer = context
+    //             .decode_audio_data(&array_buffer.buffer())
+    //             // .await
+    //             .map_err(|e| e.into())?;
+    //         buffers.push(Some(buffer));
+    //     }
+    //
+    //     // let buffers_result = wasm_bindgen_futures::JsFuture::from(buffers).await?;
+    //
+    //     Ok(Self { context, buffers })
+    // }
+
+    // async fn my_async_function(promise: Promise) -> Result<JsValue, JsValue> {
+    //     let result = wasm_bindgen_futures::JsFuture::from(promise).await?;
+    //     Ok(result)
+    // }
+
+    // pub fn play(&self, index: usize) {
+    //     let buffer = self.buffers[index].as_ref().unwrap();
+    //     let source = self.context.create_buffer_source().unwrap();
+    //     source.set_buffer(Some(buffer));
+    //     source.connect_with_audio_node(&self.context.destination()).unwrap();
+    //     source.start_with_when(0.0).unwrap();
+    // }
 }
