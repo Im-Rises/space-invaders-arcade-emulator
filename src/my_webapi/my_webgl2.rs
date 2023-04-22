@@ -11,7 +11,7 @@ pub struct MyWebGl2 {
 }
 
 impl MyWebGl2 {
-    pub fn new(canvas_width: u32, canvas_height: u32) -> Result<MyWebGl2, (JsValue)> {
+    pub fn new(canvas_width: u32, canvas_height: u32) -> Result<MyWebGl2, JsValue> {
         // Get the canvas element
         let document = web_sys::window().unwrap().document().unwrap();
         let canvas = document.get_element_by_id("canvas").unwrap();
@@ -40,7 +40,8 @@ impl MyWebGl2 {
         out vec2 v_texcoord;
 
         void main() {
-            v_texcoord = a_texcoord.xy * 0.5 + 0.5;
+            // v_texcoord = a_texcoord.xy * 0.5 + 0.5;
+            v_texcoord = vec2(a_texcoord.x * 0.5 + 0.5, 1.0 - (a_texcoord.y * 0.5 + 0.5));// flip y
             gl_Position = a_texcoord;
         }
         "##,

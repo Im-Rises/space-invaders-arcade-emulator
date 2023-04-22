@@ -1,11 +1,13 @@
-use wasm_bindgen::{JsCast, JsValue};
+// use wasm_bindgen::{JsCast, JsValue};
 
 mod my_webaudio;
 mod my_webgl2;
+mod my_webinputs;
 
 pub struct MyWebApi {
     my_webgl2: my_webgl2::MyWebGl2,
     my_webaudio: my_webaudio::MyWebAudio,
+    my_webinputs: my_webinputs::MyWebInputs,
 }
 
 impl MyWebApi {
@@ -13,6 +15,7 @@ impl MyWebApi {
         MyWebApi {
             my_webgl2: my_webgl2::MyWebGl2::new(canvas_width, canvas_height).unwrap(),
             my_webaudio: my_webaudio::MyWebAudio::new().unwrap(),
+            my_webinputs: my_webinputs::MyWebInputs::new(),
         }
     }
 
@@ -23,4 +26,12 @@ impl MyWebApi {
     pub fn draw(&self) {
         self.my_webgl2.draw();
     }
+
+    pub fn play_audio(&self, index: usize) {
+        self.my_webaudio.play(index);
+    }
+
+    // pub fn get_inputs(&self) -> u8 {
+    //     self.my_webinputs.get_inputs()
+    // }
 }
