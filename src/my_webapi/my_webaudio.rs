@@ -1,6 +1,6 @@
 use js_sys::{ArrayBuffer, Uint8Array};
 use wasm_bindgen::{JsCast, JsValue};
-use web_sys::{AudioBuffer, AudioContext, AudioNode, BaseAudioContext};
+use web_sys::{AudioBuffer, AudioContext, AudioNode};
 
 struct PreloadedAudio {
     // buffer: AudioBuffer,
@@ -8,57 +8,59 @@ struct PreloadedAudio {
 }
 
 impl PreloadedAudio {
-    fn new(context: AudioContext, data: &[u8]) -> Result<Self, JsValue> {
+    fn new(context: &AudioContext, data: &[u8]) -> Result<Self, JsValue> {
         // Create a buffer from the ArrayBuffer
-        let array_buffer = Uint8Array::from(data).buffer();
-
-        // Decode the audio data
+        let array_buffer = ArrayBuffer::new(data.len() as u32);
+        let mut uint8_array = Uint8Array::new(&array_buffer);
+        uint8_array.set(&Uint8Array::from(&data[..]).unchecked_ref(), 0);
         let buffer = context.decode_audio_data(&array_buffer)?;
 
-        // Create a source node and connect it to the audio context
-        let source_node = context.create_buffer()?;
+        let source = context.create_buffer_source()?;
 
-        // // Create a source node and connect it to the audio context
-        // let source_node = context.create_buffer()?;
-        // source_node.set_buffer(Some(&buffer));
+        source.buffer(Some(&buffer));
 
-        // source_node.set_buffer(Some(&buffer));
-        // source_node.connect_with_audio_node(&context.destination())?;
+        source.connect_with_audio_node(context.destination())?;
 
-        Ok(Self { /*buffer, source_node*/ })
+        source.start()?;
+
+        Ok(Self {
+            // buffer,
+            // source_node: source_node.into(),
+        })
     }
 
     fn play(&self) {
-        // self.source_node.start().unwrap();
+        // self.source_node.start(0.0)?;
     }
 }
 
 pub struct MyWebAudio {
-    context: AudioContext,
-    audios: [PreloadedAudio; 0],
+    // context: AudioContext,
+    // audios: [PreloadedAudio; 8],
 }
 
 impl MyWebAudio {
-    pub fn new() -> Result<MyWebAudio, JsValue> {
-        let context = AudioContext::new()?;
+    pub async fn new() -> Result<Self, JsValue> {
+        // let context = AudioContext::new()?;
+        //
+        // let mut audios = [PreloadedAudio {
+        //     buffer: context.decode_audio_data(&uint8_array.buffer()?).await?,
+        //     source_node: context.create_buffer_source()?.into(),
+        // }; 8];
+        //
+        // for i in 0..8 {
+        //     let data = include_bytes!("../../game_audios/0.wav");
+        //     let audio = PreloadedAudio::new(&context, data)?;
+        //     audios[i] = audio;
+        // }
 
-        // let buffer = context.create_buffer(9, 44100, 44100)?;
-
-        let audios = [
-            // PreloadedAudio::new(&context, include_bytes!("../assets/1.mp3")).await?,
-            // PreloadedAudio::new(&context, include_bytes!("../assets/2.mp3")).await?,
-            // PreloadedAudio::new(&context, include_bytes!("../assets/3.mp3")).await?,
-            // PreloadedAudio::new(&context, include_bytes!("../assets/4.mp3")).await?,
-            // PreloadedAudio::new(&context, include_bytes!("../assets/5.mp3")).await?,
-            // PreloadedAudio::new(&context, include_bytes!("../assets/6.mp3")).await?,
-            // PreloadedAudio::new(&context, include_bytes!("../assets/7.mp3")).await?,
-            // PreloadedAudio::new(&context, include_bytes!("../assets/8.mp3")).await?,
-            // PreloadedAudio::new(&context, include_bytes!("../assets/9.mp3")).await?,
-        ];
-        Ok(MyWebAudio { context, audios })
+        Ok(Self {
+            // context,
+            // audios
+        })
     }
 
     pub fn play(&self, index: usize) {
-        self.audios[index].play();
+        // self.audios[index].play();
     }
 }
