@@ -7,9 +7,10 @@
 <body>
 <canvas class="canvas-webgl" id="canvas"></canvas>
 <script type="module">
-    import init, {handle_keydown} from "./pkg/space_invaders_arcade_emulator.js";
+    import init, {handle_keydown, handle_keyup} from "./pkg/space_invaders_arcade_emulator.js";
 
     document.addEventListener('keydown', handle_keydown);
+    document.addEventListener('keyup', handle_keyup);
 
     async function run() {
         await init();

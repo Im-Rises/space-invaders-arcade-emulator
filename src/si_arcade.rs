@@ -19,7 +19,7 @@ pub struct SpaceInvadersArcade {
     ppu: ppu::Ppu,
     mmu: Rc<RefCell<mmu::Mmu>>,
     pub inputs_outputs: inputs_outputs::InputsOutputs,
-    my_webgl2: MyWebApi,
+    my_api: MyWebApi,
     frequency_counter: usize,
     last_frequency_counter: usize,
 }
@@ -32,34 +32,23 @@ impl SpaceInvadersArcade {
             ppu: ppu::Ppu::new(&mmu_init),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
-            my_webgl2: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32),
+            my_api: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32),
             frequency_counter: 0,
             last_frequency_counter: 0,
         }
-
-        // let mut time = Instant::now();
-        // let mut sdl2_video: my_sdl2::MySdl2 = my_sdl2::MySdl2::new(
-        //     spu::SOUND_0,
-        //     spu::SOUND_1,
-        //     spu::SOUND_2,
-        //     spu::SOUND_3,
-        //     spu::SOUND_4,
-        //     spu::SOUND_5,
-        //     spu::SOUND_6,
-        //     spu::SOUND_7,
-        //     spu::SOUND_8,
-        // );
     }
 
     pub fn emulate_cycle(&mut self) {
         // Handle CPU
-        // while sdl2_video.get_window_active(self) {
         let mut do_loop = true;
+
+        // Loop until we refresh the screen (16ms)
         while do_loop {
             if !self.cpu.get_halted() {
                 if self.cpu.get_cycles() == 0 {
                     let opcode = self.cpu.fetch_opcode();
                     // println!("Opcode {}", opcode);
+                    // web_sys::console::log_1(&format!("Opcode {}", opcode).into());
                     if opcode == 0xDB {
                         let port = self.cpu.fetch_byte();
                         let a = self.inputs(port, self.cpu.get_a());
@@ -76,6 +65,8 @@ impl SpaceInvadersArcade {
                 }
                 self.cpu.set_cycles(self.cpu.get_cycles() - 1);
             }
+
+            // Update frequency counter
             self.frequency_counter += 1;
 
             // Handle Interrupts and PPU
@@ -89,27 +80,25 @@ impl SpaceInvadersArcade {
                     cpu::interrupts::interrupt(&mut self.cpu, 2);
                     self.frequency_counter = 0;
                     self.ppu.clock();
-                    self.my_webgl2.update_u8array_to_texture(
+                    self.my_api.update_u8array_to_texture(
                         self.ppu.get_screen(),
                         ppu::SCREEN_WIDTH as i32,
                         ppu::SCREEN_HEIGHT as i32,
                     );
-                    self.my_webgl2.draw();
-                    // if time.elapsed().as_millis() < SCREEN_REFRESH_TIME {
-                    //     std::thread::sleep(std::time::Duration::from_millis(SCREEN_REFRESH_TIME as u64 - time.elapsed().as_millis() as u64));
-                    // }
-                    // time = Instant::now();
+                    self.my_api.draw();
                     do_loop = false;
                 }
             } else {
                 self.frequency_counter = 0;
             }
 
+            // Update last frequency counter
             self.last_frequency_counter = self.frequency_counter;
         }
     }
 
     fn inputs(&mut self, port: u8, mut data: u8) -> u8 {
+        self.my_api.update_inputs();
         match port {
             0 => {
                 data = 0b0000_1110;
@@ -150,11 +139,11 @@ impl SpaceInvadersArcade {
         match port {
             2 => self.inputs_outputs.shift_offset = data & 0b0000_0111,
             3 => {
-                // sdl2_video.play_audio_sound(port, data);
+                self.my_api.play_audio_sound(port, data);
             }
             4 => self.inputs_outputs.shift_register = self.inputs_outputs.shift_register >> 8 | (data as u16) << 8,
             5 => {
-                // sdl2_video.play_audio_sound(port, data);
+                self.my_api.play_audio_sound(port, data);
             }
             6 => (), //Watch dog
             _ => {
@@ -172,9 +161,5 @@ impl SpaceInvadersArcade {
 
     pub fn get_si_arcade_screen_width_height(&self) -> (usize, usize) {
         (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
-    }
-
-    pub fn get_cpu(&self) -> &cpu::Cpu {
-        &self.cpu
     }
 }

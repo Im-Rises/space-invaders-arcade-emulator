@@ -26,8 +26,6 @@ pub struct InputsOutputs {
     pub dip5: bool,
     pub dip6: bool,
     pub dip7: bool,
-    // pub port3_previous_outputs: u8,
-    // pub port5_previous_outputs: u8,
 }
 
 impl InputsOutputs {
@@ -42,8 +40,6 @@ impl InputsOutputs {
             dip5: false,
             dip6: false,
             dip7: false,
-            // port3_previous_outputs: 0,
-            // port5_previous_outputs: 0,
         }
     }
 }

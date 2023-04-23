@@ -44,19 +44,31 @@ fn main() {
             "ArrowLeft" => web_sys::console::log_1(&"Left arrow key pressed".into()),
             "ArrowUp" => web_sys::console::log_1(&"Up arrow key pressed".into()),
             "ArrowRight" => web_sys::console::log_1(&"Right arrow key pressed".into()),
-            "ArrowDown" => web_sys::console::log_1(&"Down arrow key pressed".into()),
+            // "ArrowDown" => web_sys::console::log_1(&"Down arrow key pressed".into()),
             "c" => web_sys::console::log_1(&"C key pressed".into()),
             "k" => web_sys::console::log_1(&"K key pressed".into()),
             "l" => web_sys::console::log_1(&"L key pressed".into()),
             "m" => web_sys::console::log_1(&"M key pressed".into()),
+            "1" => web_sys::console::log_1(&"1 key pressed".into()),
+            "2" => web_sys::console::log_1(&"2 key pressed".into()),
             _ => {}
         }
-        // match event.key_code() {
-        //     37 => web_sys::console::log_1(&"Left arrow key pressed".into()),
-        //     38 => web_sys::console::log_1(&"Up arrow key pressed".into()),
-        //     39 => web_sys::console::log_1(&"Right arrow key pressed".into()),
-        //     40 => web_sys::console::log_1(&"Down arrow key pressed".into()),
-        //     _ => {}
-        // }
+    }
+
+    #[wasm_bindgen]
+    pub fn handle_keyup(event: KeyboardEvent) {
+        match event.key().as_ref() {
+            "ArrowLeft" => web_sys::console::log_1(&"Left arrow key released".into()),
+            "ArrowUp" => web_sys::console::log_1(&"Up arrow key released".into()),
+            "ArrowRight" => web_sys::console::log_1(&"Right arrow key released".into()),
+            // "ArrowDown" => web_sys::console::log_1(&"Down arrow key released".into()),
+            "c" => web_sys::console::log_1(&"C key released".into()),
+            "k" => web_sys::console::log_1(&"K key released".into()),
+            "l" => web_sys::console::log_1(&"L key released".into()),
+            "m" => web_sys::console::log_1(&"M key released".into()),
+            "1" => web_sys::console::log_1(&"1 key released".into()),
+            "2" => web_sys::console::log_1(&"2 key released".into()),
+            _ => {}
+        }
     }
 }

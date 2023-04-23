@@ -1,5 +1,3 @@
-// use wasm_bindgen::{JsCast, JsValue};
-
 mod my_webaudio;
 mod my_webgl2;
 mod my_webinputs;
@@ -27,11 +25,7 @@ impl MyWebApi {
         self.my_webgl2.draw();
     }
 
-    pub fn play_audio(&self, index: usize) {
-        // self.my_webaudio.play(index);
+    pub fn play_audio_sound(&self, port: u8, data: u8) {
+        // self.my_webaudio.play_sound(port, data);
     }
-
-    // pub fn get_inputs(&self) -> u8 {
-    //     self.my_webinputs.get_inputs()
-    // }
 }
