@@ -17,6 +17,8 @@ TODO:
 - [x] Add video
 - [ ] Add the rom loader
 - [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
+- [ ] When shooting add loop at the end of the sound to make it sound like the original game or make it longer and stop
+  it when the player stop shooting.
 
 ## Images
 

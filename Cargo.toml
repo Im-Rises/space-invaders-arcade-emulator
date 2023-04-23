@@ -42,4 +42,5 @@ features = [
     'HtmlAudioElement',
     'Blob',
     'BlobPropertyBag',
+    'Url',
 ]
