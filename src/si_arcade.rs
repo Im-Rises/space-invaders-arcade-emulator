@@ -18,6 +18,7 @@ const INTERRUPT_MIDDLE_VBLANK: usize = INTERRUPT_VBLANK_COUNTER / 2;
 pub struct SpaceInvadersArcade {
     cpu: cpu::Cpu,
     ppu: ppu::Ppu,
+    spu: spu::Spu,
     mmu: Rc<RefCell<mmu::Mmu>>,
     pub inputs_outputs: inputs_outputs::InputsOutputs,
     my_api: MyWebApi,
@@ -41,6 +42,7 @@ impl SpaceInvadersArcade {
         SpaceInvadersArcade {
             cpu: cpu::Cpu::new(&mmu_init, 0),
             ppu: ppu::Ppu::new(&mmu_init),
+            spu: spu::Spu::new(),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
             my_api: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32, sounds),
@@ -109,9 +111,6 @@ impl SpaceInvadersArcade {
     }
 
     fn inputs(&mut self, port: u8, mut data: u8) -> u8 {
-        // // Update inputs states
-        // self.my_api.update_inputs(self.inputs_outputs);
-
         // Read inputs states to data
         match port {
             0 => {
@@ -153,19 +152,11 @@ impl SpaceInvadersArcade {
         match port {
             2 => self.inputs_outputs.shift_offset = data & 0b0000_0111,
             3 => {
-                let result = self::spu::get_audio_index(port, data);
-                match result {
-                    Some(value) => self.my_api.play_audio_sound(value),
-                    None => println!("Error: Audio data or port issue"),
-                }
+                self.play_audio(port, data);
             }
             4 => self.inputs_outputs.shift_register = self.inputs_outputs.shift_register >> 8 | (data as u16) << 8,
             5 => {
-                let result = self::spu::get_audio_index(port, data);
-                match result {
-                    Some(value) => self.my_api.play_audio_sound(value),
-                    None => println!("Error: Audio data or port issue"),
-                }
+                self.play_audio(port, data);
             }
             6 => (), //Watch dog
             _ => {
@@ -187,5 +178,15 @@ impl SpaceInvadersArcade {
 
     pub fn get_si_arcade_screen_width_height(&self) -> (usize, usize) {
         (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
+    }
+
+    fn play_audio(&mut self, port: u8, data: u8) {
+        self.spu.update(port, data);
+
+        while let Some(sound) = self.spu.fetch_sound_to_play() {
+            self.my_api.play_audio_sound(sound as usize);
+        }
+
+        self.spu.remove_all_sounds_to_play();
     }
 }

@@ -24,6 +24,8 @@ TODO:
 - [x] Move corrected code to the original project
 - [x] Add audio
 - [x] Improve the audio
+- [ ] Handle the mp3 play correctly in the api
+- [ ] Change the spu to list the index of the sound to play and then fetch the sound with the api
 - [ ] Add the rom loader
 - [ ] Add a way to fetch the score from the game ?
 - [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).

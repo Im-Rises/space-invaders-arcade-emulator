@@ -19,80 +19,63 @@ pub const SOUND_7: &[u8] = include_bytes!("../../game_audios/7.wav");
 // Bonus UFO destroyed
 pub const SOUND_8: &[u8] = include_bytes!("../../game_audios/8.wav");
 
-//TODO:
-// Create a function which returns the index of the audio to be played
-
-pub fn get_audio_index(port: u8, data: u8) -> Option<usize> {
-    match port {
-        3 => {
-            if get_bit(data, 0) {
-                Some(0)
-            } else if get_bit(data, 1) {
-                Some(1)
-            } else if get_bit(data, 2) {
-                Some(2)
-            } else if get_bit(data, 3) {
-                Some(3)
-            } else {
-                None
-            }
-        }
-        5 => {
-            if get_bit(data, 0) {
-                Some(4)
-            } else if get_bit(data, 1) {
-                Some(5)
-            } else if get_bit(data, 2) {
-                Some(6)
-            } else if get_bit(data, 3) {
-                Some(7)
-            } else if get_bit(data, 4) {
-                Some(8)
-            } else {
-                None
-            }
-        }
-        _ => None,
-    }
+pub struct Spu {
+    sounds_to_play: Vec<u8>,
 }
 
-// pub fn play_audio_sound(&mut self, port: u8, data: u8) {
-//     match port {
-//         3 => {
-//             if get_bit(data, 0) {
-//                 self.sdl_audio.play_ufo();
-//             }
-//             if get_bit(data, 1) && !get_bit(self.port3_previous_outputs, 1) {
-//                 self.sdl_audio.play_shot();
-//             }
-//             if get_bit(data, 2) && !get_bit(self.port3_previous_outputs, 2) {
-//                 self.sdl_audio.play_player_die();
-//             }
-//             if get_bit(data, 3) && !get_bit(self.port3_previous_outputs, 3) {
-//                 self.sdl_audio.play_invader_die();
-//             }
-//             self.port3_previous_outputs = data;
-//         }
-//         5 => {
-//             if get_bit(data, 0) {
-//                 self.sdl_audio.play_fleet_movement_1();
-//             }
-//             if get_bit(data, 1) {
-//                 self.sdl_audio.play_fleet_movement_2();
-//             }
-//             if get_bit(data, 2) {
-//                 self.sdl_audio.play_fleet_movement_3();
-//             }
-//             if get_bit(data, 3) {
-//                 self.sdl_audio.play_fleet_movement_4();
-//             }
-//             if get_bit(data, 4) && !get_bit(self.port5_previous_outputs, 4) {
-//                 self.sdl_audio.play_ufo_hit();
-//             }
-//             self.port5_previous_outputs = data;
-//         }
-//         _ => {
-//             panic!("Error: Trying to use port {} as audio port", port)
-//         }
-//     }
-// }
+impl Spu {
+    pub fn new() -> Spu {
+        Spu {
+            sounds_to_play: Vec::new(),
+        }
+    }
+
+    pub fn update(&mut self, port: u8, data: u8) {
+        match port {
+            3 => {
+                if get_bit(data, 0) {
+                    self.sounds_to_play.push(0);
+                }
+                if get_bit(data, 1) {
+                    self.sounds_to_play.push(1);
+                }
+                if get_bit(data, 2) {
+                    self.sounds_to_play.push(2);
+                }
+                if get_bit(data, 3) {
+                    self.sounds_to_play.push(3);
+                }
+            }
+            5 => {
+                if get_bit(data, 0) {
+                    self.sounds_to_play.push(4);
+                }
+                if get_bit(data, 1) {
+                    self.sounds_to_play.push(5);
+                }
+                if get_bit(data, 2) {
+                    self.sounds_to_play.push(6);
+                }
+                if get_bit(data, 3) {
+                    self.sounds_to_play.push(7);
+                }
+                if get_bit(data, 4) {
+                    self.sounds_to_play.push(8);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    pub fn fetch_sound_to_play(&mut self) -> Option<u8> {
+        if self.sounds_to_play.len() > 0 {
+            Some(self.sounds_to_play.pop().unwrap())
+        } else {
+            None
+        }
+    }
+
+    pub fn remove_all_sounds_to_play(&mut self) {
+        self.sounds_to_play.clear();
+    }
+}
