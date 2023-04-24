@@ -39,18 +39,18 @@ fn main() {
                     "2" => space_invaders_arcade_ref
                         .borrow_mut()
                         .update_input(si_arcade::GameInput::Player2Start, is_pressed),
-                    "k" => space_invaders_arcade_ref
-                        .borrow_mut()
-                        .update_input(si_arcade::GameInput::Dip3, is_pressed),
-                    "l" => space_invaders_arcade_ref
-                        .borrow_mut()
-                        .update_input(si_arcade::GameInput::Dip5, is_pressed),
-                    "m" => space_invaders_arcade_ref
-                        .borrow_mut()
-                        .update_input(si_arcade::GameInput::Dip6, is_pressed),
-                    "j" => space_invaders_arcade_ref
-                        .borrow_mut()
-                        .update_input(si_arcade::GameInput::Dip7, is_pressed),
+                    // "k" => space_invaders_arcade_ref
+                    //     .borrow_mut()
+                    //     .update_input(si_arcade::GameInput::Dip3, is_pressed),
+                    // "l" => space_invaders_arcade_ref
+                    //     .borrow_mut()
+                    //     .update_input(si_arcade::GameInput::Dip5, is_pressed),
+                    // "m" => space_invaders_arcade_ref
+                    //     .borrow_mut()
+                    //     .update_input(si_arcade::GameInput::Dip6, is_pressed),
+                    // "o" => space_invaders_arcade_ref
+                    //     .borrow_mut()
+                    //     .update_input(si_arcade::GameInput::Dip7, is_pressed),
                     _ => {}
                 }
             }) as Box<dyn FnMut(_)>);

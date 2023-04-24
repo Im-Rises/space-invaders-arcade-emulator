@@ -15,7 +15,7 @@ pub struct PlayerInputs {
     pub left: bool,
     pub right: bool,
     pub shot: bool,
-    pub start: bool,
+    // pub start: bool,
 }
 
 impl PlayerInputs {
@@ -24,7 +24,7 @@ impl PlayerInputs {
             left: false,
             right: false,
             shot: false,
-            start: false,
+            // start: false,
         }
     }
 }
@@ -33,8 +33,10 @@ pub struct InputsOutputs {
     pub shift_register: u16,
     pub shift_offset: u8,
     pub coin: bool,
-    pub player1: PlayerInputs,
-    pub player2: PlayerInputs,
+    pub player: PlayerInputs,
+    // pub player2: PlayerInputs,
+    pub player1_start: bool,
+    pub player2_start: bool,
     pub dip3: bool,
     pub dip5: bool,
     pub dip6: bool,
@@ -47,8 +49,10 @@ impl InputsOutputs {
             shift_register: 0,
             shift_offset: 0,
             coin: false,
-            player1: PlayerInputs::new(),
-            player2: PlayerInputs::new(),
+            player: PlayerInputs::new(),
+            // player2: PlayerInputs::new(),
+            player1_start: false,
+            player2_start: false,
             dip3: false,
             dip5: false,
             dip6: false,
@@ -59,11 +63,11 @@ impl InputsOutputs {
     pub fn update_input(&mut self, input_index: GameInput, value: bool) {
         match input_index {
             GameInput::Coin => self.coin = value,
-            GameInput::Player1Start => self.player1.start = value,
-            GameInput::Player2Start => self.player2.start = value,
-            GameInput::Left => self.player1.left = value,
-            GameInput::Right => self.player1.right = value,
-            GameInput::Shot => self.player1.shot = value,
+            GameInput::Player1Start => self.player1_start = value,
+            GameInput::Player2Start => self.player2_start = value,
+            GameInput::Left => self.player.left = value,
+            GameInput::Right => self.player.right = value,
+            GameInput::Shot => self.player.shot = value,
             GameInput::Dip3 => self.dip3 = value,
             GameInput::Dip5 => self.dip5 = value,
             GameInput::Dip6 => self.dip6 = value,
