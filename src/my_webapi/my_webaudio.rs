@@ -73,6 +73,7 @@ pub fn load_audio_from_u8array(u8array: &[u8]) -> Result<web_sys::HtmlAudioEleme
         web_sys::BlobPropertyBag::new().type_("audio/mp3"),
     )
     .unwrap();
+
     let download_url = web_sys::Url::create_object_url_with_blob(&blob).unwrap();
     let audio = web_sys::HtmlAudioElement::new_with_src(&download_url).unwrap();
 
