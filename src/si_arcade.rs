@@ -3,6 +3,7 @@ use std::rc::Rc;
 
 use crate::binary_lib::*;
 use crate::my_webapi::MyWebApi;
+// use crate::my_webapi::WebApiKey;
 
 mod cpu;
 mod inputs_outputs;
@@ -98,7 +99,10 @@ impl SpaceInvadersArcade {
     }
 
     fn inputs(&mut self, port: u8, mut data: u8) -> u8 {
-        self.my_api.update_inputs();
+        // // Update inputs states
+        // self.my_api.update_inputs(self.inputs_outputs);
+
+        // Read inputs states to data
         match port {
             0 => {
                 data = 0b0000_1110;
@@ -163,3 +167,5 @@ impl SpaceInvadersArcade {
         (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
     }
 }
+
+// pub fn update_inputs_api(key: WebApiKey, value: bool) {}

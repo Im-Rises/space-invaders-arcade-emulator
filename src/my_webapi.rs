@@ -2,10 +2,23 @@ mod my_webaudio;
 mod my_webgl2;
 mod my_webinputs;
 
+// pub enum WebApiKey {
+//     ArrowLeft,
+//     ArrowUp,
+//     ArrowRight,
+//     // ArrowDown,
+//     C,
+//     K,
+//     L,
+//     M,
+//     One,
+//     Two,
+// }
+
 pub struct MyWebApi {
     my_webgl2: my_webgl2::MyWebGl2,
     my_webaudio: my_webaudio::MyWebAudio,
-    my_webinputs: my_webinputs::MyWebInputs,
+    // my_webinputs: my_webinputs::MyWebInputs,
 }
 
 impl MyWebApi {
@@ -13,7 +26,7 @@ impl MyWebApi {
         MyWebApi {
             my_webgl2: my_webgl2::MyWebGl2::new(canvas_width, canvas_height).unwrap(),
             my_webaudio: my_webaudio::MyWebAudio::new(),
-            my_webinputs: my_webinputs::MyWebInputs::new(),
+            // my_webinputs: my_webinputs::MyWebInputs::new(),
         }
     }
 
