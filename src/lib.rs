@@ -51,7 +51,6 @@ fn main() {
                     "j" => space_invaders_arcade_ref
                         .borrow_mut()
                         .update_input(si_arcade::GameInput::Dip7, is_pressed),
-                    "p" => web_sys::console::log_1(&"Pause".into()),
                     _ => {}
                 }
             }) as Box<dyn FnMut(_)>);

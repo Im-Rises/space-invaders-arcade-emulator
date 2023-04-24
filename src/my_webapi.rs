@@ -2,9 +2,9 @@ mod my_webaudio;
 mod my_webgl2;
 mod my_webinputs;
 
-pub use crate::my_webapi::my_webinputs::GameInput;
-use crate::si_arcade::InputsOutputs;
-use crate::si_arcade::SpaceInvadersArcade;
+// pub use crate::my_webapi::my_webinputs::GameInput;
+// use crate::si_arcade::InputsOutputs;
+// use crate::si_arcade::SpaceInvadersArcade;
 
 // pub enum WebApiKey {
 //     ArrowLeft,
@@ -46,7 +46,7 @@ impl MyWebApi {
         // self.my_webaudio.play_sound(port, data);
     }
 
-    pub fn update_input(&mut self, inputs_outputs: &mut InputsOutputs, input_index: GameInput, value: bool) {
-        my_webinputs::update_input(inputs_outputs, input_index, value);
-    }
+    // pub fn update_input(&mut self, inputs_outputs: &mut InputsOutputs, input_index: GameInput, value: bool) {
+    // my_webinputs::update_input(inputs_outputs, input_index, value);
+    // }
 }

@@ -12,13 +12,18 @@ Complete Emulator of the Intel 8080, the app is implemented to run the Space Inv
 
 TODO:
 
-- [ ] Add controls
+- [x] Add controls
 - [ ] Add audio
 - [x] Add video
 - [ ] Add the rom loader
+- [ ] Move the input handling to the si_arcade crate no web_api crate
+- [ ] Correct player 2 controls not working
+- [ ] Correct the player 2 controls to be set on the same as the player 1
+- [ ] Add a way to fetch the score from the game ?
 - [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
 - [ ] When shooting add loop at the end of the sound to make it sound like the original game or make it longer and stop
   it when the player stop shooting.
+- [ ] Move corrected code to the original project
 
 ## Images
 
