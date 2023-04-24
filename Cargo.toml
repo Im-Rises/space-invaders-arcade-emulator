@@ -44,4 +44,6 @@ features = [
     'BlobPropertyBag',
     'Url',
     'KeyboardEvent',
+    'File',
+    'FilePropertyBag'
 ]

@@ -153,11 +153,14 @@ impl SpaceInvadersArcade {
         match port {
             2 => self.inputs_outputs.shift_offset = data & 0b0000_0111,
             3 => {
-                self.my_api.play_audio_sound(port, data);
+                // self.my_api
+                //     .play_audio_sound(self::spu::get_audio_index(port, data).unwrap());
+                self.my_api.play_audio_sound(0);
             }
             4 => self.inputs_outputs.shift_register = self.inputs_outputs.shift_register >> 8 | (data as u16) << 8,
             5 => {
-                self.my_api.play_audio_sound(port, data);
+                // self.my_api
+                //     .play_audio_sound(self::spu::get_audio_index(port, data).unwrap());
             }
             6 => (), //Watch dog
             _ => {
