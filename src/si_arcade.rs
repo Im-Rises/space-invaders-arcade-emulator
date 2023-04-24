@@ -28,12 +28,22 @@ pub struct SpaceInvadersArcade {
 impl SpaceInvadersArcade {
     pub fn new() -> SpaceInvadersArcade {
         let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new()));
+        let mut sounds: Vec<&[u8]> = Vec::new();
+        sounds.push(&spu::SOUND_0);
+        sounds.push(&spu::SOUND_1);
+        sounds.push(&spu::SOUND_2);
+        sounds.push(&spu::SOUND_3);
+        sounds.push(&spu::SOUND_4);
+        sounds.push(&spu::SOUND_5);
+        sounds.push(&spu::SOUND_6);
+        sounds.push(&spu::SOUND_7);
+        sounds.push(&spu::SOUND_8);
         SpaceInvadersArcade {
             cpu: cpu::Cpu::new(&mmu_init, 0),
             ppu: ppu::Ppu::new(&mmu_init),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
-            my_api: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32),
+            my_api: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32, sounds),
             frequency_counter: 0,
             last_frequency_counter: 0,
         }

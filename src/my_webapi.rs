@@ -3,14 +3,14 @@ mod my_webgl2;
 
 pub struct MyWebApi {
     my_webgl2: my_webgl2::MyWebGl2,
-    // my_webaudio: my_webaudio::MyWebAudio,
+    my_webaudio: my_webaudio::MyWebAudio,
 }
 
 impl MyWebApi {
-    pub fn new(canvas_width: u32, canvas_height: u32) -> MyWebApi {
+    pub fn new(canvas_width: u32, canvas_height: u32, sounds: Vec<&[u8]>) -> MyWebApi {
         MyWebApi {
             my_webgl2: my_webgl2::MyWebGl2::new(canvas_width, canvas_height).unwrap(),
-            // my_webaudio: my_webaudio::MyWebAudio::new(),
+            my_webaudio: my_webaudio::MyWebAudio::new(sounds),
         }
     }
 
@@ -22,7 +22,7 @@ impl MyWebApi {
         self.my_webgl2.draw();
     }
 
-    pub fn play_audio_sound(&self, port: u8, data: u8) {
-        // self.my_webaudio.play_sound(port, data);
+    pub fn play_audio_sound(&self, index: usize) {
+        self.my_webaudio.play_sound(index);
     }
 }

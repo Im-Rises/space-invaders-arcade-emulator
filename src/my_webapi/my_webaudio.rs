@@ -3,18 +3,12 @@ use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{window, AudioBuffer, AudioContext, AudioNode};
 
 pub struct MyWebAudio {
-    // audio_context: web_sys::HtmlAudioElement
-    // context: AudioContext,
-    // buffers: Vec<Option<AudioBuffer>>,
-    // audio: web_sys::HtmlAudioElement,
     sounds: Vec<web_sys::HtmlAudioElement>,
 }
 
 impl MyWebAudio {
     pub fn new(sounds_bytes: Vec<&[u8]>) -> Self {
         Self {
-            // audio_context: Self::load_audio_from_u8array(include_bytes!("../../game_audios/0.wav")).unwrap()
-            // load_audio_from_u8array(include_bytes!("../../game_audios/0.wav")).unwrap()
             sounds: sounds_bytes
                 .iter()
                 .map(|sound| load_audio_from_u8array(*sound).unwrap())
@@ -23,13 +17,7 @@ impl MyWebAudio {
     }
 
     pub fn play_sound(&self, index: usize) {
-        //     // let context = AudioContext::new().unwrap();
-        //     // let source = context.create_buffer_source().unwrap();
-        //     // source.set_buffer(Some(&self.sounds[index]));
-        //     // source.connect_with_audio_node(&context.destination()).unwrap();
-        //     // source.start().unwrap();
-        //
-        //     self.sounds[index].play();
+        self.sounds[index].play();
     }
 }
 
