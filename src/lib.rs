@@ -15,46 +15,29 @@ fn main() {
     pub fn start() -> Result<(), JsValue> {
         let mut space_invaders_arcade = si_arcade::SpaceInvadersArcade::new();
 
-        // Set up the keyboard event listener to handle key press events
+        // Set up the keyboard event listener to handle key events
         {
-            let closure = Closure::wrap(Box::new(move |event: KeyboardEvent| match event.key().as_ref() {
-                "ArrowLeft" => web_sys::console::log_1(&"Left arrow key pressed".into()),
-                "ArrowUp" => web_sys::console::log_1(&"Up arrow key pressed".into()),
-                "ArrowRight" => web_sys::console::log_1(&"Right arrow key pressed".into()),
-                // "ArrowDown" => web_sys::console::log_1(&"Down arrow key pressed".into()),
-                "c" => web_sys::console::log_1(&"C key pressed".into()),
-                "k" => web_sys::console::log_1(&"K key pressed".into()),
-                "l" => web_sys::console::log_1(&"L key pressed".into()),
-                "m" => web_sys::console::log_1(&"M key pressed".into()),
-                "1" => web_sys::console::log_1(&"1 key pressed".into()),
-                "2" => web_sys::console::log_1(&"2 key pressed".into()),
-                _ => web_sys::console::log_1(&format!("{} key pressed", event.key()).into()),
-            }) as Box<dyn FnMut(_)>);
+            let closure =
+                Closure::wrap(Box::new(
+                    move |event: KeyboardEvent, is_pressed: bool| match event.key().as_ref() {
+                        // "ArrowLeft" => space_invaders_arcade.update_input(si_arcade::GameInput::Left, is_pressed),
+                        // "ArrowRight" => space_invaders_arcade.update_input(si_arcade::GameInput::Right, is_pressed),
+                        // "ArrowUp" => space_invaders_arcade.update_input(si_arcade::GameInput::Shot, is_pressed),
+                        // "c" => space_invaders_arcade.update_input(si_arcade::GameInput::Coin, is_pressed),
+                        // "1" => space_invaders_arcade.update_input(si_arcade::GameInput::Player1Start, is_pressed),
+                        // "2" => space_invaders_arcade.update_input(si_arcade::GameInput::Player2Start, is_pressed),
+                        // "k" => space_invaders_arcade.update_input(si_arcade::GameInput::Dip3, is_pressed),
+                        // "l" => space_invaders_arcade.update_input(si_arcade::GameInput::Dip5, is_pressed),
+                        // "m" => space_invaders_arcade.update_input(si_arcade::GameInput::Dip6, is_pressed),
+                        // "j" => space_invaders_arcade.update_input(si_arcade::GameInput::Dip7, is_pressed),
+                        "p" => web_sys::console::log_1(&"Pause".into()),
+                        _ => {}
+                    },
+                ) as Box<dyn FnMut(_, bool)>);
 
             window().add_event_listener_with_callback("keydown", closure.as_ref().unchecked_ref())?;
+            window().add_event_listener_with_callback("keyup", closure.as_ref().unchecked_ref())?;
 
-            closure.forget();
-        }
-
-        // Set up the keyboard event listener to handle key release events
-        {
-            let closure = Closure::wrap(Box::new(move |event: KeyboardEvent| match event.key().as_ref() {
-                "ArrowLeft" => web_sys::console::log_1(&"Left arrow key released".into()),
-                "ArrowUp" => web_sys::console::log_1(&"Up arrow key released".into()),
-                "ArrowRight" => web_sys::console::log_1(&"Right arrow key released".into()),
-                // "ArrowDown" => web_sys::console::log_1(&"Down arrow key released".into()),
-                "c" => web_sys::console::log_1(&"C key released".into()),
-                "k" => web_sys::console::log_1(&"K key released".into()),
-                "l" => web_sys::console::log_1(&"L key released".into()),
-                "m" => web_sys::console::log_1(&"M key released".into()),
-                "1" => web_sys::console::log_1(&"1 key released".into()),
-                "2" => web_sys::console::log_1(&"2 key released".into()),
-                _ => web_sys::console::log_1(&format!("{} key released", event.key()).into()),
-            }) as Box<dyn FnMut(_)>);
-            // window().set_onkeyup(Some(closure.as_ref().unchecked_ref()));
-            window()
-                .add_event_listener_with_callback("keyup", closure.as_ref().unchecked_ref())
-                .unwrap();
             closure.forget();
         }
 

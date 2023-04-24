@@ -2,8 +2,9 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use crate::binary_lib::*;
+pub use crate::my_webapi::GameInput;
 use crate::my_webapi::MyWebApi;
-// use crate::my_webapi::WebApiKey;
+pub use crate::si_arcade::inputs_outputs::InputsOutputs;
 
 mod cpu;
 mod inputs_outputs;
@@ -159,6 +160,10 @@ impl SpaceInvadersArcade {
         }
     }
 
+    pub fn update_input(&mut self, game_input: GameInput, value: bool) {
+        self.my_api.update_input(&mut self.inputs_outputs, game_input, value);
+    }
+
     pub fn get_screen(&self) -> &[u8; ppu::SCREEN_WIDTH * ppu::SCREEN_HEIGHT * 3] {
         self.ppu.get_screen()
     }
@@ -167,5 +172,3 @@ impl SpaceInvadersArcade {
         (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
     }
 }
-
-// pub fn update_inputs_api(key: WebApiKey, value: bool) {}
