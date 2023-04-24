@@ -22,7 +22,8 @@ TODO:
 - [x] Correct the player 2 controls to be set on the same as the player 1
 - [x] Move the input handling to the si_arcade crate no web_api crate
 - [x] Move corrected code to the original project
-- [ ] Add audio
+- [x] Add audio
+- [x] Improve the audio
 - [ ] Add the rom loader
 - [ ] Add a way to fetch the score from the game ?
 - [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
@@ -239,10 +240,17 @@ Space Invaders Audio files:
 Mozzila Rust to WebAssembly:  
 <https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm>
 
-rustwasm:  
-<https://rustwasm.github.io/wasm-bindgen/examples/web-audio.html>  
-<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>  
-<https://rustwasm.github.io/docs/wasm-bindgen/examples/request-animation-frame.html>
+rustwasm:   
+<https://rustwasm.github.io/wasm-bindgen/>
+
+js-sys:  
+<https://docs.rs/js-sys/latest/js_sys/>
+
+web-sys:  
+<https://docs.rs/web-sys/latest/web_sys/>
+
+wasm-bindgen:  
+<https://rustwasm.github.io/docs/wasm-bindgen/>
 
 ## Contributors
 
