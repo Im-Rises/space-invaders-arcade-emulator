@@ -2,26 +2,54 @@ use js_sys::{ArrayBuffer, Promise, Uint8Array};
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{window, AudioBuffer, AudioContext, AudioNode};
 
+#[derive(Clone, Copy)]
+pub enum SoundType {
+    unique_sound,
+    loop_sound,
+}
+
+impl PartialEq for SoundType {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (SoundType::unique_sound, SoundType::unique_sound) | (SoundType::loop_sound, SoundType::loop_sound) => true,
+            _ => false,
+        }
+    }
+}
+
 pub struct MyWebAudio {
     sounds: Vec<web_sys::HtmlAudioElement>,
+    last_sounds_states: Vec<bool>,
 }
 
 impl MyWebAudio {
-    pub fn new(sounds_bytes: Vec<&[u8]>) -> Self {
+    pub fn new(sounds_bytes: Vec<(&[u8], SoundType)>) -> Self {
+        let mut sounds = Vec::new();
+        let len = sounds_bytes.len();
+        for sound_bytes in sounds_bytes {
+            let audio_element = load_audio_from_u8array(sound_bytes.0).unwrap();
+            audio_element.set_loop(sound_bytes.1 == SoundType::loop_sound);
+            sounds.push(audio_element);
+        }
+
         Self {
-            sounds: sounds_bytes
-                .iter()
-                .map(|sound| load_audio_from_u8array(*sound).unwrap())
-                .collect(),
+            sounds,
+            last_sounds_states: vec![false; len],
         }
     }
 
-    pub fn play_sound(&self, index: usize) {
-        self.sounds[index].play().unwrap();
-    }
+    pub fn play_sounds(&mut self, sounds_states: &[bool]) {
+        for (i, sound) in self.sounds.iter().enumerate() {
+            if sounds_states[i] && !self.last_sounds_states[i] {
+                sound.play().unwrap();
+            }
+            // else if !sounds_states[i] && self.last_sounds_states[i] {
+            // sound.pause();
+            // sound.set_current_time(0.0);
+            // }
+        }
 
-    pub fn set_sound_loop(&self, index: usize, is_loop: bool) {
-        self.sounds[index].set_loop(is_loop);
+        self.last_sounds_states = sounds_states.to_vec();
     }
 }
 

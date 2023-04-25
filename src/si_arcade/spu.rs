@@ -20,62 +20,48 @@ pub const SOUND_7: &[u8] = include_bytes!("../../game_audios/7.wav");
 pub const SOUND_8: &[u8] = include_bytes!("../../game_audios/8.wav");
 
 pub struct Spu {
-    sounds_to_play: Vec<u8>,
+    sounds_states: Vec<bool>,
 }
 
 impl Spu {
     pub fn new() -> Spu {
         Spu {
-            sounds_to_play: Vec::new(),
+            sounds_states: vec![false; 9],
         }
     }
 
     pub fn update(&mut self, port: u8, data: u8) {
         match port {
             3 => {
-                if get_bit(data, 0) {
-                    self.sounds_to_play.push(0);
-                }
-                if get_bit(data, 1) {
-                    self.sounds_to_play.push(1);
-                }
-                if get_bit(data, 2) {
-                    self.sounds_to_play.push(2);
-                }
-                if get_bit(data, 3) {
-                    self.sounds_to_play.push(3);
-                }
+                self.sounds_states[0] = get_bit(data, 0);
+                self.sounds_states[1] = get_bit(data, 1);
+                self.sounds_states[2] = get_bit(data, 2);
+                self.sounds_states[3] = get_bit(data, 3);
             }
             5 => {
-                if get_bit(data, 0) {
-                    self.sounds_to_play.push(4);
-                }
-                if get_bit(data, 1) {
-                    self.sounds_to_play.push(5);
-                }
-                if get_bit(data, 2) {
-                    self.sounds_to_play.push(6);
-                }
-                if get_bit(data, 3) {
-                    self.sounds_to_play.push(7);
-                }
-                if get_bit(data, 4) {
-                    self.sounds_to_play.push(8);
-                }
+                self.sounds_states[4] = get_bit(data, 0);
+                self.sounds_states[5] = get_bit(data, 1);
+                self.sounds_states[6] = get_bit(data, 2);
+                self.sounds_states[7] = get_bit(data, 3);
+                self.sounds_states[8] = get_bit(data, 4);
             }
             _ => {}
         }
     }
 
-    pub fn fetch_sound_to_play(&mut self) -> Option<u8> {
-        if self.sounds_to_play.len() > 0 {
-            Some(self.sounds_to_play.pop().unwrap())
-        } else {
-            None
-        }
+    pub fn get_sounds_states(&self) -> &[bool] {
+        &self.sounds_states
     }
 
-    pub fn remove_all_sounds_to_play(&mut self) {
-        self.sounds_to_play.clear();
-    }
+    // pub fn fetch_sound_to_play(&mut self) -> Option<u8> {
+    //     if self.sounds_to_play.len() > 0 {
+    //         Some(self.sounds_to_play.pop().unwrap())
+    //     } else {
+    //         None
+    //     }
+    // }
+
+    // pub fn remove_all_sounds_to_play(&mut self) {
+    //     self.sounds_to_play.clear();
+    // }
 }

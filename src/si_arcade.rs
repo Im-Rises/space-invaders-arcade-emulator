@@ -2,7 +2,7 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use crate::binary_lib::*;
-use crate::my_webapi::MyWebApi;
+use crate::my_webapi::{MyWebApi, SoundType};
 pub use crate::si_arcade::inputs_outputs::GameInput;
 
 mod cpu;
@@ -29,16 +29,16 @@ pub struct SpaceInvadersArcade {
 impl SpaceInvadersArcade {
     pub fn new() -> SpaceInvadersArcade {
         let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new()));
-        let mut sounds: Vec<&[u8]> = Vec::new();
-        sounds.push(&spu::SOUND_0);
-        sounds.push(&spu::SOUND_1);
-        sounds.push(&spu::SOUND_2);
-        sounds.push(&spu::SOUND_3);
-        sounds.push(&spu::SOUND_4);
-        sounds.push(&spu::SOUND_5);
-        sounds.push(&spu::SOUND_6);
-        sounds.push(&spu::SOUND_7);
-        sounds.push(&spu::SOUND_8);
+        let mut sounds: Vec<(&[u8], SoundType)> = Vec::new();
+        sounds.push((&spu::SOUND_0, SoundType::loop_sound));
+        sounds.push((&spu::SOUND_1, SoundType::unique_sound));
+        sounds.push((&spu::SOUND_2, SoundType::unique_sound));
+        sounds.push((&spu::SOUND_3, SoundType::unique_sound));
+        sounds.push((&spu::SOUND_4, SoundType::unique_sound));
+        sounds.push((&spu::SOUND_5, SoundType::unique_sound));
+        sounds.push((&spu::SOUND_6, SoundType::unique_sound));
+        sounds.push((&spu::SOUND_7, SoundType::unique_sound));
+        sounds.push((&spu::SOUND_8, SoundType::unique_sound));
         SpaceInvadersArcade {
             cpu: cpu::Cpu::new(&mmu_init, 0),
             ppu: ppu::Ppu::new(&mmu_init),
@@ -182,11 +182,6 @@ impl SpaceInvadersArcade {
 
     fn play_audio(&mut self, port: u8, data: u8) {
         self.spu.update(port, data);
-
-        while let Some(sound) = self.spu.fetch_sound_to_play() {
-            self.my_api.play_audio_sound(sound as usize);
-        }
-
-        self.spu.remove_all_sounds_to_play();
+        self.my_api.play_audio_sound(self.spu.get_sounds_states());
     }
 }
