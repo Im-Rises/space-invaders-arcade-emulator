@@ -4,14 +4,15 @@ use web_sys::{window, AudioBuffer, AudioContext, AudioNode};
 
 #[derive(Clone, Copy)]
 pub enum SoundType {
-    unique_sound,
-    loop_sound,
+    UniqueSound,
+    LoopSound,
+    VariableLengthSound,
 }
 
 impl PartialEq for SoundType {
     fn eq(&self, other: &Self) -> bool {
         match (self, other) {
-            (SoundType::unique_sound, SoundType::unique_sound) | (SoundType::loop_sound, SoundType::loop_sound) => true,
+            (SoundType::UniqueSound, SoundType::UniqueSound) | (SoundType::LoopSound, SoundType::LoopSound) => true,
             _ => false,
         }
     }
@@ -19,45 +20,61 @@ impl PartialEq for SoundType {
 
 pub struct MyWebAudio {
     sounds: Vec<web_sys::HtmlAudioElement>,
+    sounds_types: Vec<SoundType>,
     last_sounds_states: Vec<bool>,
 }
 
 impl MyWebAudio {
     pub fn new(sounds_bytes: Vec<(&[u8], SoundType)>) -> Self {
         let mut sounds = Vec::new();
+        let mut sounds_types = Vec::new();
         let len = sounds_bytes.len();
         for sound_bytes in sounds_bytes {
             let audio_element = load_audio_from_u8array(sound_bytes.0).unwrap();
-            audio_element.set_loop(sound_bytes.1 == SoundType::loop_sound);
+            audio_element.set_loop(sound_bytes.1 == SoundType::LoopSound);
+            sounds_types.push(sound_bytes.1);
             sounds.push(audio_element);
         }
 
         Self {
             sounds,
+            sounds_types,
             last_sounds_states: vec![false; len],
         }
     }
 
     pub fn play_sounds(&mut self, sounds_states: &[bool]) {
         for (i, sound) in self.sounds.iter().enumerate() {
-            if sound.loop_() {
-                // If is loop sound, play only on mounting state ans stop on unmounting state
-                if sounds_states[i] && !self.last_sounds_states[i] {
-                    sound.play().unwrap();
-                    web_sys::console::log_1(&"play".into());
-                } else if !sounds_states[i] && self.last_sounds_states[i] {
-                    sound.pause();
-                    sound.set_current_time(0.0);
+            match self.sounds_types[i] {
+                SoundType::LoopSound => {
+                    // If is loop sound, play only on mounting state ans stop on unmounting state
+                    if sounds_states[i] && !self.last_sounds_states[i] {
+                        sound.play().unwrap();
+                        web_sys::console::log_1(&"play".into());
+                    } else if !sounds_states[i] && self.last_sounds_states[i] {
+                        sound.pause();
+                        sound.set_current_time(0.0);
+                    }
                 }
-            } else {
-                // If is unique sound, play only on mounting state
-                if sounds_states[i] && !self.last_sounds_states[i] {
-                    sound.play().unwrap();
+                SoundType::UniqueSound => {
+                    // If is unique sound, play only on mounting state
+                    if sounds_states[i] && !self.last_sounds_states[i] {
+                        sound.play().unwrap();
+                    }
+                    // else if !sounds_states[i] && self.last_sounds_states[i] {
+                    // sound.pause();
+                    // sound.set_current_time(0.0);
+                    // }
                 }
-                // else if !sounds_states[i] && self.last_sounds_states[i] {
-                // sound.pause();
-                // sound.set_current_time(0.0);
-                // }
+                SoundType::VariableLengthSound => {
+                    // If is variable length sound, play only on mounting state and stop on unmounting state
+                    if sounds_states[i] && !self.last_sounds_states[i] {
+                        sound.play().unwrap();
+                    } else if !sounds_states[i] && self.last_sounds_states[i] {
+                        sound.pause();
+                        sound.set_current_time(0.0);
+                    }
+                }
             }
         }
 

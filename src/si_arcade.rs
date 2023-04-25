@@ -30,15 +30,15 @@ impl SpaceInvadersArcade {
     pub fn new(rom_h: &[u8; 0x800], rom_g: &[u8; 0x800], rom_f: &[u8; 0x800], rom_e: &[u8; 0x800]) -> Self {
         let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new(rom_h, rom_g, rom_f, rom_e)));
         let mut sounds: Vec<(&[u8], SoundType)> = Vec::new();
-        sounds.push((&spu::SOUND_0, SoundType::loop_sound));
-        sounds.push((&spu::SOUND_1, SoundType::unique_sound));
-        sounds.push((&spu::SOUND_2, SoundType::unique_sound));
-        sounds.push((&spu::SOUND_3, SoundType::unique_sound));
-        sounds.push((&spu::SOUND_4, SoundType::unique_sound));
-        sounds.push((&spu::SOUND_5, SoundType::unique_sound));
-        sounds.push((&spu::SOUND_6, SoundType::unique_sound));
-        sounds.push((&spu::SOUND_7, SoundType::unique_sound));
-        sounds.push((&spu::SOUND_8, SoundType::unique_sound));
+        sounds.push((&spu::SOUND_0, SoundType::LoopSound));
+        sounds.push((&spu::SOUND_1, SoundType::VariableLengthSound));
+        sounds.push((&spu::SOUND_2, SoundType::UniqueSound));
+        sounds.push((&spu::SOUND_3, SoundType::UniqueSound));
+        sounds.push((&spu::SOUND_4, SoundType::UniqueSound));
+        sounds.push((&spu::SOUND_5, SoundType::UniqueSound));
+        sounds.push((&spu::SOUND_6, SoundType::UniqueSound));
+        sounds.push((&spu::SOUND_7, SoundType::UniqueSound));
+        sounds.push((&spu::SOUND_8, SoundType::UniqueSound));
         SpaceInvadersArcade {
             cpu: cpu::Cpu::new(&mmu_init, 0),
             ppu: ppu::Ppu::new(&mmu_init),

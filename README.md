@@ -26,6 +26,10 @@ TODO:
 - [x] Improve the audio
 - [x] Handle the mp3 play correctly in the api
 - [x] Change the spu to list the index of the sound to play and then fetch the sound with the api
+- [x] Update the audio api sound handling with 3 types of sounds
+- [ ] Update the UFO sound (is looping but sound is too much spaced)
+- [ ] Update the shoot sound (increase its length to have the shoot until it reach the top of the screen maximum, the
+  api is already implemented to stop the sound)
 - [ ] Add the rom loader
 - [ ] Add a way to fetch the score from the game ?
 - [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
