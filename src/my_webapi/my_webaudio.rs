@@ -1,6 +1,5 @@
-use js_sys::{ArrayBuffer, Promise, Uint8Array};
-use wasm_bindgen::{JsCast, JsValue};
-use web_sys::{window, AudioBuffer, AudioContext, AudioNode};
+use js_sys::Uint8Array;
+use wasm_bindgen::JsValue;
 
 #[derive(Clone, Copy)]
 pub enum SoundType {
@@ -49,28 +48,36 @@ impl MyWebAudio {
                 SoundType::UniqueSound => {
                     // If is unique sound, play only on mounting state
                     if sounds_states[i] && !self.last_sounds_states[i] {
-                        sound.play().unwrap();
+                        sound.play();
                     }
                 }
-                SoundType::LoopSound => {
-                    // If is loop sound, play only on mounting state ans stop on unmounting state
+                SoundType::LoopSound | SoundType::VariableLengthSound => {
+                    // If is loop sound or VariableLengthSound, play only on mounting state and stop on unmounting state
                     if sounds_states[i] && !self.last_sounds_states[i] {
-                        sound.play().unwrap();
-                        web_sys::console::log_1(&"play".into());
+                        sound.play();
                     } else if !sounds_states[i] && self.last_sounds_states[i] {
                         sound.pause();
                         sound.set_current_time(0.0);
                     }
-                }
-                SoundType::VariableLengthSound => {
-                    // If is variable length sound, play only on mounting state and stop on unmounting state
-                    if sounds_states[i] && !self.last_sounds_states[i] {
-                        sound.play().unwrap();
-                    } else if !sounds_states[i] && self.last_sounds_states[i] {
-                        sound.pause();
-                        sound.set_current_time(0.0);
-                    }
-                }
+                } /**/
+                  // SoundType::LoopSound => {
+                  //     // If is loop sound, play only on mounting state and stop on unmounting state
+                  //     if sounds_states[i] && !self.last_sounds_states[i] {
+                  //         sound.play();
+                  //     } else if !sounds_states[i] && self.last_sounds_states[i] {
+                  //         sound.pause();
+                  //         sound.set_current_time(0.0);
+                  //     }
+                  // }
+                  // SoundType::VariableLengthSound => {
+                  //     // If is variable length sound, play only on mounting state and stop on unmounting state
+                  //     if sounds_states[i] && !self.last_sounds_states[i] {
+                  //         sound.play();
+                  //     } else if !sounds_states[i] && self.last_sounds_states[i] {
+                  //         sound.pause();
+                  //         sound.set_current_time(0.0);
+                  //     }
+                  // }
             }
         }
 

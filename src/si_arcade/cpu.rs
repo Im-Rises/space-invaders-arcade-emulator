@@ -68,6 +68,7 @@ impl Cpu {
     }
 
     pub fn compute_opcode(&mut self, opcode: u8) -> u8 {
+        #[allow(unreachable_patterns)]
         match opcode {
             0x00 => nop(),
             0x01 => lxi_b(self),
@@ -347,10 +348,6 @@ impl Cpu {
 
     pub fn get_a(&self) -> u8 {
         self.regs.a
-    }
-
-    pub fn get_pc(&self) -> u16 {
-        self.pc
     }
 
     // Setters

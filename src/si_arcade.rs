@@ -11,7 +11,9 @@ mod mmu;
 mod ppu;
 mod spu;
 
+#[allow(dead_code)]
 const SCREEN_REFRESH_TIME: u128 = 16;
+
 const INTERRUPT_VBLANK_COUNTER: usize = cpu::CLOCK_FREQUENCY / ppu::SCREEN_FREQUENCY;
 const INTERRUPT_MIDDLE_VBLANK: usize = INTERRUPT_VBLANK_COUNTER / 2;
 
@@ -177,10 +179,12 @@ impl SpaceInvadersArcade {
         self.inputs_outputs.update_input(game_input, value);
     }
 
+    #[allow(dead_code)]
     pub fn get_screen(&self) -> &[u8; ppu::SCREEN_WIDTH * ppu::SCREEN_HEIGHT * 3] {
         self.ppu.get_screen()
     }
 
+    #[allow(dead_code)]
     pub fn get_si_arcade_screen_width_height(&self) -> (usize, usize) {
         (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
     }
