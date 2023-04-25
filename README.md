@@ -246,17 +246,14 @@ Space Invaders Audio files:
 Mozzila Rust to WebAssembly:  
 <https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm>
 
-rustwasm:   
-<https://rustwasm.github.io/wasm-bindgen/>
+wasm-bindgen:  
+<https://rustwasm.github.io/docs/wasm-bindgen/>
 
 js-sys:  
 <https://docs.rs/js-sys/latest/js_sys/>
 
 web-sys:  
 <https://docs.rs/web-sys/latest/web_sys/>
-
-wasm-bindgen:  
-<https://rustwasm.github.io/docs/wasm-bindgen/>
 
 ## Contributors
 

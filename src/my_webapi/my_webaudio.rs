@@ -19,32 +19,32 @@ impl PartialEq for SoundType {
 }
 
 pub struct MyWebAudio {
-    sounds: Vec<web_sys::HtmlAudioElement>,
+    sounds_elements: Vec<web_sys::HtmlAudioElement>,
     sounds_types: Vec<SoundType>,
     last_sounds_states: Vec<bool>,
 }
 
 impl MyWebAudio {
-    pub fn new(sounds_bytes: Vec<(&[u8], SoundType)>) -> Self {
-        let mut sounds = Vec::new();
+    pub fn new(sounds_data: Vec<(&[u8], SoundType)>) -> Self {
+        let len = sounds_data.len();
+        let mut sounds_elements = Vec::new();
         let mut sounds_types = Vec::new();
-        let len = sounds_bytes.len();
-        for sound_bytes in sounds_bytes {
+        for sound_bytes in sounds_data {
             let audio_element = load_audio_from_u8array(sound_bytes.0).unwrap();
             audio_element.set_loop(sound_bytes.1 == SoundType::LoopSound);
             sounds_types.push(sound_bytes.1);
-            sounds.push(audio_element);
+            sounds_elements.push(audio_element);
         }
 
         Self {
-            sounds,
+            sounds_elements,
             sounds_types,
             last_sounds_states: vec![false; len],
         }
     }
 
     pub fn play_sounds(&mut self, sounds_states: &[bool]) {
-        for (i, sound) in self.sounds.iter().enumerate() {
+        for (i, sound) in self.sounds_elements.iter().enumerate() {
             match self.sounds_types[i] {
                 SoundType::UniqueSound => {
                     // If is unique sound, play only on mounting state
