@@ -27,8 +27,8 @@ pub struct SpaceInvadersArcade {
 }
 
 impl SpaceInvadersArcade {
-    pub fn new() -> SpaceInvadersArcade {
-        let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new()));
+    pub fn new(rom_h: &[u8; 0x800], rom_g: &[u8; 0x800], rom_f: &[u8; 0x800], rom_e: &[u8; 0x800]) -> Self {
+        let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new(rom_h, rom_g, rom_f, rom_e)));
         let mut sounds: Vec<(&[u8], SoundType)> = Vec::new();
         sounds.push((&spu::SOUND_0, SoundType::loop_sound));
         sounds.push((&spu::SOUND_1, SoundType::unique_sound));
@@ -168,6 +168,11 @@ impl SpaceInvadersArcade {
         }
     }
 
+    fn play_audio(&mut self, port: u8, data: u8) {
+        self.spu.update(port, data);
+        self.my_api.play_audio_sound(self.spu.get_sounds_states());
+    }
+
     pub fn update_input(&mut self, game_input: inputs_outputs::GameInput, value: bool) {
         self.inputs_outputs.update_input(game_input, value);
     }
@@ -178,10 +183,5 @@ impl SpaceInvadersArcade {
 
     pub fn get_si_arcade_screen_width_height(&self) -> (usize, usize) {
         (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
-    }
-
-    fn play_audio(&mut self, port: u8, data: u8) {
-        self.spu.update(port, data);
-        self.my_api.play_audio_sound(self.spu.get_sounds_states());
     }
 }

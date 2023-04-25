@@ -13,40 +13,16 @@ pub struct Mmu {
 }
 
 impl Mmu {
-    pub fn new() -> Self {
+    // pub fn new() -> Mmu {
+    pub fn new(rom_h: &[u8; 0x800], rom_g: &[u8; 0x800], rom_f: &[u8; 0x800], rom_e: &[u8; 0x800]) -> Mmu {
         let mut mmu = Mmu {
             memory: vec![0; MEMORY_SIZE],
         };
 
-        // let array_h: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.h").unwrap();
-        // let array_g: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.g").unwrap();
-        // let array_f: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.f").unwrap();
-        // let array_e: [u8; 0x800] = space_invaders_rom("./game_roms/invaders.e").unwrap();
-        // mmu.memory[0..0x800].clone_from_slice(&array_h);
-        // mmu.memory[0x800..0x1000].clone_from_slice(&array_g);
-        // mmu.memory[0x1000..0x1800].clone_from_slice(&array_f);
-        // mmu.memory[0x1800..0x2000].clone_from_slice(&array_e);
-
-        let array_h: [u8; 0x800] = include_bytes!("../../game_roms/invaders.h")
-            .to_vec()
-            .try_into()
-            .unwrap();
-        let array_g: [u8; 0x800] = include_bytes!("../../game_roms/invaders.g")
-            .to_vec()
-            .try_into()
-            .unwrap();
-        let array_f: [u8; 0x800] = include_bytes!("../../game_roms/invaders.f")
-            .to_vec()
-            .try_into()
-            .unwrap();
-        let array_e: [u8; 0x800] = include_bytes!("../../game_roms/invaders.e")
-            .to_vec()
-            .try_into()
-            .unwrap();
-        mmu.memory[0..0x800].clone_from_slice(&array_h);
-        mmu.memory[0x800..0x1000].clone_from_slice(&array_g);
-        mmu.memory[0x1000..0x1800].clone_from_slice(&array_f);
-        mmu.memory[0x1800..0x2000].clone_from_slice(&array_e);
+        mmu.memory[0x0000..0x0800].clone_from_slice(rom_h);
+        mmu.memory[0x0800..0x1000].clone_from_slice(rom_g);
+        mmu.memory[0x1000..0x1800].clone_from_slice(rom_f);
+        mmu.memory[0x1800..0x2000].clone_from_slice(rom_e);
 
         mmu
     }
@@ -84,7 +60,7 @@ impl Mmu {
     }
 }
 
-fn space_invaders_rom(rom_path: &str) -> Result<[u8; 0x800], Error> {
+fn read_space_invaders_rom(rom_path: &str) -> Result<[u8; 0x800], Error> {
     let mut f = File::open(rom_path)?;
     let mut buffer: [u8; 0x800] = [0; 0x800];
     let size = f.read(&mut buffer)?;

@@ -40,13 +40,25 @@ impl MyWebAudio {
 
     pub fn play_sounds(&mut self, sounds_states: &[bool]) {
         for (i, sound) in self.sounds.iter().enumerate() {
-            if sounds_states[i] && !self.last_sounds_states[i] {
-                sound.play().unwrap();
+            if sound.loop_() {
+                // If is loop sound, play only on mounting state ans stop on unmounting state
+                if sounds_states[i] && !self.last_sounds_states[i] {
+                    sound.play().unwrap();
+                    web_sys::console::log_1(&"play".into());
+                } else if !sounds_states[i] && self.last_sounds_states[i] {
+                    sound.pause();
+                    sound.set_current_time(0.0);
+                }
+            } else {
+                // If is unique sound, play only on mounting state
+                if sounds_states[i] && !self.last_sounds_states[i] {
+                    sound.play().unwrap();
+                }
+                // else if !sounds_states[i] && self.last_sounds_states[i] {
+                // sound.pause();
+                // sound.set_current_time(0.0);
+                // }
             }
-            // else if !sounds_states[i] && self.last_sounds_states[i] {
-            // sound.pause();
-            // sound.set_current_time(0.0);
-            // }
         }
 
         self.last_sounds_states = sounds_states.to_vec();

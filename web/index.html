@@ -5,7 +5,29 @@
     <title>Space Invaders Emulator</title>
 </head>
 <body>
-<canvas class="canvas-webgl" id="canvas"></canvas>
+<div>
+    <canvas class="canvas-webgl" id="canvas"></canvas>
+    <button id="start" onclick="window.run()">Start
+    </button>
+</div>
+<div>
+    <div>
+        <p>Rom H</p>
+        <input id="input_rom_h" name="rom_h" type="file">
+    </div>
+    <div>
+        <p>Rom G</p>
+        <input id="input_rom_g" name="rom_g" type="file">
+    </div>
+    <div>
+        <p>Rom F</p>
+        <input id="input_rom_f" name="rom_f" type="file">
+    </div>
+    <div>
+        <p>Rom E</p>
+        <input id="input_rom_e" name="rom_e" type="file">
+    </div>
+</div>
 <script type="module">
     import init from "./pkg/space_invaders_arcade_emulator.js";
 
@@ -13,7 +35,22 @@
         await init();
     }
 
-    run();
+    // run();
+
+    window.run = async function () {
+        await init();
+    }
+
+    /*
+    "() => {
+        const rom_h = document.getElementById('rom_h').files[0];
+        const rom_g = document.getElementById('rom_g').files[0];
+        const rom_f = document.getElementById('rom_f').files[0];
+        const rom_e = document.getElementById('rom_e').files[0];
+        const roms = [rom_h, rom_g, rom_f, rom_e];
+        loadRom(roms);
+    }"
+    * */
 </script>
 </body>
 </html>

@@ -45,5 +45,8 @@ features = [
     'Url',
     'KeyboardEvent',
     'File',
-    'FilePropertyBag'
+    'FilePropertyBag',
+    'HtmlInputElement',
+    'FileList',
+    'FileReader'
 ]
