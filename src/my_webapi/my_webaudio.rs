@@ -46,6 +46,12 @@ impl MyWebAudio {
     pub fn play_sounds(&mut self, sounds_states: &[bool]) {
         for (i, sound) in self.sounds.iter().enumerate() {
             match self.sounds_types[i] {
+                SoundType::UniqueSound => {
+                    // If is unique sound, play only on mounting state
+                    if sounds_states[i] && !self.last_sounds_states[i] {
+                        sound.play().unwrap();
+                    }
+                }
                 SoundType::LoopSound => {
                     // If is loop sound, play only on mounting state ans stop on unmounting state
                     if sounds_states[i] && !self.last_sounds_states[i] {
@@ -55,16 +61,6 @@ impl MyWebAudio {
                         sound.pause();
                         sound.set_current_time(0.0);
                     }
-                }
-                SoundType::UniqueSound => {
-                    // If is unique sound, play only on mounting state
-                    if sounds_states[i] && !self.last_sounds_states[i] {
-                        sound.play().unwrap();
-                    }
-                    // else if !sounds_states[i] && self.last_sounds_states[i] {
-                    // sound.pause();
-                    // sound.set_current_time(0.0);
-                    // }
                 }
                 SoundType::VariableLengthSound => {
                     // If is variable length sound, play only on mounting state and stop on unmounting state
