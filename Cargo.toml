@@ -48,5 +48,6 @@ features = [
     'FilePropertyBag',
     'HtmlInputElement',
     'FileList',
-    'FileReader'
+    'FileReader',
+    'ProgressEvent'
 ]

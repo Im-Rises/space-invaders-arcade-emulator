@@ -9,9 +9,9 @@ pub struct MyWebApi {
 }
 
 impl MyWebApi {
-    pub fn new(canvas_width: u32, canvas_height: u32, sounds: Vec<(&[u8], SoundType)>) -> MyWebApi {
+    pub fn new(canvas_id: String, canvas_width: u32, canvas_height: u32, sounds: Vec<(&[u8], SoundType)>) -> MyWebApi {
         MyWebApi {
-            my_webgl2: my_webgl2::MyWebGl2::new(canvas_width, canvas_height).unwrap(),
+            my_webgl2: my_webgl2::MyWebGl2::new(canvas_id, canvas_width, canvas_height).unwrap(),
             my_webaudio: my_webaudio::MyWebAudio::new(sounds),
         }
     }

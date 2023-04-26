@@ -11,10 +11,10 @@ pub struct MyWebGl2 {
 }
 
 impl MyWebGl2 {
-    pub fn new(canvas_width: u32, canvas_height: u32) -> Result<MyWebGl2, JsValue> {
+    pub fn new(canvas_id: String, canvas_width: u32, canvas_height: u32) -> Result<MyWebGl2, JsValue> {
         // Get the canvas element
         let document = web_sys::window().unwrap().document().unwrap();
-        let canvas = document.get_element_by_id("canvas").unwrap();
+        let canvas = document.get_element_by_id(&canvas_id).unwrap();
         let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
 
         // Set the canvas width and height

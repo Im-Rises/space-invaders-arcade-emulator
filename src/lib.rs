@@ -14,7 +14,13 @@ use wasm_bindgen::JsCast;
 use web_sys::KeyboardEvent;
 
 #[wasm_bindgen(start)]
-pub fn start() -> Result<(), JsValue> {
+pub fn initialize() -> Result<(), JsValue> {
+    web_sys::console::log_1(&"Rust module loaded!".into());
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn run(canvas_id: String) -> Result<(), JsValue> {
     /* Debug code */
     let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
     let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
@@ -42,7 +48,7 @@ pub fn start() -> Result<(), JsValue> {
 
         // If the four inputs are filled with the roms
         let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
-            &array_h, &array_g, &array_f, &array_e,
+            canvas_id, &array_h, &array_g, &array_f, &array_e,
         )));
 
         // Set up the keyboard event listener to handle key events
@@ -126,6 +132,8 @@ fn get_input_element(id: &str) -> web_sys::HtmlInputElement {
         .dyn_into::<web_sys::HtmlInputElement>()
         .unwrap()
 }
+
+fn read_file(input: web_sys::HtmlInputElement) {}
 
 fn get_rom_from_input(input: &web_sys::HtmlInputElement) -> Result<[u8; 0x800], Error> {
     let mut array: [u8; 0x800] = [0; 0x800];

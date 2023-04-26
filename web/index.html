@@ -29,28 +29,17 @@
     </div>
 </div>
 <script type="module">
-    import init from "./pkg/space_invaders_arcade_emulator.js";
-
-    async function run() {
-        await init();
-    }
-
-    // run();
+    import init, {run} from "./pkg/space_invaders_arcade_emulator.js";
 
     window.run = async function () {
+        await run("canvas");
+    }
+
+    async function init_wasm() {
         await init();
     }
 
-    /*
-    "() => {
-        const rom_h = document.getElementById('rom_h').files[0];
-        const rom_g = document.getElementById('rom_g').files[0];
-        const rom_f = document.getElementById('rom_f').files[0];
-        const rom_e = document.getElementById('rom_e').files[0];
-        const roms = [rom_h, rom_g, rom_f, rom_e];
-        loadRom(roms);
-    }"
-    * */
+    init_wasm();
 </script>
 </body>
 </html>

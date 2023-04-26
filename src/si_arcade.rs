@@ -29,7 +29,13 @@ pub struct SpaceInvadersArcade {
 }
 
 impl SpaceInvadersArcade {
-    pub fn new(rom_h: &[u8; 0x800], rom_g: &[u8; 0x800], rom_f: &[u8; 0x800], rom_e: &[u8; 0x800]) -> Self {
+    pub fn new(
+        canvas_id: String,
+        rom_h: &[u8; 0x800],
+        rom_g: &[u8; 0x800],
+        rom_f: &[u8; 0x800],
+        rom_e: &[u8; 0x800],
+    ) -> Self {
         let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new(rom_h, rom_g, rom_f, rom_e)));
         let mut sounds: Vec<(&[u8], SoundType)> = Vec::new();
         sounds.push((&spu::SOUND_0, SoundType::LoopSound));
@@ -47,7 +53,7 @@ impl SpaceInvadersArcade {
             spu: spu::Spu::new(),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
-            my_api: MyWebApi::new(ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32, sounds),
+            my_api: MyWebApi::new(canvas_id, ppu::SCREEN_WIDTH as u32, ppu::SCREEN_HEIGHT as u32, sounds),
             frequency_counter: 0,
             last_frequency_counter: 0,
         }
