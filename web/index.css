@@ -3,14 +3,57 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    font-size: 16px;
     /*overflow: hidden;*/
 }
 
+.canvas-webgl-holder {
+    display: flex;
+    width: 100%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+}
+
 .canvas-webgl {
+    height: 80%;
     rotate: -90deg;
-    /*transform: ScaleY(-1);*/
-    /*max-width: 100%;*/
-    /*max-height: 100%;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
+}
+
+.inputs-roms-holder {
+    display: flex;
+    width: 100%;
+    height: 20%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.rom-input {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    color: #555;
+    font-size: 16px;
+}
+
+.custom-file-upload:hover {
+    background-color: #ddd;
+}
+
+.file-input {
+    position: absolute;
+    left: -9999px;
 }

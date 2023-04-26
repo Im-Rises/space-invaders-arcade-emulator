@@ -6,30 +6,38 @@
 </head>
 <body>
 <div>
-    <canvas class="canvas-webgl" id="canvas"></canvas>
-    <button id="start" onclick="window.run()">Start
-    </button>
+    <div class="canvas-webgl-holder">
+        <canvas class="canvas-webgl" id="canvas"></canvas>
+    </div>
 </div>
-<div>
-    <div>
-        <p>Rom H</p>
-        <input id="input_rom_h" name="rom_h" type="file">
+<div class="inputs-roms-holder">
+    <div class="rom-input">
+        <label class="custom-file-upload" for="input_rom_h">
+            Select rom H
+        </label>
+        <input class="file-input" id="input_rom_h" type="file"/>
     </div>
-    <div>
-        <p>Rom G</p>
-        <input id="input_rom_g" name="rom_g" type="file">
+    <div class="rom-input">
+        <label class="custom-file-upload" for="input_rom_g">
+            Select rom G
+        </label>
+        <input class="file-input" id="input_rom_g" type="file"/>
     </div>
-    <div>
-        <p>Rom F</p>
-        <input id="input_rom_f" name="rom_f" type="file">
+    <div class="rom-input">
+        <label class="custom-file-upload" for="input_rom_f">
+            Select rom F
+        </label>
+        <input class="file-input" id="input_rom_f" type="file"/>
     </div>
-    <div>
-        <p>Rom E</p>
-        <input id="input_rom_e" name="rom_e" type="file">
+    <div class="rom-input">
+        <label class="custom-file-upload" for="input_rom_e">
+            Select rom E
+        </label>
+        <input class="file-input" id="input_rom_e" type="file"/>
     </div>
 </div>
 <script type="module">
-    import init, {run, test_read_uint8array} from "./pkg/space_invaders_arcade_emulator.js";
+    import init, {run} from "./pkg/space_invaders_arcade_emulator.js";
 
     /* Init wasm */
     async function init_wasm() {
@@ -37,26 +45,11 @@
     }
 
     /* Play button */
-    window.run = async function () {
-        await run("canvas");
-    }
+    // window.run = async function () {
+    //     await run("canvas");
+    // }
 
     init_wasm();
-
-    /* Test read rom */
-    // document.getElementById("input_rom_h").addEventListener("change", function () {
-    //     const file = this.files[0];
-    //     const reader = new FileReader();
-    //     reader.onload = function (e) {
-    //         const arrayBuffer = e.target.result;
-    //         const byteArray = new Uint8Array(arrayBuffer);
-    //         window.rom_h = byteArray;
-    //         console.log("Rom H loaded");
-    //         // console.table(byteArray);
-    //         test_read_uint8array(byteArray);
-    //     };
-    //     reader.readAsArrayBuffer(file);
-    // });
 
     /* Test get all roms*/
     const inputElements = document.querySelectorAll('input[type="file"]');
@@ -77,14 +70,15 @@
                 fileData[index] = uint8Array;
 
                 if (fileData.length === inputElements.length) {
-                    myFunction(fileData);
+                    startEmulation(fileData);
                 }
             };
         });
     });
 
-    function myFunction(uint8Arrays) {
+    const startEmulation = (uint8Arrays) => {
         console.log("All roms loaded");
+        run("canvas", uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
     }
 </script>
 </body>
