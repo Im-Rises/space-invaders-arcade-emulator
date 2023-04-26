@@ -123,59 +123,103 @@ fn request_animation_frame(f: &Closure<dyn FnMut()>) {
         .expect("should register `requestAnimationFrame` OK");
 }
 
-fn get_input_element(id: &str) -> web_sys::HtmlInputElement {
-    window()
-        .document()
-        .unwrap()
-        .get_element_by_id(id)
-        .unwrap()
-        .dyn_into::<web_sys::HtmlInputElement>()
-        .unwrap()
-}
-
-fn read_file(input: web_sys::HtmlInputElement) {}
-
-fn get_rom_from_input(input: &web_sys::HtmlInputElement) -> Result<[u8; 0x800], Error> {
-    let mut array: [u8; 0x800] = [0; 0x800];
-
-    let files = input.files().expect("Error: No file selected.");
-    let file = files.get(0).expect("Error: No file found.");
-
-    web_sys::console::log_1(&format!("file.name = {}", file.name()).into());
-    web_sys::console::log_1(&format!("file.size = {}", file.size()).into());
-
-    let file_reader = web_sys::FileReader::new().unwrap();
-
-    // let read_promise = wasm_bindgen_futures::JsFuture::from(file_reader.read_as_array_buffer(&file)).unwrap();
-    //
-    // read_promise.then(move |result| {
-    //     let file_slice = js_sys::Uint8Array::new(&result);
-    //     // Do something with the file_slice here...
-    //     web_sys::console::log_1(&format!("file_slice.length = {}", file_slice.length()).into());
-    //     Ok(())
-    // })
-
-    file_reader.read_as_array_buffer(&file).unwrap();
-
-    // let file_slice = js_sys::Uint8Array::new_with_length(file.size() as u32);
-    let file_slice =
-        js_sys::Uint8Array::new_with_byte_offset_and_length(&file_reader.result().unwrap(), 0, file.size() as u32);
-
-    web_sys::console::log_1(&format!("file_slice.length = {}", file_slice.length()).into());
-
-    web_sys::console::log_1(&format!("file_reader_result = {:?}", file_reader.result().unwrap()).into());
-
-    if file_slice.length() == 0x800 {
-        file_slice.copy_to(&mut array[0..0x800]);
-
-        for (i, byte) in array.iter().enumerate() {
-            web_sys::console::log_1(&format!("array_h[{}] = {}", i, byte).into());
-        }
-
-        Ok(array)
-    } else {
-        web_sys::console::log_1(&format!("Error: Wrong file size").into());
-        Err(Error::new("Wrong file size"))
+#[wasm_bindgen]
+pub fn test_read_uint8array(array: js_sys::Uint8Array) -> Result<(), JsValue> {
+    let mut array_u8: Vec<u8> = Vec::new();
+    for i in 0..array.length() {
+        array_u8.push(array.get_index(i));
     }
+    web_sys::console::log_1(&format!("array_u8: {:?}", array_u8).into());
+    Ok(())
 }
+
+#[wasm_bindgen]
+pub fn test_read_several_uint8array(
+    array_h: js_sys::Uint8Array,
+    array_g: js_sys::Uint8Array,
+    array_f: js_sys::Uint8Array,
+    array_e: js_sys::Uint8Array,
+) -> Result<(), JsValue> {
+    let mut array_u8_h: Vec<u8> = Vec::new();
+    for i in 0..array_h.length() {
+        array_u8_h.push(array_h.get_index(i));
+    }
+    web_sys::console::log_1(&format!("array_u8_h: {:?}", array_u8_h).into());
+
+    let mut array_u8_g: Vec<u8> = Vec::new();
+    for i in 0..array_g.length() {
+        array_u8_g.push(array_g.get_index(i));
+    }
+    web_sys::console::log_1(&format!("array_u8_g: {:?}", array_u8_g).into());
+
+    let mut array_u8_f: Vec<u8> = Vec::new();
+    for i in 0..array_f.length() {
+        array_u8_f.push(array_f.get_index(i));
+    }
+    web_sys::console::log_1(&format!("array_u8_f: {:?}", array_u8_f).into());
+
+    let mut array_u8_e: Vec<u8> = Vec::new();
+    for i in 0..array_e.length() {
+        array_u8_e.push(array_e.get_index(i));
+    }
+    web_sys::console::log_1(&format!("array_u8_e: {:?}", array_u8_e).into());
+
+    Ok(())
+}
+
+// fn get_input_element(id: &str) -> web_sys::HtmlInputElement {
+//     window()
+//         .document()
+//         .unwrap()
+//         .get_element_by_id(id)
+//         .unwrap()
+//         .dyn_into::<web_sys::HtmlInputElement>()
+//         .unwrap()
+// }
+//
+// fn read_file(input: web_sys::HtmlInputElement) {}
+//
+// fn get_rom_from_input(input: &web_sys::HtmlInputElement) -> Result<[u8; 0x800], Error> {
+//     let mut array: [u8; 0x800] = [0; 0x800];
+//
+//     let files = input.files().expect("Error: No file selected.");
+//     let file = files.get(0).expect("Error: No file found.");
+//
+//     web_sys::console::log_1(&format!("file.name = {}", file.name()).into());
+//     web_sys::console::log_1(&format!("file.size = {}", file.size()).into());
+//
+//     let file_reader = web_sys::FileReader::new().unwrap();
+//
+//     // let read_promise = wasm_bindgen_futures::JsFuture::from(file_reader.read_as_array_buffer(&file)).unwrap();
+//     //
+//     // read_promise.then(move |result| {
+//     //     let file_slice = js_sys::Uint8Array::new(&result);
+//     //     // Do something with the file_slice here...
+//     //     web_sys::console::log_1(&format!("file_slice.length = {}", file_slice.length()).into());
+//     //     Ok(())
+//     // })
+//
+//     file_reader.read_as_array_buffer(&file).unwrap();
+//
+//     // let file_slice = js_sys::Uint8Array::new_with_length(file.size() as u32);
+//     let file_slice =
+//         js_sys::Uint8Array::new_with_byte_offset_and_length(&file_reader.result().unwrap(), 0, file.size() as u32);
+//
+//     web_sys::console::log_1(&format!("file_slice.length = {}", file_slice.length()).into());
+//
+//     web_sys::console::log_1(&format!("file_reader_result = {:?}", file_reader.result().unwrap()).into());
+//
+//     if file_slice.length() == 0x800 {
+//         file_slice.copy_to(&mut array[0..0x800]);
+//
+//         for (i, byte) in array.iter().enumerate() {
+//             web_sys::console::log_1(&format!("array_h[{}] = {}", i, byte).into());
+//         }
+//
+//         Ok(array)
+//     } else {
+//         web_sys::console::log_1(&format!("Error: Wrong file size").into());
+//         Err(Error::new("Wrong file size"))
+//     }
+// }
 // }
