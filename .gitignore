@@ -1,3 +1,6 @@
+# Ignore package
+si-emu-pkg/
+
 # Ignore roms
 [Rr]oms/
 invaders.*

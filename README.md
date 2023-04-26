@@ -12,10 +12,6 @@ Complete Emulator of the Intel 8080, the app is implemented to run the Space Inv
 
 TODO:
 
-Should i map the player 2 inputs on a different positions on the keyboard ?
-
-TODO:
-
 - [x] Add controls
 - [x] Add video
 - [x] Correct player 2 controls not working
@@ -27,14 +23,16 @@ TODO:
 - [x] Handle the mp3 play correctly in the api
 - [x] Change the spu to list the index of the sound to play and then fetch the sound with the api
 - [x] Update the audio api sound handling with 3 types of sounds
-- [ ] Update the UFO sound (is looping but sound is too much spaced)
+- [x] Add the rom loader
+- [ ] Update the UFO sound (is looping but sound is too much spaced) (create a new mp3 or force stop playing the sound
+  and play it again)
 - [ ] Update the shoot sound (increase its length to have the shoot until it reach the top of the screen maximum, the
   api is already implemented to stop the sound)
-- [ ] Add the rom loader
-- [ ] Add a way to fetch the score from the game ?
-- [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
 - [ ] When shooting add loop at the end of the sound to make it sound like the original game or make it longer and stop
   it when the player stop shooting.
+- [ ] Add a real space invaders font
+- [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
+- [ ] Add a way to fetch the score from the game ?
 
 ## Images
 
@@ -88,7 +86,27 @@ Before pressing start with player 1 or 2, you can choose the number of life you 
 
 ## Compilation
 
-PLACEHOLDER
+To build the rust project you need to have the rust toolchain installed on your computer. You can find the installation
+instructions on the official website: <https://www.rust-lang.org/tools/install>
+
+You can build the project by typing the following command:
+
+```bash
+wasm-pack build --target web --out-dir si-web-react/si-emu-pkg --release
+```
+
+It will output a wasm package to the si-web-react/pkg folder.
+
+Then you can build the React web app by typing the following command:
+
+```bash
+cd si-web-react
+npm start
+```
+
+It will start a web server on the port 3000. You can access the web page by typing the following url in your browser:
+
+<http://localhost:3000>
 
 ## Rust tests
 
