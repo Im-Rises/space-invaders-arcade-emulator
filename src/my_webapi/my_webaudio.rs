@@ -96,7 +96,7 @@ pub fn load_audio_from_u8array(u8array: &[u8]) -> Result<web_sys::HtmlAudioEleme
     array.push(&Uint8Array::from(u8array).buffer());
     let blob = web_sys::Blob::new_with_u8_array_sequence_and_options(
         &array,
-        web_sys::BlobPropertyBag::new().type_("audio/mp3"),
+        web_sys::BlobPropertyBag::new().type_("audio/wav"),
     )
     .unwrap();
 
