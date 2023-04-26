@@ -1,157 +1,161 @@
 #![allow(unused_variables)]
 
+use js_sys::Error;
+
 mod binary_lib;
+mod my_webapi;
 mod si_arcade;
 
-fn main() {
-    use wasm_bindgen::prelude::*;
-    use web_sys::{WebGl2RenderingContext, WebGlProgram, WebGlShader};
+// fn main() {
+use std::cell::RefCell;
+use std::rc::Rc;
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use web_sys::KeyboardEvent;
 
-    #[wasm_bindgen(start)]
-    fn start() -> Result<(), JsValue> {
-        let document = web_sys::window().unwrap().document().unwrap();
-        let canvas = document.get_element_by_id("canvas").unwrap();
-        let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
+#[wasm_bindgen(start)]
+pub fn initialize() -> Result<(), JsValue> {
+    web_sys::console::log_1(&"Rust module loaded!".into());
+    Ok(())
+}
 
-        let context = canvas
-            .get_context("webgl2")?
-            .unwrap()
-            .dyn_into::<WebGl2RenderingContext>()?;
+#[wasm_bindgen]
+pub fn run(
+    canvas_id: String,
+    rom_h: js_sys::Uint8Array,
+    rom_g: js_sys::Uint8Array,
+    rom_f: js_sys::Uint8Array,
+    rom_e: js_sys::Uint8Array,
+) -> Result<(), JsValue> {
+    // /* Debug code */
+    // let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
+    // let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
+    // let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
+    // let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
 
-        let vert_shader = compile_shader(
-            &context,
-            WebGl2RenderingContext::VERTEX_SHADER,
-            r##"#version 300 es
- 
-        in vec4 position;
+    {
+        let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
+        let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
+        let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
+        let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
 
-        void main() {
-        
-            gl_Position = position;
-        }
-        "##,
-        )?;
+        // If the four inputs are filled with the roms
+        let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
+            canvas_id, &array_h, &array_g, &array_f, &array_e,
+        )));
 
-        let frag_shader = compile_shader(
-            &context,
-            WebGl2RenderingContext::FRAGMENT_SHADER,
-            r##"#version 300 es
-    
-        precision highp float;
-        out vec4 outColor;
-        
-        void main() {
-            outColor = vec4(1, 1, 1, 1);
-        }
-        "##,
-        )?;
-        let program = link_program(&context, &vert_shader, &frag_shader)?;
-        context.use_program(Some(&program));
-
-        let vertices: [f32; 9] = [-0.7, -0.7, 0.0, 0.7, -0.7, 0.0, 0.0, 0.7, 0.0];
-
-        let position_attribute_location = context.get_attrib_location(&program, "position");
-        let buffer = context.create_buffer().ok_or("Failed to create buffer")?;
-        context.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&buffer));
-
-        // Note that `Float32Array::view` is somewhat dangerous (hence the
-        // `unsafe`!). This is creating a raw view into our module's
-        // `WebAssembly.Memory` buffer, but if we allocate more pages for ourself
-        // (aka do a memory allocation in Rust) it'll cause the buffer to change,
-        // causing the `Float32Array` to be invalid.
-        //
-        // As a result, after `Float32Array::view` we have to be very careful not to
-        // do any memory allocations before it's dropped.
-        unsafe {
-            let positions_array_buf_view = js_sys::Float32Array::view(&vertices);
-
-            context.buffer_data_with_array_buffer_view(
-                WebGl2RenderingContext::ARRAY_BUFFER,
-                &positions_array_buf_view,
-                WebGl2RenderingContext::STATIC_DRAW,
-            );
-        }
-
-        let vao = context
-            .create_vertex_array()
-            .ok_or("Could not create vertex array object")?;
-        context.bind_vertex_array(Some(&vao));
-
-        context.vertex_attrib_pointer_with_i32(
-            position_attribute_location as u32,
-            3,
-            WebGl2RenderingContext::FLOAT,
-            false,
-            0,
-            0,
-        );
-        context.enable_vertex_attrib_array(position_attribute_location as u32);
-
-        context.bind_vertex_array(Some(&vao));
-
-        let vert_count = (vertices.len() / 3) as i32;
-        draw(&context, vert_count);
-
-        let mut space_invaders_arcade = si_arcade::SpaceInvadersArcade::new();
-        space_invaders_arcade.start();
-
-        Ok(())
-    }
-
-    fn draw(context: &WebGl2RenderingContext, vert_count: i32) {
-        context.clear_color(0.0, 0.0, 0.0, 1.0);
-        context.clear(WebGl2RenderingContext::COLOR_BUFFER_BIT);
-
-        context.draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, vert_count);
-    }
-
-    pub fn compile_shader(
-        context: &WebGl2RenderingContext,
-        shader_type: u32,
-        source: &str,
-    ) -> Result<WebGlShader, String> {
-        let shader = context
-            .create_shader(shader_type)
-            .ok_or_else(|| String::from("Unable to create shader object"))?;
-        context.shader_source(&shader, source);
-        context.compile_shader(&shader);
-
-        if context
-            .get_shader_parameter(&shader, WebGl2RenderingContext::COMPILE_STATUS)
-            .as_bool()
-            .unwrap_or(false)
+        // Set up the keyboard event listener to handle key events
         {
-            Ok(shader)
-        } else {
-            Err(context
-                .get_shader_info_log(&shader)
-                .unwrap_or_else(|| String::from("Unknown error creating shader")))
+            let space_invaders_arcade_ref = Rc::clone(&space_invaders_arcade);
+            let closure = Closure::wrap(Box::new(move |event: KeyboardEvent| {
+                let is_pressed = event.type_() == "keydown";
+                match event.key().as_ref() {
+                    "ArrowLeft" => space_invaders_arcade_ref
+                        .borrow_mut()
+                        .update_input(si_arcade::GameInput::Left, is_pressed),
+                    "ArrowRight" => space_invaders_arcade_ref
+                        .borrow_mut()
+                        .update_input(si_arcade::GameInput::Right, is_pressed),
+                    "ArrowUp" => space_invaders_arcade_ref
+                        .borrow_mut()
+                        .update_input(si_arcade::GameInput::Shot, is_pressed),
+                    "c" => space_invaders_arcade_ref
+                        .borrow_mut()
+                        .update_input(si_arcade::GameInput::Coin, is_pressed),
+                    "1" => space_invaders_arcade_ref
+                        .borrow_mut()
+                        .update_input(si_arcade::GameInput::Player1Start, is_pressed),
+                    "2" => space_invaders_arcade_ref
+                        .borrow_mut()
+                        .update_input(si_arcade::GameInput::Player2Start, is_pressed),
+                    // "k" => space_invaders_arcade_ref
+                    //     .borrow_mut()
+                    //     .update_input(si_arcade::GameInput::Dip3, is_pressed),
+                    // "l" => space_invaders_arcade_ref
+                    //     .borrow_mut()
+                    //     .update_input(si_arcade::GameInput::Dip5, is_pressed),
+                    // "m" => space_invaders_arcade_ref
+                    //     .borrow_mut()
+                    //     .update_input(si_arcade::GameInput::Dip6, is_pressed),
+                    // "o" => space_invaders_arcade_ref
+                    //     .borrow_mut()
+                    //     .update_input(si_arcade::GameInput::Dip7, is_pressed),
+                    _ => {}
+                }
+            }) as Box<dyn FnMut(_)>);
+
+            window().add_event_listener_with_callback("keydown", closure.as_ref().unchecked_ref())?;
+            window().add_event_listener_with_callback("keyup", closure.as_ref().unchecked_ref())?;
+
+            closure.forget();
         }
+
+        let f = Rc::new(RefCell::new(None));
+        let g = f.clone();
+
+        // let mut i = 0;
+        *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
+            // space_invaders_arcade.emulate_cycle();
+            space_invaders_arcade.borrow_mut().emulate_cycle();
+            request_animation_frame(f.borrow().as_ref().unwrap());
+        }) as Box<dyn FnMut()>));
+
+        request_animation_frame(g.borrow().as_ref().unwrap());
     }
 
-    pub fn link_program(
-        context: &WebGl2RenderingContext,
-        vert_shader: &WebGlShader,
-        frag_shader: &WebGlShader,
-    ) -> Result<WebGlProgram, String> {
-        let program = context
-            .create_program()
-            .ok_or_else(|| String::from("Unable to create shader object"))?;
+    Ok(())
+}
 
-        context.attach_shader(&program, vert_shader);
-        context.attach_shader(&program, frag_shader);
-        context.link_program(&program);
+fn window() -> web_sys::Window {
+    web_sys::window().expect("no global `window` exists")
+}
 
-        if context
-            .get_program_parameter(&program, WebGl2RenderingContext::LINK_STATUS)
-            .as_bool()
-            .unwrap_or(false)
-        {
-            Ok(program)
-        } else {
-            Err(context
-                .get_program_info_log(&program)
-                .unwrap_or_else(|| String::from("Unknown error creating program object")))
-        }
+fn request_animation_frame(f: &Closure<dyn FnMut()>) {
+    window()
+        .request_animation_frame(f.as_ref().unchecked_ref())
+        .expect("should register `requestAnimationFrame` OK");
+}
+
+#[wasm_bindgen]
+pub fn test_read_uint8array(array: js_sys::Uint8Array) -> Result<(), JsValue> {
+    let mut array_u8: Vec<u8> = Vec::new();
+    for i in 0..array.length() {
+        array_u8.push(array.get_index(i));
     }
+    web_sys::console::log_1(&format!("array_u8: {:?}", array_u8).into());
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn test_read_several_uint8array(
+    array_h: js_sys::Uint8Array,
+    array_g: js_sys::Uint8Array,
+    array_f: js_sys::Uint8Array,
+    array_e: js_sys::Uint8Array,
+) -> Result<(), JsValue> {
+    let mut array_u8_h: Vec<u8> = Vec::new();
+    for i in 0..array_h.length() {
+        array_u8_h.push(array_h.get_index(i));
+    }
+    web_sys::console::log_1(&format!("array_u8_h: {:?}", array_u8_h).into());
+
+    let mut array_u8_g: Vec<u8> = Vec::new();
+    for i in 0..array_g.length() {
+        array_u8_g.push(array_g.get_index(i));
+    }
+    web_sys::console::log_1(&format!("array_u8_g: {:?}", array_u8_g).into());
+
+    let mut array_u8_f: Vec<u8> = Vec::new();
+    for i in 0..array_f.length() {
+        array_u8_f.push(array_f.get_index(i));
+    }
+    web_sys::console::log_1(&format!("array_u8_f: {:?}", array_u8_f).into());
+
+    let mut array_u8_e: Vec<u8> = Vec::new();
+    for i in 0..array_e.length() {
+        array_u8_e.push(array_e.get_index(i));
+    }
+    web_sys::console::log_1(&format!("array_u8_e: {:?}", array_u8_e).into());
+
+    Ok(())
 }

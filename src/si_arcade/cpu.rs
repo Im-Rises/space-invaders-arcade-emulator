@@ -68,6 +68,7 @@ impl Cpu {
     }
 
     pub fn compute_opcode(&mut self, opcode: u8) -> u8 {
+        #[allow(unreachable_patterns)]
         match opcode {
             0x00 => nop(),
             0x01 => lxi_b(self),

@@ -1,4 +1,4 @@
-name: Rust
+name: Wasm Build and Publish
 
 on:
   push:

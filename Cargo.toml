@@ -17,9 +17,10 @@ crate-type = ["cdylib"]
 [dependencies]
 js-sys = "0.3.61"
 wasm-bindgen = "0.2.84"
+wasm-bindgen-futures = "0.4.34"
 
 [dependencies.web-sys]
-version = "0.3.4"
+version = "0.3.61"
 features = [
     'Document',
     'Element',
@@ -30,5 +31,23 @@ features = [
     'WebGlProgram',
     'WebGlShader',
     'Window',
-    'console'
+    'WebGlTexture',
+    'console',
+    'WebGlUniformLocation',
+    'AudioBuffer',
+    'AudioContext',
+    'AudioNode',
+    'AudioBufferSourceNode',
+    'AudioDestinationNode',
+    'HtmlAudioElement',
+    'Blob',
+    'BlobPropertyBag',
+    'Url',
+    'KeyboardEvent',
+    'File',
+    'FilePropertyBag',
+    'HtmlInputElement',
+    'FileList',
+    'FileReader',
+    'ProgressEvent'
 ]

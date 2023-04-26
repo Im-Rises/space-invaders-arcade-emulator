@@ -5,16 +5,81 @@
     <title>Space Invaders Emulator</title>
 </head>
 <body>
-<canvas class="canvas-webgl" id="canvas"></canvas>
+<div>
+    <div class="canvas-webgl-holder">
+        <canvas class="canvas-webgl" id="canvas"></canvas>
+    </div>
+</div>
+<div class="inputs-roms-holder">
+    <div class="rom-input">
+        <label class="custom-file-upload" for="input_rom_h">
+            Select rom H
+        </label>
+        <input class="file-input" id="input_rom_h" type="file"/>
+    </div>
+    <div class="rom-input">
+        <label class="custom-file-upload" for="input_rom_g">
+            Select rom G
+        </label>
+        <input class="file-input" id="input_rom_g" type="file"/>
+    </div>
+    <div class="rom-input">
+        <label class="custom-file-upload" for="input_rom_f">
+            Select rom F
+        </label>
+        <input class="file-input" id="input_rom_f" type="file"/>
+    </div>
+    <div class="rom-input">
+        <label class="custom-file-upload" for="input_rom_e">
+            Select rom E
+        </label>
+        <input class="file-input" id="input_rom_e" type="file"/>
+    </div>
+</div>
 <script type="module">
-    import init, {start} from "./pkg/space_invaders_arcade_emulator.js";
+    import init, {run} from "./pkg/space_invaders_arcade_emulator.js";
 
-    async function run() {
+    /* Init wasm */
+    async function init_wasm() {
         await init();
-        start();
     }
 
-    run();
+    /* Play button */
+    // window.run = async function () {
+    //     await run("canvas");
+    // }
+
+    init_wasm();
+
+    /* Test get all roms*/
+    const inputElements = document.querySelectorAll('input[type="file"]');
+
+    const fileData = [];
+
+    inputElements.forEach((inputElement, index) => {
+        inputElement.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+
+            reader.onload = () => {
+                const arrayBuffer = reader.result;
+                const uint8Array = new Uint8Array(arrayBuffer);
+
+                fileData[index] = uint8Array;
+
+                if (fileData.length === inputElements.length) {
+                    startEmulation(fileData);
+                }
+            };
+        });
+    });
+
+    const startEmulation = (uint8Arrays) => {
+        console.log("All roms loaded");
+        run("canvas", uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
+    }
 </script>
 </body>
 </html>

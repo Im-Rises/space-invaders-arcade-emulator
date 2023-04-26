@@ -10,21 +10,31 @@ Space Invaders' arcade game emulator written in Rust for the web.
 
 Complete Emulator of the Intel 8080, the app is implemented to run the Space Invaders Arcade game.
 
-[//]: # (## Features)
+TODO:
 
-[//]: # ()
+Should i map the player 2 inputs on a different positions on the keyboard ?
 
-[//]: # (- Full emulation)
+TODO:
 
-[//]: # (- Sound)
-
-[//]: # (- Two-players mode)
-
-[//]: # (- Window resizing without deformation)
-
-[//]: # (joystick support)
-
-[//]: # (high score automatically saved)
+- [x] Add controls
+- [x] Add video
+- [x] Correct player 2 controls not working
+- [x] Correct the player 2 controls to be set on the same as the player 1
+- [x] Move the input handling to the si_arcade crate no web_api crate
+- [x] Move corrected code to the original project
+- [x] Add audio
+- [x] Improve the audio
+- [x] Handle the mp3 play correctly in the api
+- [x] Change the spu to list the index of the sound to play and then fetch the sound with the api
+- [x] Update the audio api sound handling with 3 types of sounds
+- [ ] Update the UFO sound (is looping but sound is too much spaced)
+- [ ] Update the shoot sound (increase its length to have the shoot until it reach the top of the screen maximum, the
+  api is already implemented to stop the sound)
+- [ ] Add the rom loader
+- [ ] Add a way to fetch the score from the game ?
+- [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
+- [ ] When shooting add loop at the end of the sound to make it sound like the original game or make it longer and stop
+  it when the player stop shooting.
 
 ## Images
 
@@ -79,16 +89,6 @@ Before pressing start with player 1 or 2, you can choose the number of life you 
 ## Compilation
 
 PLACEHOLDER
-
-```bash
-cargo build --release --target wasm32-unknown-unknown
-```
-
-or
-
-```bash
-wasm-pack build --target web
-```
 
 ## Rust tests
 
@@ -185,12 +185,16 @@ This will output the complete disassembly of the CPU in the `test_roms/my_output
 [![Rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
 [![rust-clippy analyze](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml)
 [![rustfmt check](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml)
+[![Wasm build](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml)
+[![Rust-wasm-publish](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-build-publish.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-build-publish.yml)
 
 The project is set with a set of different scripts:
 
-- rust : Check the code compilation.
+- rust : Check the code compilation and unit tests.
 - rust-clippy analyze : Evaluate the code quality (error, warnings, etc...).
 - rustfmt check :  Check the code good formatting
+- Wasm build : Build the project in WebAssembly.
+- Rust-wasm-publish : Publish the WebAssembly build on GitHub Pages.
 
 ## Documentation
 
@@ -242,10 +246,14 @@ Space Invaders Audio files:
 Mozzila Rust to WebAssembly:  
 <https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm>
 
-rustwasm:  
-<https://rustwasm.github.io/wasm-bindgen/examples/hello-world.html>  
-<https://rustwasm.github.io/wasm-bindgen/examples/web-audio.html>  
-<https://rustwasm.github.io/wasm-bindgen/examples/webgl.html>
+wasm-bindgen:  
+<https://rustwasm.github.io/docs/wasm-bindgen/>
+
+js-sys:  
+<https://docs.rs/js-sys/latest/js_sys/>
+
+web-sys:  
+<https://docs.rs/web-sys/latest/web_sys/>
 
 ## Contributors
 
