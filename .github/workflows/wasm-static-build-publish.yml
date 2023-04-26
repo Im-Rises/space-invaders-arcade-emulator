@@ -29,14 +29,14 @@ jobs:
       - name: Install wasm-pack
         run: cargo install wasm-pack
       - name: Build wasm
-        run: wasm-pack build --target web --out-dir web/pkg --release
+        run: wasm-pack build --target web --out-dir si-web-static/si-emu-pkg --release
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './web'
+          path: './si-web-static/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1

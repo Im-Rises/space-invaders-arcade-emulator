@@ -23,7 +23,7 @@ wasm-bindgen-futures = "0.4.34"
 version = "0.3.61"
 features = [
     'Document',
-    'Element',
+    #    'Element',
     'HtmlCanvasElement',
     'WebGlBuffer',
     'WebGlVertexArrayObject',
@@ -33,21 +33,9 @@ features = [
     'Window',
     'WebGlTexture',
     'console',
-    'WebGlUniformLocation',
-    'AudioBuffer',
-    'AudioContext',
-    'AudioNode',
-    'AudioBufferSourceNode',
-    'AudioDestinationNode',
     'HtmlAudioElement',
     'Blob',
     'BlobPropertyBag',
     'Url',
     'KeyboardEvent',
-    'File',
-    'FilePropertyBag',
-    'HtmlInputElement',
-    'FileList',
-    'FileReader',
-    'ProgressEvent'
 ]
