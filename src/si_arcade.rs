@@ -38,7 +38,7 @@ impl SpaceInvadersArcade {
     ) -> Self {
         let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new(rom_h, rom_g, rom_f, rom_e)));
         let mut sounds: Vec<(&[u8], SoundType)> = Vec::new();
-        sounds.push((&spu::SOUND_0, SoundType::LoopSound));
+        sounds.push((&spu::SOUND_0, SoundType::VariableLengthSound));
         sounds.push((&spu::SOUND_1, SoundType::VariableLengthSound));
         sounds.push((&spu::SOUND_2, SoundType::UniqueSound));
         sounds.push((&spu::SOUND_3, SoundType::UniqueSound));

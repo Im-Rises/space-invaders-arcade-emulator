@@ -26,7 +26,7 @@ TODO:
 - [x] Add the rom loader
 - [x] Update the shoot sound (increase its length to have the shoot until it reach the top of the screen maximum, the
   api is already implemented to stop the sound)
-- [ ] Update the UFO sound (is looping but sound is too much spaced) (create a new mp3 or force stop playing the sound
+- [x] Update the UFO sound (is looping but sound is too much spaced) (create a new mp3 or force stop playing the sound
   and play it again)
 - [ ] Add a real space invaders font
 - [ ] Update transparency to put font in the background

@@ -4,7 +4,7 @@ use wasm_bindgen::JsValue;
 #[derive(Clone, Copy)]
 pub enum SoundType {
     UniqueSound,
-    LoopSound,
+    // LoopSound,
     VariableLengthSound,
 }
 
@@ -51,7 +51,7 @@ impl MyWebAudio {
                         sound.play();
                     }
                 }
-                SoundType::LoopSound | SoundType::VariableLengthSound => {
+                SoundType::VariableLengthSound => {
                     // If is loop sound or VariableLengthSound, play only on mounting state and stop on unmounting state
                     if sounds_states[i] && !self.last_sounds_states[i] {
                         sound.play();
@@ -59,18 +59,8 @@ impl MyWebAudio {
                         sound.pause();
                         sound.set_current_time(0.0);
                     }
-                } /**/
-                  // SoundType::LoopSound => {
-                  //     // If is loop sound, play only on mounting state and stop on unmounting state
-                  //     if sounds_states[i] && !self.last_sounds_states[i] {
-                  //         sound.play();
-                  //     } else if !sounds_states[i] && self.last_sounds_states[i] {
-                  //         sound.pause();
-                  //         sound.set_current_time(0.0);
-                  //     }
-                  // }
-                  // SoundType::VariableLengthSound => {
-                  //     // If is variable length sound, play only on mounting state and stop on unmounting state
+                } // SoundType::LoopSound => {
+                  //     // If is loop sound or VariableLengthSound, play only on mounting state and stop on unmounting state
                   //     if sounds_states[i] && !self.last_sounds_states[i] {
                   //         sound.play();
                   //     } else if !sounds_states[i] && self.last_sounds_states[i] {

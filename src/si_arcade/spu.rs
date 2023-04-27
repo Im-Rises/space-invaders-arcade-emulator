@@ -1,7 +1,8 @@
 use crate::binary_lib::get_bit;
 
 // UFO
-pub const SOUND_0: &[u8] = include_bytes!("../../game_audios/0.wav");
+// pub const SOUND_0: &[u8] = include_bytes!("../../game_audios/0.wav");
+pub const SOUND_0: &[u8] = include_bytes!("../../game_audios/ufo_loop.wav");
 // Shoot
 // pub const SOUND_1: &[u8] = include_bytes!("../../game_audios/1.wav");
 pub const SOUND_1: &[u8] = include_bytes!("../../game_audios/shoot_v1.wav");
