@@ -29,8 +29,20 @@ TODO:
 - [ ] Update the UFO sound (is looping but sound is too much spaced) (create a new mp3 or force stop playing the sound
   and play it again)
 - [ ] Add a real space invaders font
-- [ ] Add a way to toggle the space invaders original view or the pure emulation view (to do in CSS).
-- [ ] Add a way to fetch the score from the game ?
+- [ ] Update transparency to put font in the background
+- [ ] Add the green and red color for the shields and ufo (using shader or css mask or the core matrix)
+
+```
+  if (y >= 182 && y <= 223)
+     // Green - player and shields
+  else if (y >= 33 && y <= 55)
+      // Red - UFO
+  else
+  ```
+
+[//]: # (- [ ] Add a way to toggle the space invaders original view or the pure emulation view &#40;to do in CSS&#41;.)
+
+[//]: # (- [ ] Add a way to fetch the score from the game ?)
 
 ## Images
 
