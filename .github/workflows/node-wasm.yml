@@ -22,11 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Move to web-react folder
-        uses: cd web-react
+        run: cd web-react
       - name: Install wasm-pack
         run: cargo install wasm-pack
       - name: Build wasm
-        run: wasm-pack build --target web --out-dir web-react/pkg --release
+        run: wasm-pack build --target web --out-dir si-web-react/si-emu-pkg --release
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
