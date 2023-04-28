@@ -21,7 +21,8 @@ pub const SOUND_7: &[u8] = include_bytes!("../../game_audios/7.wav");
 // Bonus UFO destroyed
 pub const SOUND_8: &[u8] = include_bytes!("../../game_audios/8.wav");
 // Extra ship sound
-pub const SOUND_9: &[u8] = include_bytes!("../../game_audios/9.wav");
+// pub const SOUND_9: &[u8] = include_bytes!("../../game_audios/9.wav");
+pub const SOUND_9: &[u8] = include_bytes!("../../game_audios/extra_ship.wav");
 
 pub struct Spu {
     sounds_states: Vec<bool>,
@@ -30,7 +31,7 @@ pub struct Spu {
 impl Spu {
     pub fn new() -> Spu {
         Spu {
-            sounds_states: vec![false; 9],
+            sounds_states: vec![false; 10],
         }
     }
 
