@@ -41,6 +41,7 @@ pub fn run(
     let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
         canvas_id, &array_h, &array_g, &array_f, &array_e,
     )));
+    web_sys::console::log_1(&"SpaceInvadersArcade created!".into());
 
     // Set up the keyboard event listener to handle key events
     {

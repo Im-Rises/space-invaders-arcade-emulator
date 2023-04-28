@@ -11,7 +11,8 @@ pub enum SoundType {
 impl PartialEq for SoundType {
     fn eq(&self, other: &Self) -> bool {
         match (self, other) {
-            (SoundType::UniqueSound, SoundType::UniqueSound) | (SoundType::LoopSound, SoundType::LoopSound) => true,
+            (SoundType::UniqueSound, SoundType::UniqueSound)
+            | (SoundType::VariableLengthSound, SoundType::VariableLengthSound) => true,
             _ => false,
         }
     }
@@ -30,7 +31,7 @@ impl MyWebAudio {
         let mut sounds_types = Vec::new();
         for sound_bytes in sounds_data {
             let audio_element = load_audio_from_u8array(sound_bytes.0).unwrap();
-            audio_element.set_loop(sound_bytes.1 == SoundType::LoopSound);
+            // audio_element.set_loop(sound_bytes.1 == SoundType::LoopSound);
             sounds_types.push(sound_bytes.1);
             sounds_elements.push(audio_element);
         }
@@ -52,7 +53,7 @@ impl MyWebAudio {
                     }
                 }
                 SoundType::VariableLengthSound => {
-                    // If is loop sound or VariableLengthSound, play only on mounting state and stop on unmounting state
+                    // If is loop sound or VariableLengthSound, play on mounting state until the end or stop it before on unmounting state (before the end of the sound)
                     if sounds_states[i] && !self.last_sounds_states[i] {
                         sound.play();
                     } else if !sounds_states[i] && self.last_sounds_states[i] {

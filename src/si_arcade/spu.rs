@@ -37,17 +37,18 @@ impl Spu {
     pub fn update(&mut self, port: u8, data: u8) {
         match port {
             3 => {
-                self.sounds_states[0] = get_bit(data, 0);
-                self.sounds_states[1] = get_bit(data, 1);
-                self.sounds_states[2] = get_bit(data, 2);
-                self.sounds_states[3] = get_bit(data, 3);
+                self.sounds_states[0] = get_bit(data, 0); // UFO
+                self.sounds_states[1] = get_bit(data, 1); // Shoot
+                self.sounds_states[2] = get_bit(data, 2); // Player Explosion
+                self.sounds_states[3] = get_bit(data, 3); // Invader Explosion
+                self.sounds_states[9] = get_bit(data, 4); // Extra Ship Sound
             }
             5 => {
-                self.sounds_states[4] = get_bit(data, 0);
-                self.sounds_states[5] = get_bit(data, 1);
-                self.sounds_states[6] = get_bit(data, 2);
-                self.sounds_states[7] = get_bit(data, 3);
-                self.sounds_states[8] = get_bit(data, 4);
+                self.sounds_states[4] = get_bit(data, 0); // Invaders March 1
+                self.sounds_states[5] = get_bit(data, 1); // Invaders March 2
+                self.sounds_states[6] = get_bit(data, 2); // Invaders March 3
+                self.sounds_states[7] = get_bit(data, 3); // Invaders March 4
+                self.sounds_states[8] = get_bit(data, 4); // Bonus UFO Destroyed
             }
             _ => {}
         }
