@@ -28,6 +28,7 @@ TODO:
   api is already implemented to stop the sound)
 - [x] Update the UFO sound (is looping but sound is too much spaced) (create a new mp3 or force stop playing the sound
   and play it again)
+- [ ] Add the 9nth sound (the sound when the player pass 1000/1500 points)
 - [ ] Rotate the screen in webgl to prevent css rotation issue
 - [ ] Add a real space invaders font
 - [ ] Update transparency to put font in the background

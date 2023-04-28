@@ -20,6 +20,8 @@ pub const SOUND_6: &[u8] = include_bytes!("../../game_audios/6.wav");
 pub const SOUND_7: &[u8] = include_bytes!("../../game_audios/7.wav");
 // Bonus UFO destroyed
 pub const SOUND_8: &[u8] = include_bytes!("../../game_audios/8.wav");
+// Extra ship sound
+pub const SOUND_9: &[u8] = include_bytes!("../../game_audios/9.wav");
 
 pub struct Spu {
     sounds_states: Vec<bool>,
