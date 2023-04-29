@@ -4,7 +4,6 @@
     margin: 0;
     padding: 0;
     font-size: 16px;
-    /*overflow: hidden;*/
     background-color: black;
 }
 
@@ -18,7 +17,8 @@
 
 .canvas-si {
     background-color: white;
-    aspect-ratio: 256 / 224;
+    aspect-ratio: auto 256 / 224;
+    /*rotate: -90deg;*/
 }
 
 .inputs-roms-holder {

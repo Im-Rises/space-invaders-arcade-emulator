@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="canvas-panel">
-    <canvas class="canvas-si"></canvas>
+    <canvas class="canvas-si" id="canvas-si"></canvas>
 </div>
 <div class="inputs-roms-holder">
     <div class="rom-input">
@@ -76,7 +76,7 @@
 
     const startEmulation = (uint8Arrays) => {
         console.log("All roms loaded");
-        run("canvas", uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
+        run("canvas-si", uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
     }
 </script>
 </body>
