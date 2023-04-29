@@ -17,7 +17,18 @@
 
 .canvas-si {
     background-color: white;
-    aspect-ratio: auto 256 / 224;
+
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+
+    /*Method 2*/
+    /*aspect-ratio: auto 256 / 224;*/
+
+    /*!*Method 3*!*/
+    /*width: 100%;*/
+    /*height: auto;*/
+
     /*rotate: -90deg;*/
 }
 
