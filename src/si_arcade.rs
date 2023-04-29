@@ -191,9 +191,9 @@ impl SpaceInvadersArcade {
     pub fn get_screen(&self) -> &[u8; ppu::SCREEN_WIDTH * ppu::SCREEN_HEIGHT * 3] {
         self.ppu.get_screen()
     }
+}
 
-    #[allow(dead_code)]
-    pub fn get_si_arcade_screen_width_height(&self) -> (usize, usize) {
-        (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
-    }
+#[allow(dead_code)]
+pub fn get_si_arcade_screen_width_height() -> (usize, usize) {
+    (ppu::SCREEN_WIDTH, ppu::SCREEN_HEIGHT)
 }

@@ -36,15 +36,15 @@ impl MyWebGl2 {
             WebGl2RenderingContext::VERTEX_SHADER,
             r##"#version 300 es
 
-        in vec4 a_texcoord;
-        out vec2 v_texcoord;
-
-        void main() {
-            // v_texcoord = a_texcoord.xy * 0.5 + 0.5;
-            v_texcoord = vec2(a_texcoord.x * 0.5 + 0.5, 1.0 - (a_texcoord.y * 0.5 + 0.5));// flip y
-            gl_Position = a_texcoord;
-        }
-        "##,
+                        in vec4 a_texcoord;
+                        out vec2 v_texcoord;
+                
+                        void main() {
+                            // v_texcoord = a_texcoord.xy * 0.5 + 0.5;// Normal display
+                            v_texcoord = vec2(a_texcoord.x * 0.5 + 0.5, 1.0 - (a_texcoord.y * 0.5 + 0.5));// flip y
+                            gl_Position = a_texcoord;
+                        }
+                        "##,
         )?;
 
         // Create the fragment shader
@@ -53,16 +53,16 @@ impl MyWebGl2 {
             WebGl2RenderingContext::FRAGMENT_SHADER,
             r##"#version 300 es
 
-        precision highp float;
-        out vec4 outColor;
-        
-        uniform sampler2D u_texture;
-        in vec2 v_texcoord;
-
-        void main() {
-            outColor = texture(u_texture, v_texcoord);
-        }
-        "##,
+                        precision highp float;
+                        out vec4 outColor;
+                        
+                        uniform sampler2D u_texture;
+                        in vec2 v_texcoord;
+                
+                        void main() {
+                            outColor = texture(u_texture, v_texcoord);
+                        }
+                        "##,
         )?;
 
         // Create the program

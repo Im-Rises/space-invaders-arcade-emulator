@@ -5,20 +5,101 @@
     padding: 0;
     font-size: 16px;
     /*overflow: hidden;*/
+    background-color: black;
 }
 
-.canvas-webgl-holder {
-    display: flex;
+.page-upper {
     width: 100%;
     height: 80%;
-    justify-content: center;
-    align-items: center;
 }
 
-.canvas-webgl {
+.canvas-panel {
+    position: relative;
+    width: 100%; /* or any other desired width */
+    height: 0;
+    padding-bottom: 56.25%; /* this is the aspect ratio of 16:9 */
+    /*display: flex;*/
+    /*width: 100%;*/
     /*height: 80%;*/
-    rotate: -90deg;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+
+    /*position: relative;*/
+    /*width: 100%;*/
+    /*height: 0;*/
+    /*padding-bottom: 75%; !* set the aspect ratio (4:3) *!*/
 }
+
+.canvas-si {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #cccccc;
+
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*max-width: 100%;*/
+    /*max-height: 100%;*/
+
+    /*background-color: white;*/
+    /*width: 100%;*/
+    /*height: auto;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*max-width: 80%;*/
+    /*max-height: 100%;*/
+    /*rotate: -90deg;*/
+    /*object-fit: contain;*/
+    /*max-width: 100%;*/
+    /*max-height: 100%;*/
+}
+
+/*.canvas-si {*/
+/*    !*width: 100%; !* set the width to 100% of its parent *!*!*/
+/*    !*max-width: 224px; !* set the maximum width to the canvas's original height *!*!*/
+/*    !*max-height: 256px; !* set the maximum height to the canvas's original width *!*!*/
+/*    !*transform-origin: top left; !* set the transform origin to the top left corner *!*!*/
+/*    !*transform: rotate(-90deg); !* rotate the canvas by -90 degrees *!*!*/
+
+/*    !*object-fit: cover;*!*/
+/*    !*width: 100%;*!*/
+/*    !*height: 80%;*!*/
+
+/*    !*display: block;*!*/
+/*    !*width: auto;*!*/
+/*    !*height: 100%;*!*/
+
+/*    !*height: 100%;*!*/
+
+/*    background-color: white;*/
+/*    !*width: 100%;*!*/
+/*    !*height: 0;*!*/
+/*    !*aspect-ratio: 224/256;*!*/
+/*    !*aspect-ratio: 224/256;*!*/
+/*    !*width: 80%;*!*/
+/*    !*height: 100%;*!*/
+/*    !*rotate: -90deg;*!*/
+/*    !*!*height: 100%;*!*!*/
+/*    !*!*width: 100%;*!*!*/
+/*    !*!*max-width: 80%;*!*!*/
+/*    !*rotate: -90deg;*!*/
+/*    !*object-fit: fill;*!*/
+
+/*    !*position: absolute;*!*/
+/*    !*top: 0;*!*/
+/*    !*left: 0;*!*/
+/*    !*width: 100%;*!*/
+/*    !*height: 80%;*!*/
+/*    !*rotate: -90deg;*!*/
+/*    !*object-fit: contain;*!*/
+/*    !*max-width: 100%;*!*/
+/*    !*max-height: 100%;*!*/
+/*}*/
 
 .inputs-roms-holder {
     display: flex;
