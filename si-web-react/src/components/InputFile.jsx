@@ -1,8 +1,22 @@
-import React from 'react';
+import React, {useRef} from 'react';
 
-export const InputFile = () => (
+export const InputFile = props => {
+	const inputRef = useRef(null);
 
-	<>
-		<input type={'file'}/>
-	</>
-);
+	const onFileChange = () => {
+		const file = inputRef.current.files[0];
+		const reader = new FileReader();
+		reader.onload = () => {
+			props.setRomData(reader.result);
+			props.onFileLoad();
+		};
+
+		reader.readAsArrayBuffer(file);
+	};
+
+	return (
+		<div>
+			<input type='file' ref={inputRef} onChange={onFileChange}/>
+		</div>
+	);
+};
