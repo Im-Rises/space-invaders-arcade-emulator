@@ -4,37 +4,12 @@ import './App.scss';
 
 import init, {run} from './si-emu-pkg';
 
-let romLoaded = 0;
-
 const App = () => {
 	const canvasId = 'canvas';
 	const [romDataH, setRomDataH] = useState(null);
 	const [romDataG, setRomDataG] = useState(null);
 	const [romDataF, setRomDataF] = useState(null);
 	const [romDataE, setRomDataE] = useState(null);
-
-	const onFileLoad = (() => () => {
-		romLoaded++;
-		console.log('romLoaded', romLoaded);
-		// if (romLoaded < 4) {
-		// 	return;
-		// }
-
-		// console.log('run');
-		//
-		// if (romDataE === null) {
-		// 	console.log('romDataE is null');
-		// 	return;
-		// }
-
-		// // Print the roms data
-		// console.log('romDataH', romDataH);
-		// console.log('romDataG', romDataG);
-		// console.log('romDataF', romDataF);
-		// console.log('romDataE', romDataE);
-
-		// run(canvasId, romDataH, romDataG, romDataF, romDataE);
-	})();
 
 	useEffect(() => {
 		init().then(() => {
@@ -46,13 +21,13 @@ const App = () => {
 		<div className='App'>
 			<div>
 				<p>Load ROM H</p>
-				<InputFile setRomData={setRomDataH} onFileLoad={() => onFileLoad()}/>
+				<InputFile setRomData={setRomDataH}/>
 				<p>Load ROM G</p>
-				<InputFile setRomData={setRomDataG} onFileLoad={() => onFileLoad()}/>
+				<InputFile setRomData={setRomDataG}/>
 				<p>Load ROM F</p>
-				<InputFile setRomData={setRomDataF} onFileLoad={() => onFileLoad()}/>
+				<InputFile setRomData={setRomDataF}/>
 				<p>Load ROM E</p>
-				<InputFile setRomData={setRomDataE} onFileLoad={() => onFileLoad()}/>
+				<InputFile setRomData={setRomDataE}/>
 				<button onClick={() => {
 					if (!romDataH || !romDataG || !romDataF || !romDataE) {
 						console.log('romDataH', romDataH);

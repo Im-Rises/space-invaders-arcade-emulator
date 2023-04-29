@@ -26,7 +26,7 @@ pub fn run(
     rom_f: js_sys::Uint8Array,
     rom_e: js_sys::Uint8Array,
 ) -> Result<(), JsValue> {
-    // /* Debug code */
+    /* Debug code */
     // let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
     // let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
     // let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();

@@ -7,8 +7,7 @@ export const InputFile = props => {
 		const file = inputRef.current.files[0];
 		const reader = new FileReader();
 		reader.onload = () => {
-			props.setRomData(reader.result);
-			props.onFileLoad();
+			props.setRomData(new Uint8Array(reader.result));
 		};
 
 		reader.readAsArrayBuffer(file);
