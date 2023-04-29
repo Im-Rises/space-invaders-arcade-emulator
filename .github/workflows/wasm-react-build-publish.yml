@@ -12,7 +12,7 @@ jobs:
       - name: Install wasm-pack
         run: cargo install wasm-pack
       - name: Build wasm
-        run: wasm-pack build --target web --out-dir si-web-react/si-emu-pkg --release
+        run: wasm-pack build --target web --out-dir si-web-react/src/si-emu-pkg --release
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:

@@ -104,7 +104,7 @@ instructions on the official website: <https://www.rust-lang.org/tools/install>
 You can build the project by typing the following command:
 
 ```bash
-wasm-pack build --target web --out-dir si-web-react/si-emu-pkg --release
+wasm-pack build --target web --out-dir si-web-static/src/si-emu-pkg --release
 ```
 
 It will output a wasm package to the si-web-react/pkg folder.
