@@ -38,4 +38,5 @@ features = [
     'BlobPropertyBag',
     'Url',
     'KeyboardEvent',
+    'WebGlUniformLocation'
 ]
