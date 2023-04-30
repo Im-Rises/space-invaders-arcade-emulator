@@ -11,8 +11,6 @@ pub struct MyWebGl2 {
     program: WebGlProgram,
     vertex_count: i32,
     texture: WebGlTexture,
-    rotation_matrix_location: Option<WebGlUniformLocation>,
-    rotation_matrix: [f32; 9],
 }
 
 impl MyWebGl2 {
@@ -46,13 +44,12 @@ impl MyWebGl2 {
 
                         in vec4 a_texcoord;
                         out vec2 v_texcoord;
-                        
-                        uniform mat3 u_rotationMatrix;
                 
                         void main() {
                             // v_texcoord = a_texcoord.xy * 0.5 + 0.5; // Normal display
                             // v_texcoord = vec2(a_texcoord.x * 0.5 + 0.5, 1.0 - (a_texcoord.y * 0.5 + 0.5)); // flip y
-                            v_texcoord = vec2(a_texcoord.y * 0.5 + 0.5, 1.0 - (a_texcoord.x * 0.5 + 0.5)); // Rotate by 90 degrees
+                            // v_texcoord = vec2(a_texcoord.y * 0.5 + 0.5, 1.0 - (a_texcoord.x * 0.5 + 0.5)); // Rotate by 90 degrees
+                            v_texcoord = vec2(a_texcoord.y * 0.5 + 0.5, a_texcoord.x * 0.5 + 0.5); // Rotate by 90 degrees and flip y
                             gl_Position = a_texcoord;
                         }
                         "##,
@@ -90,9 +87,6 @@ impl MyWebGl2 {
             -1.0, -1.0, 0.0, // bottom left
             -1.0, 1.0, 0.0, // top left
         ];
-
-        // Get uniform locations
-        let rotation_matrix_location = context.get_uniform_location(&program, "u_rotationMatrix");
 
         // Create the VBO
         let position_attribute_location = context.get_attrib_location(&program, "a_texcoord");
@@ -168,8 +162,6 @@ impl MyWebGl2 {
             program,
             vertex_count: (vertices.len() / 3) as i32,
             texture,
-            rotation_matrix_location,
-            rotation_matrix: [0.0, -1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
         })
     }
 
@@ -208,9 +200,6 @@ impl MyWebGl2 {
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.texture));
 
         self.gl.use_program(Some(&self.program));
-
-        self.gl
-            .uniform_matrix3fv_with_f32_array(self.rotation_matrix_location.as_ref(), false, &self.rotation_matrix);
 
         self.gl
             .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count as i32);
