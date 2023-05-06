@@ -21,8 +21,6 @@ impl MyWebGl2 {
         let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
 
         // Set the canvas width and height
-        // canvas.set_width(canvas_width);
-        // canvas.set_height(canvas_height);
         canvas.set_width(canvas_height);
         canvas.set_height(canvas_width);
 

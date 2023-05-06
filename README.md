@@ -29,6 +29,7 @@ TODO:
 - [x] Update the UFO sound (is looping but sound is too much spaced) (create a new mp3 or force stop playing the sound
   and play it again)
 - [x] Add the 9nth sound (the sound when the player pass 1000/1500 points)
+- [ ] Copy new emulation upgrade to computer version
 - [ ] Rotate the screen in webgl to prevent css rotation issue
 - [ ] Add a real space invaders font
 - [ ] Update transparency to put font in the background
@@ -105,6 +106,12 @@ You can build the project by typing the following command:
 
 ```bash
 wasm-pack build --target web --out-dir si-web-static/src/si-emu-pkg --release
+```
+
+or
+
+```bash
+wasm-pack build --target web --out-dir si-web-react/src/si-emu-pkg --release
 ```
 
 It will output a wasm package to the si-web-react/pkg folder.
