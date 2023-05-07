@@ -26,12 +26,12 @@ const App = () => {
 					{/* <img id={'si-background'} alt={'background'}/> */}
 				</div>
 				<div className={'control-panel'}>
-					<button id={'button-left'}/>
-					<button id={'button-right'}/>
-					<button id={'button-up'}/>
-					<button id={'button-player1-start'}/>
-					<button id={'button-player2-start'}/>
-					<button id={'button-coin'}/>
+					{/* <button id={'button-left'}/> */}
+					{/* <button id={'button-right'}/> */}
+					{/* <button id={'button-up'}/> */}
+					{/* <button id={'button-player1-start'}/> */}
+					{/* <button id={'button-player2-start'}/> */}
+					{/* <button id={'button-coin'}/> */}
 				</div>
 			</div>
 			{
