@@ -30,8 +30,8 @@ jobs:
         run: |
           cd si-web-react
           pwd
-      - name: Install dependencies
-        run: npm ci
+      #      - name: Install dependencies
+      #        run: npm ci
       - name: Build
         run: npm run build --if-present
       - name: Test
