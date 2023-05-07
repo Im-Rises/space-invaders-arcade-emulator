@@ -1,6 +1,45 @@
+.panel-rom-loader {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.panel-game {
+  width: 100vw;
+  height: 100vh;
+}
+
+.canvas-si-panel {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 80%;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
 .canvas-si {
-  background-color: white;
+  background-color: black;
   object-fit: contain;
   width: 100%;
   height: 100%;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 20%;
 }
