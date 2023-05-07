@@ -4,20 +4,22 @@
     margin: 0;
     padding: 0;
     font-size: 16px;
-    /*overflow: hidden;*/
+    background-color: black;
 }
 
-.canvas-webgl-holder {
+.canvas-panel {
     display: flex;
+    align-content: center;
+    justify-content: center;
     width: 100%;
     height: 80%;
-    justify-content: center;
-    align-items: center;
 }
 
-.canvas-webgl {
-    /*height: 80%;*/
-    rotate: -90deg;
+.canvas-si {
+    background-color: white;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 
 .inputs-roms-holder {

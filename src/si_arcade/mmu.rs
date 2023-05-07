@@ -60,16 +60,6 @@ impl Mmu {
     }
 }
 
-fn read_space_invaders_rom(rom_path: &str) -> Result<[u8; 0x800], Error> {
-    let mut f = File::open(rom_path)?;
-    let mut buffer: [u8; 0x800] = [0; 0x800];
-    let size = f.read(&mut buffer)?;
-    if size > 0x800 {
-        panic!("Error: File is incorrectly sized {}", 0x800);
-    }
-    Ok(buffer)
-}
-
 fn read_complete_rom(rom_path: &str) -> io::Result<(Vec<u8>, usize)> {
     let mut f = File::open(rom_path)?;
     let mut buffer = Vec::new();
