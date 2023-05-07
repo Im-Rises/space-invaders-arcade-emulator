@@ -21,8 +21,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      #      - name: Move to web-react folder
-      #        run: cd si-web-react
       - name: Install wasm-pack
         run: cargo install wasm-pack
       - name: Build wasm
@@ -32,8 +30,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: cd si-web-react
-      - run: npm ci
-      - run: npm install
-      - run: npm run build --if-present
-      - run: npm test
+      - name: Change directory
+        run: cd si-web-react
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build --if-present
+      - name: Test
+        run: npm test
