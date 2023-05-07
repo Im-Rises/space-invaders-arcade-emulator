@@ -38,16 +38,16 @@ impl SpaceInvadersArcade {
     ) -> Self {
         let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new(rom_h, rom_g, rom_f, rom_e)));
         let mut sounds: Vec<(&[u8], SoundType)> = Vec::new();
-        sounds.push((&spu::SOUND_0, SoundType::VariableLengthSound)); // UFO
-        sounds.push((&spu::SOUND_1, SoundType::VariableLengthSound)); // Shoot
-        sounds.push((&spu::SOUND_2, SoundType::UniqueSound)); // Player Explosion
-        sounds.push((&spu::SOUND_3, SoundType::UniqueSound)); // Invader Explosion
-        sounds.push((&spu::SOUND_4, SoundType::UniqueSound)); // Invader March 1
-        sounds.push((&spu::SOUND_5, SoundType::UniqueSound)); // Invader March 2
-        sounds.push((&spu::SOUND_6, SoundType::UniqueSound)); // Invader March 3
-        sounds.push((&spu::SOUND_7, SoundType::UniqueSound)); // Invader March 4
-        sounds.push((&spu::SOUND_8, SoundType::UniqueSound)); // Bonus UFO Destroyed
-        sounds.push((&spu::SOUND_9, SoundType::UniqueSound)); // Extra Ship Sound
+        sounds.push((spu::SOUND_0, SoundType::VariableLengthSound)); // UFO
+        sounds.push((spu::SOUND_1, SoundType::VariableLengthSound)); // Shoot
+        sounds.push((spu::SOUND_2, SoundType::UniqueSound)); // Player Explosion
+        sounds.push((spu::SOUND_3, SoundType::UniqueSound)); // Invader Explosion
+        sounds.push((spu::SOUND_4, SoundType::UniqueSound)); // Invader March 1
+        sounds.push((spu::SOUND_5, SoundType::UniqueSound)); // Invader March 2
+        sounds.push((spu::SOUND_6, SoundType::UniqueSound)); // Invader March 3
+        sounds.push((spu::SOUND_7, SoundType::UniqueSound)); // Invader March 4
+        sounds.push((spu::SOUND_8, SoundType::UniqueSound)); // Bonus UFO Destroyed
+        sounds.push((spu::SOUND_9, SoundType::UniqueSound)); // Extra Ship Sound
 
         SpaceInvadersArcade {
             cpu: cpu::Cpu::new(&mmu_init, 0),
