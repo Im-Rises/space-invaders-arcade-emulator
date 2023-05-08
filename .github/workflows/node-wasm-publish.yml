@@ -13,18 +13,20 @@ jobs:
         run: cargo install wasm-pack
       - name: Build wasm
         run: wasm-pack build --target web --out-dir si-web-react/src/si-emu-pkg --release
-      - name: Use Node.js 16.x
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: cd si-web-react
+          cache-dependency-path: si-web-react/package-lock.json
       - run: npm install
+        working-directory: ./si-web-react
       - run: npm run build
+        working-directory: ./si-web-react
       - name: Deploy
         uses: crazy-max/ghaction-github-pages@v1
         with:
           target_branch: gh-pages
-          build_dir: build
+          build_dir: si-web-react/build
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
