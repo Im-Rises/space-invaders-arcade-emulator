@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {InputFile} from './components/InputFile';
 import './App.scss';
 
-import init, {run} from './si-emu-pkg';
+import init, {run} from 'si-emu-pkg';
 
 const App = () => {
 	const canvasId = 'canvas';
