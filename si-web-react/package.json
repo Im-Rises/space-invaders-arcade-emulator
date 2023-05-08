@@ -13,6 +13,11 @@
     "sass": "^1.62.1",
     "web-vitals": "^2.1.4"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "si-emu-pkg": "<rootDir>/src/si-emu-pkg/space_invaders_arcade_emulator.js"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
