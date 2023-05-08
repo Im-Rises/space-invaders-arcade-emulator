@@ -1,0 +1,11 @@
+.git
+.github
+node_modules
+target
+trash
+.clippy.toml
+.editorconfig
+.gitattributes
+.gitignore
+.rustfmt.toml
+Cargo.lock

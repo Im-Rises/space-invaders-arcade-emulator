@@ -1,7 +1,11 @@
 # space_invaders_arcade_emulator
 
 <p align="center">
-      <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="rustLogo" style="height:60px;"/>
+    <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="rustLogo" style="height:60px;"/>
+    <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="javascriptLogo" style="height:50px;">
+    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="reactLogo" style="height:50px;">
+    <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt="scssLogo" style="height:50px;">
+    <img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white" alt="cssLogo" style="height:50px;">
 </p>
 
 ## Description
@@ -219,19 +223,28 @@ This will output the complete disassembly of the CPU in the `test_roms/my_output
 
 ## GitHub Actions
 
-[![Rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
+[![rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
 [![rust-clippy analyze](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml)
 [![rustfmt check](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml)
-[![Wasm build](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml)
-[![Rust-wasm-publish](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-build-publish.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-build-publish.yml)
+[![ESLint](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/eslint.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/eslint.yml)
+[![Node.js Wasm CI](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm.yml)
+[![Node.js Wasm CI publish](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm-publish.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm-publish.yml)
+[![pages-build-deployment](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/pages/pages-build-deployment)
 
 The project is set with a set of different scripts:
 
-- rust : Check the code compilation and unit tests.
+- Rust : Build the project in native mode and run the unit tests.
 - rust-clippy analyze : Evaluate the code quality (error, warnings, etc...).
 - rustfmt check :  Check the code good formatting
-- Wasm build : Build the project in WebAssembly.
-- Rust-wasm-publish : Publish the WebAssembly build on GitHub Pages.
+- ESLint : Check the code good formatting
+- Node.js Wasm CI : Build the WebAssembly file and the website.
+- Node.js Wasm CI publish : Publish the website with the webassembly file on the gh-pages branch.
+- pages-build-deployment : Publish the website form the gh-pages branch to GitHub Pages.
+
+[//]: # (- Node.js : Build the website.)
+
+- Rust-wasm-publish : Publish the WebAssembly build on the gh-pages branch.
+- pages-build-deployment : Publish the website form the gh-pages branch to GitHub Pages.
 
 ## Documentation
 
