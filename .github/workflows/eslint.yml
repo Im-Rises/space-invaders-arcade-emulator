@@ -47,7 +47,7 @@ jobs:
 
       - name: Run ESLint
         run: npx eslint ./
-          --config ./si-web-react/.eslintrc.js
+          --config .eslintrc.js
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif

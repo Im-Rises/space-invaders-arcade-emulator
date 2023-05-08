@@ -223,22 +223,23 @@ This will output the complete disassembly of the CPU in the `test_roms/my_output
 
 ## GitHub Actions
 
-[![Rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
+[![rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
 [![rust-clippy analyze](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml)
 [![rustfmt check](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml)
-[![Wasm build](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml)
-
-[//]: # ([![Node.js CI]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node.yml/badge.svg&#41;]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node.yml&#41;)
-
-[//]: # ([![Rust-wasm-publish]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-build-publish.yml/badge.svg&#41;]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-build-publish.yml&#41;)
+[![ESLint](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/eslint.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/eslint.yml)
+[![Node.js Wasm CI](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm.yml)
+[![Node.js Wasm CI publish](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm-publish.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm-publish.yml)
 [![pages-build-deployment](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/pages/pages-build-deployment)
 
 The project is set with a set of different scripts:
 
-- rust : Check the code compilation and unit tests.
+- Rust : Build the project in native mode and run the unit tests.
 - rust-clippy analyze : Evaluate the code quality (error, warnings, etc...).
 - rustfmt check :  Check the code good formatting
-- Wasm build : Build the project in WebAssembly.
+- ESLint : Check the code good formatting
+- Node.js Wasm CI : Build the WebAssembly file and the website.
+- Node.js Wasm CI publish : Publish the website with the webassembly file on the gh-pages branch.
+- pages-build-deployment : Publish the website form the gh-pages branch to GitHub Pages.
 
 [//]: # (- Node.js : Build the website.)
 
