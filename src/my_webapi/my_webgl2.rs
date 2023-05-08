@@ -1,8 +1,5 @@
 use wasm_bindgen::{JsCast, JsValue};
-use web_sys::{
-    WebGl2RenderingContext, WebGlBuffer, WebGlProgram, WebGlShader, WebGlTexture, WebGlUniformLocation,
-    WebGlVertexArrayObject,
-};
+use web_sys::{WebGl2RenderingContext, WebGlBuffer, WebGlProgram, WebGlShader, WebGlTexture, WebGlVertexArrayObject};
 
 pub struct MyWebGl2 {
     gl: WebGl2RenderingContext,
