@@ -1,21 +1,26 @@
 import React, {useRef} from 'react';
+import PropTypes from 'prop-types';
 
-export const InputFile = props => {
-	const inputRef = useRef(null);
+export const InputFile = ({setRomData}) => {
+    const inputRef = useRef(null);
 
-	const onFileChange = () => {
-		const file = inputRef.current.files[0];
-		const reader = new FileReader();
-		reader.onload = () => {
-			props.setRomData(new Uint8Array(reader.result));
-		};
+    const onFileChange = () => {
+        const file = inputRef.current.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            setRomData(new Uint8Array(reader.result));
+        };
 
-		reader.readAsArrayBuffer(file);
-	};
+        reader.readAsArrayBuffer(file);
+    };
 
-	return (
-		<div>
-			<input type='file' ref={inputRef} onChange={onFileChange}/>
-		</div>
-	);
+    return (
+        <div>
+            <input type='file' ref={inputRef} onChange={onFileChange}/>
+        </div>
+    );
+};
+
+InputFile.propTypes = {
+    setRomData: PropTypes.func.isRequired,
 };
