@@ -25,5 +25,5 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      #          cache: 'npm'
+          cache: 'npm'
       - run: cd si-web-react && npm ci && npm run build --if-present && npm test

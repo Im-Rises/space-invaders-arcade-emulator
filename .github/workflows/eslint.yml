@@ -36,9 +36,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          path: './si-web-react'
 
       - name: Install ESLint
         run: |
@@ -46,7 +43,7 @@ jobs:
           npm install @microsoft/eslint-formatter-sarif@2.1.7
 
       - name: Run ESLint
-        run: pwd && ls && npx eslint ./
+        run: npx eslint ./
           --config ./si-web-react/.eslintrc.js
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
