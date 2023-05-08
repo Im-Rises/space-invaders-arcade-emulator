@@ -26,4 +26,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: cd si-web-react && npm ci && npm run build --if-present && npm test
+      - run: npm ci
+        working-directory: ./si-web-react
+      - run: npm run build --if-present
+        working-directory: ./si-web-react
+      - run: npm test
+        working-directory: ./si-web-react
