@@ -4,4 +4,5 @@ wasm-pack build --target web --out-dir si-web-react/si-emu-pkg --release
 cd si-web-react
 npm install
 yarn install
+cd ..
 pause

@@ -241,11 +241,6 @@ The project is set with a set of different scripts:
 - Node.js Wasm CI publish : Publish the website with the webassembly file on the gh-pages branch.
 - pages-build-deployment : Publish the website form the gh-pages branch to GitHub Pages.
 
-[//]: # (- Node.js : Build the website.)
-
-- Rust-wasm-publish : Publish the WebAssembly build on the gh-pages branch.
-- pages-build-deployment : Publish the website form the gh-pages branch to GitHub Pages.
-
 ## Documentation
 
 emulator101:  

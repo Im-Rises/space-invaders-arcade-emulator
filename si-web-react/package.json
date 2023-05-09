@@ -14,11 +14,6 @@
     "web-vitals": "^2.1.4",
     "si-emu-pkg": "file:./si-emu-pkg"
   },
-  "jest": {
-    "moduleNameMapper": {
-      "si-emu-pkg": "<rootDir>/si-emu-pkg/space_invaders_arcade_emulator.js"
-    }
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
