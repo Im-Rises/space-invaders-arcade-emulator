@@ -185,7 +185,7 @@ impl MyWebGl2 {
     }
 
     pub fn draw(&self) {
-        self.gl.clear_color(0.0, 0.0, 0.0, 1.0);
+        self.gl.clear_color(0.0, 0.0, 0.0, 0.0);
         self.gl.clear(WebGl2RenderingContext::COLOR_BUFFER_BIT);
 
         self.gl.bind_vertex_array(Some(&self.vao));
