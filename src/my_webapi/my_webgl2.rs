@@ -63,7 +63,16 @@ impl MyWebGl2 {
                         in vec2 v_texcoord;
                 
                         void main() {
-                            outColor = texture(u_texture, v_texcoord);
+                            // // No transparency
+                            // outColor = texture(u_texture, v_texcoord);
+                            
+                            vec4 color = texture(u_texture, v_texcoord);
+                            if (color.rgb == vec3(0.0)) {
+                                color.a = 0.0; // Set alpha to 0 for black color
+                            } else {
+                                color.a = 1.0; // Set alpha to 1 for non-black colors
+                            }
+                            outColor = color;
                         }
                         "##,
         )?;
@@ -148,6 +157,15 @@ impl MyWebGl2 {
         context.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, None);
         // Unbind the VAO
         context.bind_vertex_array(None);
+
+        // // Allow transparency
+        // context.enable(WebGl2RenderingContext::BLEND);
+        // context.enable(WebGl2RenderingContext::DEPTH_TEST);
+        // context.blend_func(
+        //     WebGl2RenderingContext::SRC_ALPHA,
+        //     WebGl2RenderingContext::ONE_MINUS_SRC_ALPHA,
+        // );
+        // context.blend_equation(WebGl2RenderingContext::FUNC_ADD);
 
         // Create the struct
         Ok(MyWebGl2 {
