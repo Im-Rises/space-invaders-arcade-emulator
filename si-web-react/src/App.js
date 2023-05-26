@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {InputFile} from './components/InputFile';
+import backgroundImage from './images/invaders.png';
 import './App.scss';
 
 import init, {run} from 'si-emu-pkg';
@@ -23,7 +24,7 @@ const App = () => {
 			<div className={'panel-game'}>
 				<div className={'canvas-si-panel'}>
 					<canvas id={canvasId} className={'canvas-si'}/>
-					{/* <img id={'si-background'} alt={'background'}/> */}
+					<img src={backgroundImage} alt={'background'}/>
 				</div>
 				<div className={'control-panel'}>
 					{/* <button id={'button-left'}/> */}
@@ -36,29 +37,29 @@ const App = () => {
 			</div>
 			{
 				!romsLoaded
-                && (
-                	<div className={'panel-rom-loader'}>
-                		<p>Load ROM H</p>
-                		<InputFile setRomData={setRomDataH}/>
-                		<p>Load ROM G</p>
-                		<InputFile setRomData={setRomDataG}/>
-                		<p>Load ROM F</p>
-                		<InputFile setRomData={setRomDataF}/>
-                		<p>Load ROM E</p>
-                		<InputFile setRomData={setRomDataE}/>
-                		<button onClick={() => {
-                			if (!romDataH || !romDataG || !romDataF || !romDataE) {
-                				console.log('All roms loaded');
-                				return;
-                			}
+				&& (
+					<div className={'panel-rom-loader'}>
+						<p>Load ROM H</p>
+						<InputFile setRomData={setRomDataH}/>
+						<p>Load ROM G</p>
+						<InputFile setRomData={setRomDataG}/>
+						<p>Load ROM F</p>
+						<InputFile setRomData={setRomDataF}/>
+						<p>Load ROM E</p>
+						<InputFile setRomData={setRomDataE}/>
+						<button onClick={() => {
+							if (!romDataH || !romDataG || !romDataF || !romDataE) {
+								console.log('All roms loaded');
+								return;
+							}
 
-                			setRomsLoaded(true);
-                			run(canvasId, romDataH, romDataG, romDataF, romDataE);
-                		}
-                		}>Run
-                		</button>
-                	</div>
-                )
+							setRomsLoaded(true);
+							run(canvasId, romDataH, romDataG, romDataF, romDataE);
+						}
+						}>Run
+						</button>
+					</div>
+				)
 			}
 
 		</>
