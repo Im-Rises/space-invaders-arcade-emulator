@@ -36,8 +36,11 @@ impl MyWebGl2 {
             &context,
             WebGl2RenderingContext::VERTEX_SHADER,
             r##"#version 300 es
+            
+                        precision highp float;
 
                         in vec4 a_texcoord;
+                        
                         out vec2 v_texcoord;
                 
                         void main() {
@@ -57,14 +60,16 @@ impl MyWebGl2 {
             r##"#version 300 es
 
                         precision highp float;
-                        out vec4 outColor;
+                        
+                        in vec2 v_texcoord;
                         
                         uniform sampler2D u_texture;
-                        in vec2 v_texcoord;
+                        
+                        out vec4 o_outColor;
                 
                         void main() {
                             // // No transparency
-                            // outColor = texture(u_texture, v_texcoord);
+                            // o_outColor = texture(u_texture, v_texcoord);
                             
                             vec4 color = texture(u_texture, v_texcoord);
                             if (color.rgb == vec3(0.0)) {
@@ -72,7 +77,7 @@ impl MyWebGl2 {
                             } else {
                                 color.a = 1.0; // Set alpha to 1 for non-black colors
                             }
-                            outColor = color;
+                            o_outColor = color;
                         }
                         "##,
         )?;
