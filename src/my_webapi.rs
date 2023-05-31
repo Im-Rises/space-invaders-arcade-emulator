@@ -21,7 +21,7 @@ impl MyWebApi {
     }
 
     pub fn update_u8array_to_overlay_texture(&self, data: &[u8], width: i32, height: i32) {
-        // self.my_webgl2.u8array_to_overlay_texture(data, width, height).unwrap();
+        self.my_webgl2.u8array_to_overlay_texture(data, width, height).unwrap();
     }
 
     pub fn draw(&self) {

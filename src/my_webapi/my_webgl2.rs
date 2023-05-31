@@ -240,29 +240,29 @@ impl MyWebGl2 {
         Ok(texture.clone())
     }
 
-    // pub fn u8array_to_overlay_texture(&self, data: &[u8], width: i32, height: i32) -> Result<WebGlTexture, JsValue> {
-    //     let gl = &self.gl;
-    //     let texture = &self.overlay_texture;
-    //
-    //     gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
-    //
-    //     gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
-    //         WebGl2RenderingContext::TEXTURE_2D,
-    //         0,
-    //         WebGl2RenderingContext::RGBA as i32,
-    //         width,
-    //         height,
-    //         0,
-    //         WebGl2RenderingContext::RGBA,
-    //         WebGl2RenderingContext::UNSIGNED_BYTE,
-    //         Some(data),
-    //     )?;
-    //
-    //     // Unbind the texture
-    //     gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
-    //
-    //     Ok(texture.clone())
-    // }
+    pub fn u8array_to_overlay_texture(&self, data: &[u8], width: i32, height: i32) -> Result<WebGlTexture, JsValue> {
+        let gl = &self.gl;
+        let texture = &self.overlay_texture;
+
+        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
+
+        gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
+            WebGl2RenderingContext::TEXTURE_2D,
+            0,
+            WebGl2RenderingContext::RGBA as i32,
+            width,
+            height,
+            0,
+            WebGl2RenderingContext::RGBA,
+            WebGl2RenderingContext::UNSIGNED_BYTE,
+            Some(data),
+        )?;
+
+        // Unbind the texture
+        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
+
+        Ok(texture.clone())
+    }
 
     pub fn draw(&self) {
         self.gl.clear_color(0.0, 0.0, 0.0, 0.0);
