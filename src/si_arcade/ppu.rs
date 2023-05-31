@@ -25,13 +25,12 @@ impl Ppu {
         Ppu {
             mmu: Rc::clone(mmu),
             screen: [0; SCREEN_WIDTH * SCREEN_HEIGHT * 3],
-            // overlay: image::load_from_memory(OVERLAY_TEXTURE)
-            //     .unwrap()
-            //     .to_rgba8()
-            //     .into_raw()
-            //     .try_into()
-            //     .unwrap(),
-            overlay: [0; GAME_OVERLAY_SIZE],
+            overlay: image::load_from_memory(OVERLAY_TEXTURE)
+                .unwrap()
+                .into_bytes()
+                .as_slice()
+                .try_into()
+                .unwrap(),
         }
     }
 
