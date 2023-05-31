@@ -8,7 +8,7 @@ pub struct MyWebGl2 {
     program: WebGlProgram,
     vertex_count: i32,
     game_texture: WebGlTexture,
-    // overlay_texture: WebGlTexture,
+    overlay_texture: WebGlTexture,
 }
 
 impl MyWebGl2 {
@@ -65,7 +65,7 @@ impl MyWebGl2 {
                         in vec2 v_texcoord;
                         
                         uniform sampler2D u_texture;
-                        // uniform sampler2D u_overlay_texture;
+                        uniform sampler2D u_overlay_texture;
                         
                         out vec4 o_outColor;
                 
@@ -158,33 +158,33 @@ impl MyWebGl2 {
             WebGl2RenderingContext::NEAREST as i32,
         );
 
-        // // Create the overlay texture
-        // let overlay_texture = context.create_texture().ok_or("Failed to create texture")?;
-        // context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&overlay_texture));
-        //
-        // context.tex_parameteri(
-        //     WebGl2RenderingContext::TEXTURE_2D,
-        //     WebGl2RenderingContext::TEXTURE_WRAP_S,
-        //     WebGl2RenderingContext::CLAMP_TO_EDGE as i32,
-        // );
-        //
-        // context.tex_parameteri(
-        //     WebGl2RenderingContext::TEXTURE_2D,
-        //     WebGl2RenderingContext::TEXTURE_WRAP_T,
-        //     WebGl2RenderingContext::CLAMP_TO_EDGE as i32,
-        // );
-        //
-        // context.tex_parameteri(
-        //     WebGl2RenderingContext::TEXTURE_2D,
-        //     WebGl2RenderingContext::TEXTURE_MIN_FILTER,
-        //     WebGl2RenderingContext::NEAREST as i32,
-        // );
-        //
-        // context.tex_parameteri(
-        //     WebGl2RenderingContext::TEXTURE_2D,
-        //     WebGl2RenderingContext::TEXTURE_MAG_FILTER,
-        //     WebGl2RenderingContext::NEAREST as i32,
-        // );
+        // Create the overlay texture
+        let overlay_texture = context.create_texture().ok_or("Failed to create texture")?;
+        context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&overlay_texture));
+
+        context.tex_parameteri(
+            WebGl2RenderingContext::TEXTURE_2D,
+            WebGl2RenderingContext::TEXTURE_WRAP_S,
+            WebGl2RenderingContext::CLAMP_TO_EDGE as i32,
+        );
+
+        context.tex_parameteri(
+            WebGl2RenderingContext::TEXTURE_2D,
+            WebGl2RenderingContext::TEXTURE_WRAP_T,
+            WebGl2RenderingContext::CLAMP_TO_EDGE as i32,
+        );
+
+        context.tex_parameteri(
+            WebGl2RenderingContext::TEXTURE_2D,
+            WebGl2RenderingContext::TEXTURE_MIN_FILTER,
+            WebGl2RenderingContext::NEAREST as i32,
+        );
+
+        context.tex_parameteri(
+            WebGl2RenderingContext::TEXTURE_2D,
+            WebGl2RenderingContext::TEXTURE_MAG_FILTER,
+            WebGl2RenderingContext::NEAREST as i32,
+        );
 
         // Unbind the texture
         context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
@@ -212,7 +212,7 @@ impl MyWebGl2 {
             program,
             vertex_count: (vertices.len() / 3) as i32,
             game_texture,
-            // overlay_texture,
+            overlay_texture,
         })
     }
 
@@ -242,7 +242,7 @@ impl MyWebGl2 {
 
     // pub fn u8array_to_overlay_texture(&self, data: &[u8], width: i32, height: i32) -> Result<WebGlTexture, JsValue> {
     //     let gl = &self.gl;
-    // let texture = &self.overlay_texture;
+    //     let texture = &self.overlay_texture;
     //
     //     gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
     //
@@ -261,7 +261,7 @@ impl MyWebGl2 {
     //     // Unbind the texture
     //     gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
     //
-    // Ok(texture.clone())
+    //     Ok(texture.clone())
     // }
 
     pub fn draw(&self) {
