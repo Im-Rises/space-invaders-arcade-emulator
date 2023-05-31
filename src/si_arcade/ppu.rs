@@ -9,6 +9,8 @@ pub const SCREEN_FREQUENCY: usize = 60;
 pub const SCREEN_WIDTH: usize = 256;
 pub const SCREEN_HEIGHT: usize = 224;
 
+pub const OVERLAY_TEXTURE: &[u8] = include_bytes!("../../game_overlays/space_invaders_overlay.png");
+
 pub struct Ppu {
     mmu: Rc<RefCell<Mmu>>,
     screen: [u8; SCREEN_WIDTH * SCREEN_HEIGHT * 3],
