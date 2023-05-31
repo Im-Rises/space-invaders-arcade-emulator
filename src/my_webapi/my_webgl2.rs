@@ -74,14 +74,16 @@ impl MyWebGl2 {
                             // // No transparency
                             // o_outColor = texture(u_texture, v_texcoord);
                             
-                            vec4 color = texture(u_texture, v_texcoord);
-                            if (color.rgb == vec3(0.0)) {
-                                color.a = 0.0; // Set alpha to 0 for black color
-                            } else {
-                                color.a = 1.0; // Set alpha to 1 for non-black colors
-                                // color = texture(u_overlay_texture, v_texcoord).r; // Set color to overlay texture color
-                            }
-                            o_outColor = color;
+                            o_outColor = texture(u_texture, v_texcoord);
+                            
+                            // vec4 color = texture(u_texture, v_texcoord);
+                            // if (color.rgb == vec3(0.0)) {
+                            //     color.a = 0.0; // Set alpha to 0 for black color
+                            // } else {
+                            //     // color.a = 1.0; // Set alpha to 1 for non-black colors
+                            //     color = texture(u_overlay_texture, v_texcoord).r; // Set color to overlay texture color
+                            // }
+                            // o_outColor = color;
                         }
                         "##,
         )?;
@@ -273,13 +275,13 @@ impl MyWebGl2 {
         self.gl
             .bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&self.vbo));
 
-        self.gl.active_texture(WebGl2RenderingContext::TEXTURE0);
+        // self.gl.active_texture(WebGl2RenderingContext::TEXTURE0);
         self.gl
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.game_texture));
 
         // self.gl.active_texture(WebGl2RenderingContext::TEXTURE1);
-        // self.gl
-        //     .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.overlay_texture));
+        self.gl
+            .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.overlay_texture));
 
         self.gl.use_program(Some(&self.program));
 
