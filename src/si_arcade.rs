@@ -109,7 +109,7 @@ impl SpaceInvadersArcade {
                         ppu::SCREEN_HEIGHT as i32,
                     );
                     self.my_api.update_u8array_to_overlay_texture(
-                        ppu::OVERLAY_TEXTURE,
+                        self.ppu.get_overlay(),
                         ppu::SCREEN_WIDTH as i32,
                         ppu::SCREEN_HEIGHT as i32,
                     );
