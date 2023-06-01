@@ -12,6 +12,8 @@ keywords = ["space-invaders", "arcade", "emulator"]
 categories = ["emulators"]
 
 [lib]
+name = "space-invaders-arcade-emulator"
+path = "src/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
