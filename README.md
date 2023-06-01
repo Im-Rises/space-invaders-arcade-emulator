@@ -303,6 +303,12 @@ web-sys:
 trcf.net:  
 <https://tcrf.net/Space_Invaders_(Arcade)>
 
+tobiasvl.github.io:  
+<https://tobiasvl.github.io/blog/space-invaders/>
+
+trcf.net:  
+<https://tcrf.net/Space_Invaders_(Arcade)>
+
 ## Contributors
 
 Quentin MOREL :
