@@ -12,7 +12,7 @@ keywords = ["space-invaders", "arcade", "emulator"]
 categories = ["emulators"]
 
 [lib]
-name = "space-invaders-arcade-emulator"
+name = "space_invaders_arcade_emulator_webgl"
 path = "src/lib.rs"
 crate-type = ["cdylib"]
 
