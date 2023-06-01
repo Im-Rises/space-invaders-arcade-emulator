@@ -83,7 +83,7 @@ impl MyWebGl2 {
                                 color.a = 0.0; // Set alpha to 0 for black color
                             } else {
                                 // color.a = 1.0; // Set alpha to 1 for non-black colors
-                                color = texture(u_overlay_texture, v_texcoord).rgb; // Set color to overlay texture color
+                                color = texture(u_overlay_texture, v_texcoord).rgba; // Set color to overlay texture color
                             }
                             o_outColor = color;
                         }
