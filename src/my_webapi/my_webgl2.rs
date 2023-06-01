@@ -1,4 +1,4 @@
-use image::{DynamicImage, GenericImageView};
+use image;
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{WebGl2RenderingContext, WebGlBuffer, WebGlProgram, WebGlShader, WebGlTexture, WebGlVertexArrayObject};
 

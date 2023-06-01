@@ -12,7 +12,7 @@ pub const SCREEN_HEIGHT: usize = 224;
 pub const GAME_TEXTURE_SIZE: usize = SCREEN_WIDTH * SCREEN_HEIGHT * 3;
 pub const GAME_OVERLAY_SIZE: usize = SCREEN_WIDTH * SCREEN_HEIGHT * 4;
 
-const OVERLAY_TEXTURE: &[u8] = include_bytes!("../../game_overlays/space_invaders_overlay.png");
+const OVERLAY_TEXTURE: &[u8] = include_bytes!("../../game_overlays/space_invaders_overlay_TV.png");
 
 pub struct Ppu {
     mmu: Rc<RefCell<Mmu>>,

@@ -14,39 +14,6 @@ Space Invaders' arcade game emulator written in Rust for the web.
 
 Complete Emulator of the Intel 8080, the app is implemented to run the Space Invaders Arcade game.
 
-TODO:
-
-- [x] Add controls
-- [x] Add video
-- [x] Correct player 2 controls not working
-- [x] Correct the player 2 controls to be set on the same as the player 1
-- [x] Move the input handling to the si_arcade crate no web_api crate
-- [x] Move corrected code to the original project
-- [x] Add audio
-- [x] Improve the audio
-- [x] Handle the mp3 play correctly in the api
-- [x] Change the spu to list the index of the sound to play and then fetch the sound with the api
-- [x] Update the audio api sound handling with 3 types of sounds
-- [x] Add the rom loader
-- [x] Update the shoot sound (increase its length to have the shoot until it reach the top of the screen maximum, the
-  api is already implemented to stop the sound)
-- [x] Update the UFO sound (is looping but sound is too much spaced) (create a new mp3 or force stop playing the sound
-  and play it again)
-- [x] Add the 9nth sound (the sound when the player pass 1000/1500 points)
-- [x] Copy new emulation upgrade to computer version
-- [x] Rotate the screen in webgl to prevent css rotation issue
-- [x] Add a real space invaders font
-- [x] Update transparency to put font in the background
-- [x] Add the green and red color for the shields and ufo (using shader or css mask or the core matrix)
-
-```
-  if (y >= 182 && y <= 223)
-     // Green - player and shields
-  else if (y >= 33 && y <= 55)
-      // Red - UFO
-  else
-  ```
-
 [//]: # (- [ ] Add a way to toggle the space invaders original view or the pure emulation view &#40;to do in CSS&#41;.)
 
 [//]: # (- [ ] Add a way to fetch the score from the game ?)
