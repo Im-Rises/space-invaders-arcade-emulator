@@ -5,7 +5,10 @@ si-emu-pkg/
 
 # Ignore roms
 [Rr]oms/
-invaders.*
+invaders.h
+invaders.g
+invaders.f
+invaders.e
 
 # Ignore compilation folder
 [Tt]arget/
