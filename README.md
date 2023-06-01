@@ -33,11 +33,11 @@ TODO:
 - [x] Update the UFO sound (is looping but sound is too much spaced) (create a new mp3 or force stop playing the sound
   and play it again)
 - [x] Add the 9nth sound (the sound when the player pass 1000/1500 points)
-- [ ] Copy new emulation upgrade to computer version
-- [ ] Rotate the screen in webgl to prevent css rotation issue
-- [ ] Add a real space invaders font
-- [ ] Update transparency to put font in the background
-- [ ] Add the green and red color for the shields and ufo (using shader or css mask or the core matrix)
+- [x] Copy new emulation upgrade to computer version
+- [x] Rotate the screen in webgl to prevent css rotation issue
+- [x] Add a real space invaders font
+- [x] Update transparency to put font in the background
+- [x] Add the green and red color for the shields and ufo (using shader or css mask or the core matrix)
 
 ```
   if (y >= 182 && y <= 223)
