@@ -190,6 +190,13 @@ impl MyWebGl2 {
             WebGl2RenderingContext::NEAREST as i32,
         );
 
+        context.use_program(Some(&program));
+        context.uniform1i(Some(&context.get_uniform_location(&program, "u_texture").unwrap()), 0);
+        context.uniform1i(
+            Some(&context.get_uniform_location(&program, "u_overlay_texture").unwrap()),
+            1,
+        );
+
         // Unbind the texture
         context.bind_texture(WebGl2RenderingContext::TEXTURE_2D, None);
 
@@ -289,15 +296,15 @@ impl MyWebGl2 {
         self.gl.active_texture(WebGl2RenderingContext::TEXTURE1);
         self.gl
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.overlay_texture));
-        // self.gl.uniform1i(
-        //     Some(
-        //         &self
-        //             .gl
-        //             .get_uniform_location(&self.program, "u_overlay_texture")
-        //             .unwrap(),
-        //     ),
-        //     1,
-        // );
+        self.gl.uniform1i(
+            Some(
+                &self
+                    .gl
+                    .get_uniform_location(&self.program, "u_overlay_texture")
+                    .unwrap(),
+            ),
+            1,
+        );
 
         self.gl
             .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count as i32);
