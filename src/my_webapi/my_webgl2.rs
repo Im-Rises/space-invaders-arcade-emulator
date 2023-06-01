@@ -75,6 +75,7 @@ impl MyWebGl2 {
                             // o_outColor = texture(u_texture, v_texcoord);
                             
                             o_outColor = texture(u_texture, v_texcoord);
+                            // o_outColor = texture(u_overlay_texture, v_texcoord);
                             
                             // vec4 color = texture(u_texture, v_texcoord);
                             // if (color.rgb == vec3(0.0)) {
@@ -275,15 +276,28 @@ impl MyWebGl2 {
         self.gl
             .bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, Some(&self.vbo));
 
-        // self.gl.active_texture(WebGl2RenderingContext::TEXTURE0);
+        self.gl.use_program(Some(&self.program));
+
+        self.gl.active_texture(WebGl2RenderingContext::TEXTURE0);
         self.gl
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.game_texture));
+        self.gl.uniform1i(
+            Some(&self.gl.get_uniform_location(&self.program, "u_texture").unwrap()),
+            0,
+        );
 
-        // self.gl.active_texture(WebGl2RenderingContext::TEXTURE1);
+        self.gl.active_texture(WebGl2RenderingContext::TEXTURE1);
         self.gl
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.overlay_texture));
-
-        self.gl.use_program(Some(&self.program));
+        // self.gl.uniform1i(
+        //     Some(
+        //         &self
+        //             .gl
+        //             .get_uniform_location(&self.program, "u_overlay_texture")
+        //             .unwrap(),
+        //     ),
+        //     1,
+        // );
 
         self.gl
             .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count as i32);
