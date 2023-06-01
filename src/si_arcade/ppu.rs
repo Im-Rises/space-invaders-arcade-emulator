@@ -9,9 +9,15 @@ pub const SCREEN_FREQUENCY: usize = 60;
 pub const SCREEN_WIDTH: usize = 256;
 pub const SCREEN_HEIGHT: usize = 224;
 
+pub const GAME_TEXTURE_SIZE: usize = SCREEN_WIDTH * SCREEN_HEIGHT * 3;
+pub const GAME_OVERLAY_SIZE: usize = SCREEN_WIDTH * SCREEN_HEIGHT * 4;
+
+const OVERLAY_TEXTURE: &[u8] = include_bytes!("../../game_overlays/space_invaders_overlay_TV.png");
+
 pub struct Ppu {
     mmu: Rc<RefCell<Mmu>>,
-    screen: [u8; SCREEN_WIDTH * SCREEN_HEIGHT * 3],
+    screen: [u8; GAME_TEXTURE_SIZE],
+    overlay: [u8; GAME_OVERLAY_SIZE],
 }
 
 impl Ppu {
@@ -19,6 +25,12 @@ impl Ppu {
         Ppu {
             mmu: Rc::clone(mmu),
             screen: [0; SCREEN_WIDTH * SCREEN_HEIGHT * 3],
+            overlay: image::load_from_memory(OVERLAY_TEXTURE)
+                .unwrap()
+                .into_bytes()
+                .as_slice()
+                .try_into()
+                .unwrap(),
         }
     }
 
@@ -35,7 +47,11 @@ impl Ppu {
         }
     }
 
-    pub fn get_screen(&self) -> &[u8; SCREEN_WIDTH * SCREEN_HEIGHT * 3] {
+    pub fn get_screen(&self) -> &[u8; GAME_TEXTURE_SIZE] {
         &self.screen
+    }
+
+    pub fn get_overlay(&self) -> &[u8; GAME_OVERLAY_SIZE] {
+        &self.overlay
     }
 }

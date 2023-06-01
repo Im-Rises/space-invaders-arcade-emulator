@@ -103,8 +103,13 @@ impl SpaceInvadersArcade {
                     cpu::interrupts::interrupt(&mut self.cpu, 2);
                     self.frequency_counter = 0;
                     self.ppu.clock();
-                    self.my_api.update_u8array_to_texture(
+                    self.my_api.update_u8array_to_game_texture(
                         self.ppu.get_screen(),
+                        ppu::SCREEN_WIDTH as i32,
+                        ppu::SCREEN_HEIGHT as i32,
+                    );
+                    self.my_api.update_u8array_to_overlay_texture(
+                        self.ppu.get_overlay(),
                         ppu::SCREEN_WIDTH as i32,
                         ppu::SCREEN_HEIGHT as i32,
                     );

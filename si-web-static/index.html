@@ -33,6 +33,7 @@
         </label>
         <input class="file-input" id="input_rom_e" type="file"/>
     </div>
+    <button id="debug-play">Play Debug</button>
 </div>
 <script type="module">
     import init, {run} from "./si-emu-pkg/space_invaders_arcade_emulator.js";
@@ -41,11 +42,6 @@
     async function init_wasm() {
         await init();
     }
-
-    /* Play button */
-    // window.run = async function () {
-    //     await run("canvas");
-    // }
 
     init_wasm();
 
@@ -78,6 +74,14 @@
         console.log("All roms loaded");
         run("canvas-si", uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
     }
+
+    const debugPlay = () => {
+        run("canvas-si");
+    }
+
+    const debugPlayButton = document.getElementById("debug-play");
+    debugPlayButton.addEventListener("click", debugPlay);
+
 </script>
 </body>
 </html>
