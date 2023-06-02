@@ -13,6 +13,7 @@ const App = () => {
 	const [romDataE, setRomDataE] = useState(null);
 	const [romsLoaded, setRomsLoaded] = useState(false);
 	const selectVersionRef = React.useRef(null);
+	const [isBackgroundVisible, setIsBackgroundVisible] = useState(true);
 
 	useEffect(() => {
 		init().then(() => {
@@ -25,7 +26,12 @@ const App = () => {
 			<div className={'panel-game'}>
 				<div className={'canvas-si-panel'}>
 					<canvas id={canvasId} className={'canvas-si'}/>
-					<img src={backgroundImage} alt={'background'}/>
+					{
+						isBackgroundVisible
+							? (<img src={backgroundImage} alt={'background'}/>)
+							: (<div className={'no-background'}/>)
+					}
+
 				</div>
 				{/* <div className={'control-panel'}> */}
 				{/* <button id={'button-left'}/> */}
@@ -45,6 +51,13 @@ const App = () => {
                 			<option value={'SV'}>Black and white (SV)</option>
                 			<option value={'TV'}>Original (TV)</option>
                 			<option value={'CV'}>Colored (CV)</option>
+                		</select>
+                		<p>Background</p>
+                		<select id={'background'} onChange={e => {
+                			setIsBackgroundVisible(e.target.value === 'visible');
+                		}}>
+                			<option value={'visible'}>Visible</option>
+                			<option value={'hidden'}>Hidden</option>
                 		</select>
                 		<p>Load ROM H</p>
                 		<InputFile setRomData={setRomDataH}/>
