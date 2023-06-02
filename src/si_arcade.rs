@@ -52,21 +52,9 @@ impl SpaceInvadersArcade {
             (spu::SOUND_9, SoundType::UniqueSound),         // Extra Ship Sound
         ];
 
-        // let mut sounds: Vec<(&[u8], SoundType)> = Vec::new();
-        // sounds.push((spu::SOUND_0, SoundType::VariableLengthSound)); // UFO
-        // sounds.push((spu::SOUND_1, SoundType::VariableLengthSound)); // Shoot
-        // sounds.push((spu::SOUND_2, SoundType::UniqueSound)); // Player Explosion
-        // sounds.push((spu::SOUND_3, SoundType::UniqueSound)); // Invader Explosion
-        // sounds.push((spu::SOUND_4, SoundType::UniqueSound)); // Invader March 1
-        // sounds.push((spu::SOUND_5, SoundType::UniqueSound)); // Invader March 2
-        // sounds.push((spu::SOUND_6, SoundType::UniqueSound)); // Invader March 3
-        // sounds.push((spu::SOUND_7, SoundType::UniqueSound)); // Invader March 4
-        // sounds.push((spu::SOUND_8, SoundType::UniqueSound)); // Bonus UFO Destroyed
-        // sounds.push((spu::SOUND_9, SoundType::UniqueSound)); // Extra Ship Sound
-
         SpaceInvadersArcade {
             cpu: cpu::Cpu::new(&mmu_init, 0),
-            ppu: ppu::Ppu::new(&mmu_init),
+            ppu: ppu::Ppu::new(&mmu_init, display_mode),
             spu: spu::Spu::new(),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),

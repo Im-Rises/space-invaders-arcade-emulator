@@ -72,11 +72,11 @@
 
     const startEmulation = (uint8Arrays) => {
         console.log("All roms loaded");
-        run("canvas-si", uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
+        run("canvas-si", "CV", uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
     }
 
     const debugPlay = () => {
-        run("canvas-si");
+        run("canvas-si", "CV");
     }
 
     const debugPlayButton = document.getElementById("debug-play");

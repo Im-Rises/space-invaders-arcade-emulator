@@ -23,11 +23,18 @@ pub struct Ppu {
 }
 
 impl Ppu {
-    pub fn new(mmu: &Rc<RefCell<Mmu>>) -> Ppu {
+    pub fn new(mmu: &Rc<RefCell<Mmu>>, display_mode: String) -> Ppu {
+        let overlay_image = match display_mode.as_str() {
+            "SV" => OVERLAY_TEXTURE_SV,
+            "TV" => OVERLAY_TEXTURE_TV,
+            "CV" => OVERLAY_TEXTURE_CV,
+            _ => OVERLAY_TEXTURE_SV,
+        };
+
         Ppu {
             mmu: Rc::clone(mmu),
             screen: [0; SCREEN_WIDTH * SCREEN_HEIGHT * 3],
-            overlay: image::load_from_memory(OVERLAY_TEXTURE_SV)
+            overlay: image::load_from_memory(overlay_image)
                 .unwrap()
                 .into_bytes()
                 .as_slice()
