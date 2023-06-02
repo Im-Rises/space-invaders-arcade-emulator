@@ -12,6 +12,8 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::KeyboardEvent;
 
+const UPDATE_INTERVAL_MS: f64 = 1000.0 / 60.0;
+
 #[wasm_bindgen(start)]
 pub fn initialize() -> Result<(), JsValue> {
     web_sys::console::log_1(&"Rust module loaded!".into());
@@ -98,10 +100,25 @@ pub fn run(
     let f = Rc::new(RefCell::new(None));
     let g = f.clone();
 
-    // let mut i = 0;
+    // // VSync animation loop
+    // *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
+    //     space_invaders_arcade.borrow_mut().emulate_cycle();
+    //     request_animation_frame(f.borrow().as_ref().unwrap());
+    // }) as Box<dyn FnMut()>));
+    //
+    // request_animation_frame(g.borrow().as_ref().unwrap());
+
+    // Animation loop with fixed time step
+    let mut previous_time = window().performance().unwrap().now();
     *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
-        // space_invaders_arcade.emulate_cycle();
-        space_invaders_arcade.borrow_mut().emulate_cycle();
+        let current_time = window().performance().unwrap().now();
+        let elapsed_time = current_time - previous_time;
+
+        if elapsed_time >= UPDATE_INTERVAL_MS {
+            space_invaders_arcade.borrow_mut().emulate_cycle();
+            previous_time = current_time;
+        }
+
         request_animation_frame(f.borrow().as_ref().unwrap());
     }) as Box<dyn FnMut()>));
 
