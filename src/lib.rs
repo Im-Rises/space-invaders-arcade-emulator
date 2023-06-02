@@ -97,16 +97,15 @@ pub fn run(
         closure.forget();
     }
 
-    let f = Rc::new(RefCell::new(None));
-    let g = f.clone();
-
-    // VSync animation loop
-    *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
-        space_invaders_arcade.borrow_mut().emulate_cycle();
-        request_animation_frame(f.borrow().as_ref().unwrap());
-    }) as Box<dyn FnMut()>));
-
-    request_animation_frame(g.borrow().as_ref().unwrap());
+    // // VSync animation loop
+    // let f = Rc::new(RefCell::new(None));
+    // let g = f.clone();
+    // *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
+    //     space_invaders_arcade.borrow_mut().emulate_cycle();
+    //     request_animation_frame(f.borrow().as_ref().unwrap());
+    // }) as Box<dyn FnMut()>));
+    //
+    // request_animation_frame(g.borrow().as_ref().unwrap());
 
     // // Animation loop with fixed time step
     // let f = Rc::new(RefCell::new(None));
