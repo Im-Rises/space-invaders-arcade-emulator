@@ -24,21 +24,21 @@ pub fn initialize() -> Result<(), JsValue> {
 pub fn run(
     canvas_id: String,
     display_mode: String,
-    rom_h: js_sys::Uint8Array,
-    rom_g: js_sys::Uint8Array,
-    rom_f: js_sys::Uint8Array,
-    rom_e: js_sys::Uint8Array,
+    // rom_h: js_sys::Uint8Array,
+    // rom_g: js_sys::Uint8Array,
+    // rom_f: js_sys::Uint8Array,
+    // rom_e: js_sys::Uint8Array,
 ) -> Result<(), JsValue> {
     // /* Debug code */
-    // let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
-    // let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
-    // let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
-    // let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
+    let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
+    let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
+    let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
+    let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
 
-    let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
-    let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
-    let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
-    let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
+    // let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
+    // let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
+    // let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
+    // let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
 
     // If the four inputs are filled with the roms
     let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
@@ -100,27 +100,27 @@ pub fn run(
     let f = Rc::new(RefCell::new(None));
     let g = f.clone();
 
-    // // VSync animation loop
-    // *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
-    //     space_invaders_arcade.borrow_mut().emulate_cycle();
-    //     request_animation_frame(f.borrow().as_ref().unwrap());
-    // }) as Box<dyn FnMut()>));
-    //
-    // request_animation_frame(g.borrow().as_ref().unwrap());
-
-    // Animation loop with fixed time step
-    let mut previous_time = window().performance().unwrap().now();
+    // VSync animation loop
     *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
-        let current_time = window().performance().unwrap().now();
-        let elapsed_time = current_time - previous_time;
-
-        if elapsed_time >= UPDATE_INTERVAL_MS {
-            space_invaders_arcade.borrow_mut().emulate_cycle();
-            previous_time = current_time;
-        }
-
+        space_invaders_arcade.borrow_mut().emulate_cycle();
         request_animation_frame(f.borrow().as_ref().unwrap());
     }) as Box<dyn FnMut()>));
+
+    request_animation_frame(g.borrow().as_ref().unwrap());
+
+    // // Animation loop with fixed time step
+    // let mut previous_time = window().performance().unwrap().now();
+    // *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
+    //     let current_time = window().performance().unwrap().now();
+    //     let elapsed_time = current_time - previous_time;
+    //
+    //     if elapsed_time >= UPDATE_INTERVAL_MS {
+    //         space_invaders_arcade.borrow_mut().emulate_cycle();
+    //         previous_time = current_time;
+    //     }
+    //
+    //     request_animation_frame(f.borrow().as_ref().unwrap());
+    // }) as Box<dyn FnMut()>));
 
     request_animation_frame(g.borrow().as_ref().unwrap());
 
