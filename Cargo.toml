@@ -8,10 +8,12 @@ description = "Space Invaders Arcade Emulator"
 repository = "https:://github.com/Im-Rises/space-invaders-arcade-emulator"
 documentation = "https:://github.com/Im-Rises/space-invaders-arcade-emulator"
 readme = "README.md"
-keywords = ["space-invaders", "arcade", "emulator"]
-categories = ["emulators"]
+keywords = ["space-invaders", "arcade", "emulator", "webgl", "rust", "wasm"]
+categories = ["emulators", "games", "space-invaders"]
 
 [lib]
+name = "space_invaders_arcade_emulator_webgl"
+path = "src/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]

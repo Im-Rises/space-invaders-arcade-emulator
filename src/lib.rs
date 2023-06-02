@@ -21,6 +21,7 @@ pub fn initialize() -> Result<(), JsValue> {
 #[wasm_bindgen]
 pub fn run(
     canvas_id: String,
+    display_mode: String,
     rom_h: js_sys::Uint8Array,
     rom_g: js_sys::Uint8Array,
     rom_f: js_sys::Uint8Array,
@@ -39,7 +40,12 @@ pub fn run(
 
     // If the four inputs are filled with the roms
     let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
-        canvas_id, &array_h, &array_g, &array_f, &array_e,
+        canvas_id,
+        display_mode,
+        &array_h,
+        &array_g,
+        &array_f,
+        &array_e,
     )));
     web_sys::console::log_1(&"SpaceInvadersArcade created!".into());
 

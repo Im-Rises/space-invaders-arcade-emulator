@@ -31,27 +31,30 @@ pub struct SpaceInvadersArcade {
 impl SpaceInvadersArcade {
     pub fn new(
         canvas_id: String,
+        display_mode: String,
         rom_h: &[u8; 0x800],
         rom_g: &[u8; 0x800],
         rom_f: &[u8; 0x800],
         rom_e: &[u8; 0x800],
     ) -> Self {
         let mmu_init = Rc::new(RefCell::new(mmu::Mmu::new(rom_h, rom_g, rom_f, rom_e)));
-        let mut sounds: Vec<(&[u8], SoundType)> = Vec::new();
-        sounds.push((spu::SOUND_0, SoundType::VariableLengthSound)); // UFO
-        sounds.push((spu::SOUND_1, SoundType::VariableLengthSound)); // Shoot
-        sounds.push((spu::SOUND_2, SoundType::UniqueSound)); // Player Explosion
-        sounds.push((spu::SOUND_3, SoundType::UniqueSound)); // Invader Explosion
-        sounds.push((spu::SOUND_4, SoundType::UniqueSound)); // Invader March 1
-        sounds.push((spu::SOUND_5, SoundType::UniqueSound)); // Invader March 2
-        sounds.push((spu::SOUND_6, SoundType::UniqueSound)); // Invader March 3
-        sounds.push((spu::SOUND_7, SoundType::UniqueSound)); // Invader March 4
-        sounds.push((spu::SOUND_8, SoundType::UniqueSound)); // Bonus UFO Destroyed
-        sounds.push((spu::SOUND_9, SoundType::UniqueSound)); // Extra Ship Sound
+
+        let sounds: Vec<(&[u8], SoundType)> = vec![
+            (spu::SOUND_0, SoundType::VariableLengthSound), // UFO
+            (spu::SOUND_1, SoundType::VariableLengthSound), // Shoot
+            (spu::SOUND_2, SoundType::UniqueSound),         // Player Explosion
+            (spu::SOUND_3, SoundType::UniqueSound),         // Invader Explosion
+            (spu::SOUND_4, SoundType::UniqueSound),         // Invader March 1
+            (spu::SOUND_5, SoundType::UniqueSound),         // Invader March 2
+            (spu::SOUND_6, SoundType::UniqueSound),         // Invader March 3
+            (spu::SOUND_7, SoundType::UniqueSound),         // Invader March 4
+            (spu::SOUND_8, SoundType::UniqueSound),         // Bonus UFO Destroyed
+            (spu::SOUND_9, SoundType::UniqueSound),         // Extra Ship Sound
+        ];
 
         SpaceInvadersArcade {
             cpu: cpu::Cpu::new(&mmu_init, 0),
-            ppu: ppu::Ppu::new(&mmu_init),
+            ppu: ppu::Ppu::new(&mmu_init, display_mode),
             spu: spu::Spu::new(),
             mmu: Rc::clone(&mmu_init),
             inputs_outputs: inputs_outputs::InputsOutputs::new(),
@@ -64,6 +67,13 @@ impl SpaceInvadersArcade {
     pub fn emulate_cycle(&mut self) {
         // Handle CPU
         let mut do_loop = true;
+
+        // Set overlay
+        self.my_api.update_u8array_to_overlay_texture(
+            self.ppu.get_overlay(),
+            ppu::SCREEN_WIDTH as i32,
+            ppu::SCREEN_HEIGHT as i32,
+        );
 
         // Loop until we refresh the screen (16ms)
         while do_loop {
@@ -105,11 +115,6 @@ impl SpaceInvadersArcade {
                     self.ppu.clock();
                     self.my_api.update_u8array_to_game_texture(
                         self.ppu.get_screen(),
-                        ppu::SCREEN_WIDTH as i32,
-                        ppu::SCREEN_HEIGHT as i32,
-                    );
-                    self.my_api.update_u8array_to_overlay_texture(
-                        self.ppu.get_overlay(),
                         ppu::SCREEN_WIDTH as i32,
                         ppu::SCREEN_HEIGHT as i32,
                     );

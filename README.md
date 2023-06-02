@@ -14,27 +14,18 @@ Space Invaders' arcade game emulator written in Rust for the web.
 
 Complete Emulator of the Intel 8080, the app is implemented to run the Space Invaders Arcade game.
 
-[//]: # (- [ ] Add a way to toggle the space invaders original view or the pure emulation view &#40;to do in CSS&#41;.)
-
-[//]: # (- [ ] Add a way to fetch the score from the game ?)
+The game is implemented with all the 10 sounds of the original game and can be played in black and white or in color (
+SV), normal screen mode (TV) or in colored mode (CV).
 
 ## Images
 
-| Title screen                                                                                                           | Game screen                                                                                                            |
-|------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| ![title_screen](https://user-images.githubusercontent.com/59691442/181736212-8d8cfa4e-4c85-48ce-92ac-1165dcb73891.png) | ![playing_demo](https://user-images.githubusercontent.com/59691442/181736224-da769503-2a2e-45d6-af2c-9204a96e78e1.png) |
-
-| Taito Cop Easter Egg                                                                                                           | Score advance table with Invaders                                                                                             |
-|--------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| ![taito_cop_easter_egg](https://user-images.githubusercontent.com/59691442/183047666-97f9711c-e2a4-4659-86df-410db5562450.png) | ![score_advance_table](https://user-images.githubusercontent.com/59691442/183058044-b5d532d6-bad2-4629-a55c-f669c82a5e29.png) |
+| SV version                                                                                                                                 | TV version                                                                                                                                 | CV version                                                                                                                                 |
+|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| ![si_web_sv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/7f2f9ab0-00ed-40d2-b0ec-0b754c8f3d47) | ![si_web_tv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c4e52a7a-02ac-4be3-812f-9e1c4119b378) | ![si_web_cv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/b218fdad-6d72-478c-a127-d4d026a05d28) |
 
 ## Videos
 
 https://user-images.githubusercontent.com/59691442/183045566-0a3df947-06e7-4c46-9fc6-9d2b8f7d9a46.mp4
-
-## Quick start
-
-PLACEHOLDER
 
 ## Controls
 
@@ -67,126 +58,6 @@ Before pressing start with player 1 or 2, you can choose the number of life you 
 > If you don't keep pressed K or L before pressing start and starting a new game you will have 3 lives.  
 > In the same way, you can enable the extra ship to came at 1000 points instead of 1500, but you just need to press
 > the button one time (a confirmation will be displayed in the console).
-
-## Compilation
-
-To build the rust project you need to have the rust toolchain installed on your computer. You can find the installation
-instructions on the official website: <https://www.rust-lang.org/tools/install>
-
-You can build the project by typing the following command:
-
-```bash
-wasm-pack build --target web --out-dir si-web-static/src/si-emu-pkg --release
-```
-
-or
-
-```bash
-wasm-pack build --target web --out-dir si-web-react/src/si-emu-pkg --release
-```
-
-It will output a wasm package to the si-web-react/pkg folder.
-
-Then you can build the React web app by typing the following command:
-
-```bash
-cd si-web-react
-npm start
-```
-
-It will start a web server on the port 3000. You can access the web page by typing the following url in your browser:
-
-<http://localhost:3000>
-
-## Rust tests
-
-You can test the good behaviour of the project by typing the commands onf of the following command. It will start the
-unit test of the CPU.
-
-It will start a test rom for the Intel 8080 CPU. You can find it in the link below:  
-<https://altairclone.com/downloads/cpu_tests/>
-
-```bash
-cargo test
-```
-
-or
-
-```bash
-cargo test --release
-```
-
-Currently, the CPU is passing the following tests:
-
-- [x] cpudiag.bin
-- [x] TST8080.COM
-- [x] 8080PRE.COM
-- [x] CPUTEST.COM
-- [x] 8080EXER.COM
-- [x] 8080EXM.COM
-
-The tests are named:
-
-- cpu_test_rom_cpudiag
-- cpu_test_rom_tst8080
-- cpu_test_rom_8080pre
-- cpu_test_rom_cputest
-- cpu_test_rom_8080exer
-- cpu_test_rom_8080exm
-
-You can start them individuality by typing:
-
-```bash
-cargo test <test_name>
-```
-
-or
-
-```bash
-cargo test <test_name> --release
-```
-
-Example: If you want to start the cpu_test_rom_tst8080 test.
-
-```bash
-cargo test cpu_test_rom_tst8080
-```
-
-or
-
-```bash
-cargo test cpu_test_rom_tst8080 --release
-```
-
-To show the CPU test logs, you can use the `--show-output` flag.
-
-```bash
-cargo test --release -- --show-output
-```
-
-You can also debug disassembly by uncommenting the two following lines in the `cpu.rs` file in the `test`
-module.
-
-~~~
-// let mut f = File::create("test_roms/my_output.log").expect("Cannot create debug log file");  
-~~~
-
-~~~
-// write_debug_to_file(&mut cpu_debug, &mut f, cycles_counter);
-~~~
-
-This will output the complete disassembly of the CPU in the `test_roms/my_output.log` file.
-
-> **Note**  
-> Depending on the test the output is different. Refer to this project for more explanation about how they work.  
-> https://github.com/superzazu/8080  
-> http://www.emulator101.com/full-8080-emulation.html
->
-> The last test (cpu_test_rom_8080exm) can take a lot of time in debug mode, you should test it in release mode, use the
-> command below:
-> ```bash
-> cargo test cpu_test_rom_8080exm --release
-> ```
 
 ## GitHub Actions
 
