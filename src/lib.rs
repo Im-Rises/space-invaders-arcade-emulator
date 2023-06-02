@@ -109,6 +109,8 @@ pub fn run(
     request_animation_frame(g.borrow().as_ref().unwrap());
 
     // // Animation loop with fixed time step
+    // let f = Rc::new(RefCell::new(None));
+    // let g = f.clone();
     // let mut previous_time = window().performance().unwrap().now();
     // *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
     //     let current_time = window().performance().unwrap().now();
@@ -121,8 +123,8 @@ pub fn run(
     //
     //     request_animation_frame(f.borrow().as_ref().unwrap());
     // }) as Box<dyn FnMut()>));
-
-    request_animation_frame(g.borrow().as_ref().unwrap());
+    //
+    // request_animation_frame(g.borrow().as_ref().unwrap());
 
     Ok(())
 }
