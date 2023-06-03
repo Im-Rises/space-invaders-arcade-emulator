@@ -1,7 +1,5 @@
 #![allow(unused_variables)]
 
-use js_sys::Error;
-
 mod binary_lib;
 mod my_webapi;
 mod si_arcade;
@@ -12,20 +10,34 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::KeyboardEvent;
 
-const UPDATE_INTERVAL_MS: i32 = 1667; // 60Hz
-
-use js_sys::{Array, Date};
-use wasm_bindgen::prelude::*;
-use web_sys::{Document, Element, HtmlElement, Window};
+const UPDATE_INTERVAL_MS: i32 = 16; // 60Hz
 
 #[wasm_bindgen(start)]
-fn run() -> Result<(), JsValue> {
-    web_sys::console::log_1(&format!("Starting emulator!").into());
+fn init() -> Result<(), JsValue> {
+    web_sys::console::log_1(&"Hello from Space Invaders Emulator!".into());
 
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn run(
+    canvas_id: String,
+    display_mode: String,
+    // rom_h: js_sys::Uint8Array,
+    // rom_g: js_sys::Uint8Array,
+    // rom_f: js_sys::Uint8Array,
+    // rom_e: js_sys::Uint8Array,
+) -> Result<(), JsValue> {
+    // /* Debug code */
     let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
     let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
     let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
     let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
+
+    // let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
+    // let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
+    // let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
+    // let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
 
     let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
         "canvas-si".to_string(),
@@ -91,7 +103,6 @@ fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>
     let a = Closure::<dyn Fn()>::new(move || update_time(space_invaders_arcade.clone()));
     window().set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), UPDATE_INTERVAL_MS)?;
     fn update_time(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) {
-        web_sys::console::log_1(&format!("Hello from Rust loop!").into());
         space_invaders_arcade.borrow_mut().emulate_cycle();
     }
 
@@ -103,45 +114,3 @@ fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>
 fn window() -> web_sys::Window {
     web_sys::window().expect("no global `window` exists")
 }
-
-fn request_animation_frame(f: &Closure<dyn FnMut()>) {
-    window()
-        .request_animation_frame(f.as_ref().unchecked_ref())
-        .expect("should register `requestAnimationFrame` OK");
-}
-
-// #[wasm_bindgen(start)]
-// pub fn initialize() -> Result<(), JsValue> {
-//     web_sys::console::log_1(&"Rust module loaded!".into());
-//     Ok(())
-// }
-//
-// #[wasm_bindgen]
-// pub fn run(
-//     canvas_id: String,
-//     display_mode: String,
-//     // rom_h: js_sys::Uint8Array,
-//     // rom_g: js_sys::Uint8Array,
-//     // rom_f: js_sys::Uint8Array,
-//     // rom_e: js_sys::Uint8Array,
-// ) -> Result<(), JsValue> {
-//     // /* Debug code */
-//     let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
-//     let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
-//     let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
-//     let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
-//
-//     // let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
-//     // let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
-//     // let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
-//     // let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
-//
-//     // If the four inputs are filled with the roms
-//     let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
-//         canvas_id,
-//         display_mode,
-//         &array_h,
-//         &array_g,
-//         &array_f,
-//         &array_e,
-//     )));
