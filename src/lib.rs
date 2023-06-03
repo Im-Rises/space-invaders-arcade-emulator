@@ -12,7 +12,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::KeyboardEvent;
 
-const UPDATE_INTERVAL_MS: f64 = 1000.0 / 60.0;
+const UPDATE_INTERVAL_MS: i32 = 16;
 
 use js_sys::{Array, Date};
 use wasm_bindgen::prelude::*;
@@ -20,8 +20,8 @@ use web_sys::{Document, Element, HtmlElement, Window};
 
 #[wasm_bindgen(start)]
 fn run() -> Result<(), JsValue> {
-    let window = web_sys::window().expect("should have a window in this context");
-    let document = window.document().expect("window should have a document");
+    // let window = web_sys::window().expect("should have a window in this context");
+    // let document = window.document().expect("window should have a document");
 
     web_sys::console::log_1(&format!("Hello from Rust!").into());
 
@@ -39,17 +39,60 @@ fn run() -> Result<(), JsValue> {
         &array_e,
     )));
 
-    setup_clock(&window, Rc::clone(&space_invaders_arcade))?;
+    // Set up the keyboard event listener to handle key events
+    {
+        let space_invaders_arcade_ref = Rc::clone(&space_invaders_arcade);
+        let closure = Closure::wrap(Box::new(move |event: KeyboardEvent| {
+            let is_pressed = event.type_() == "keydown";
+            match event.key().as_ref() {
+                "ArrowLeft" => space_invaders_arcade_ref
+                    .borrow_mut()
+                    .update_input(si_arcade::GameInput::Left, is_pressed),
+                "ArrowRight" => space_invaders_arcade_ref
+                    .borrow_mut()
+                    .update_input(si_arcade::GameInput::Right, is_pressed),
+                "ArrowUp" => space_invaders_arcade_ref
+                    .borrow_mut()
+                    .update_input(si_arcade::GameInput::Shot, is_pressed),
+                "c" => space_invaders_arcade_ref
+                    .borrow_mut()
+                    .update_input(si_arcade::GameInput::Coin, is_pressed),
+                "1" => space_invaders_arcade_ref
+                    .borrow_mut()
+                    .update_input(si_arcade::GameInput::Player1Start, is_pressed),
+                "2" => space_invaders_arcade_ref
+                    .borrow_mut()
+                    .update_input(si_arcade::GameInput::Player2Start, is_pressed),
+                // "k" => space_invaders_arcade_ref
+                //     .borrow_mut()
+                //     .update_input(si_arcade::GameInput::Dip3, is_pressed),
+                // "l" => space_invaders_arcade_ref
+                //     .borrow_mut()
+                //     .update_input(si_arcade::GameInput::Dip5, is_pressed),
+                // "m" => space_invaders_arcade_ref
+                //     .borrow_mut()
+                //     .update_input(si_arcade::GameInput::Dip6, is_pressed),
+                // "o" => space_invaders_arcade_ref
+                //     .borrow_mut()
+                //     .update_input(si_arcade::GameInput::Dip7, is_pressed),
+                _ => {}
+            }
+        }) as Box<dyn FnMut(_)>);
+
+        window().add_event_listener_with_callback("keydown", closure.as_ref().unchecked_ref())?;
+        window().add_event_listener_with_callback("keyup", closure.as_ref().unchecked_ref())?;
+
+        closure.forget();
+    }
+
+    setup_clock(Rc::clone(&space_invaders_arcade))?;
     Ok(())
 }
 
-fn setup_clock(
-    window: &Window,
-    space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>,
-) -> Result<(), JsValue> {
+fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) -> Result<(), JsValue> {
     update_time(space_invaders_arcade.clone());
     let a = Closure::<dyn Fn()>::new(move || update_time(space_invaders_arcade.clone()));
-    window.set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), 16)?;
+    window().set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), UPDATE_INTERVAL_MS)?;
     fn update_time(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) {
         web_sys::console::log_1(&format!("Hello from Rust loop!").into());
         space_invaders_arcade.borrow_mut().emulate_cycle();
@@ -58,6 +101,16 @@ fn setup_clock(
     a.forget();
 
     Ok(())
+}
+
+fn window() -> web_sys::Window {
+    web_sys::window().expect("no global `window` exists")
+}
+
+fn request_animation_frame(f: &Closure<dyn FnMut()>) {
+    window()
+        .request_animation_frame(f.as_ref().unchecked_ref())
+        .expect("should register `requestAnimationFrame` OK");
 }
 
 // #[wasm_bindgen(start)]
@@ -154,14 +207,4 @@ fn setup_clock(
 //     request_animation_frame(g.borrow().as_ref().unwrap());
 //
 //     Ok(())
-// }
-//
-// fn window() -> web_sys::Window {
-//     web_sys::window().expect("no global `window` exists")
-// }
-//
-// fn request_animation_frame(f: &Closure<dyn FnMut()>) {
-//     window()
-//         .request_animation_frame(f.as_ref().unchecked_ref())
-//         .expect("should register `requestAnimationFrame` OK");
 // }
