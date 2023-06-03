@@ -12,7 +12,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::KeyboardEvent;
 
-const UPDATE_INTERVAL_MS: i32 = 16;
+const UPDATE_INTERVAL_MS: i32 = 1667; // 60Hz
 
 use js_sys::{Array, Date};
 use wasm_bindgen::prelude::*;
@@ -20,10 +20,7 @@ use web_sys::{Document, Element, HtmlElement, Window};
 
 #[wasm_bindgen(start)]
 fn run() -> Result<(), JsValue> {
-    // let window = web_sys::window().expect("should have a window in this context");
-    // let document = window.document().expect("window should have a document");
-
-    web_sys::console::log_1(&format!("Hello from Rust!").into());
+    web_sys::console::log_1(&format!("Starting emulator!").into());
 
     let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
     let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
@@ -148,63 +145,3 @@ fn request_animation_frame(f: &Closure<dyn FnMut()>) {
 //         &array_f,
 //         &array_e,
 //     )));
-//     web_sys::console::log_1(&"SpaceInvadersArcade created!".into());
-//
-//     // Set up the keyboard event listener to handle key events
-//     {
-//         let space_invaders_arcade_ref = Rc::clone(&space_invaders_arcade);
-//         let closure = Closure::wrap(Box::new(move |event: KeyboardEvent| {
-//             let is_pressed = event.type_() == "keydown";
-//             match event.key().as_ref() {
-//                 "ArrowLeft" => space_invaders_arcade_ref
-//                     .borrow_mut()
-//                     .update_input(si_arcade::GameInput::Left, is_pressed),
-//                 "ArrowRight" => space_invaders_arcade_ref
-//                     .borrow_mut()
-//                     .update_input(si_arcade::GameInput::Right, is_pressed),
-//                 "ArrowUp" => space_invaders_arcade_ref
-//                     .borrow_mut()
-//                     .update_input(si_arcade::GameInput::Shot, is_pressed),
-//                 "c" => space_invaders_arcade_ref
-//                     .borrow_mut()
-//                     .update_input(si_arcade::GameInput::Coin, is_pressed),
-//                 "1" => space_invaders_arcade_ref
-//                     .borrow_mut()
-//                     .update_input(si_arcade::GameInput::Player1Start, is_pressed),
-//                 "2" => space_invaders_arcade_ref
-//                     .borrow_mut()
-//                     .update_input(si_arcade::GameInput::Player2Start, is_pressed),
-//                 // "k" => space_invaders_arcade_ref
-//                 //     .borrow_mut()
-//                 //     .update_input(si_arcade::GameInput::Dip3, is_pressed),
-//                 // "l" => space_invaders_arcade_ref
-//                 //     .borrow_mut()
-//                 //     .update_input(si_arcade::GameInput::Dip5, is_pressed),
-//                 // "m" => space_invaders_arcade_ref
-//                 //     .borrow_mut()
-//                 //     .update_input(si_arcade::GameInput::Dip6, is_pressed),
-//                 // "o" => space_invaders_arcade_ref
-//                 //     .borrow_mut()
-//                 //     .update_input(si_arcade::GameInput::Dip7, is_pressed),
-//                 _ => {}
-//             }
-//         }) as Box<dyn FnMut(_)>);
-//
-//         window().add_event_listener_with_callback("keydown", closure.as_ref().unchecked_ref())?;
-//         window().add_event_listener_with_callback("keyup", closure.as_ref().unchecked_ref())?;
-//
-//         closure.forget();
-//     }
-//
-//     // VSync animation loop
-//     let f = Rc::new(RefCell::new(None));
-//     let g = f.clone();
-//     *g.borrow_mut() = Some(Closure::wrap(Box::new(move || {
-//         space_invaders_arcade.borrow_mut().emulate_cycle();
-//         request_animation_frame(f.borrow().as_ref().unwrap());
-//     }) as Box<dyn FnMut()>));
-//
-//     request_animation_frame(g.borrow().as_ref().unwrap());
-//
-//     Ok(())
-// }
