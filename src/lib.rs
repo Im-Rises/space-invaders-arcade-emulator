@@ -27,6 +27,10 @@ pub fn run(
     // rom_g: js_sys::Uint8Array,
     // rom_f: js_sys::Uint8Array,
     // rom_e: js_sys::Uint8Array,
+    one_extra_life: bool,
+    two_extra_lives: bool,
+    extra_ship_enabled_early: bool,
+    coin_info_demo: bool,
 ) -> Result<(), JsValue> {
     // /* Debug code */
     let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
@@ -40,8 +44,8 @@ pub fn run(
     // let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
 
     let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
-        "canvas-si".to_string(),
-        "TV".to_string(),
+        canvas_id,
+        display_mode,
         &array_h,
         &array_g,
         &array_f,
@@ -52,6 +56,7 @@ pub fn run(
     {
         let space_invaders_arcade_ref = Rc::clone(&space_invaders_arcade);
         let closure = Closure::wrap(Box::new(move |event: KeyboardEvent| {
+            // Set the player inputs
             let is_pressed = event.type_() == "keydown";
             match event.key().as_ref() {
                 "ArrowLeft" => space_invaders_arcade_ref
@@ -72,22 +77,25 @@ pub fn run(
                 "2" => space_invaders_arcade_ref
                     .borrow_mut()
                     .update_input(si_arcade::GameInput::Player2Start, is_pressed),
-                // "k" => space_invaders_arcade_ref
-                //     .borrow_mut()
-                //     .update_input(si_arcade::GameInput::Dip3, is_pressed),
-                // "l" => space_invaders_arcade_ref
-                //     .borrow_mut()
-                //     .update_input(si_arcade::GameInput::Dip5, is_pressed),
-                // "m" => space_invaders_arcade_ref
-                //     .borrow_mut()
-                //     .update_input(si_arcade::GameInput::Dip6, is_pressed),
-                // "o" => space_invaders_arcade_ref
-                //     .borrow_mut()
-                //     .update_input(si_arcade::GameInput::Dip7, is_pressed),
                 _ => {}
             }
+
+            // Set the dip switches
+            space_invaders_arcade_ref
+                .borrow_mut()
+                .update_input(si_arcade::GameInput::Dip3, one_extra_life);
+            space_invaders_arcade_ref
+                .borrow_mut()
+                .update_input(si_arcade::GameInput::Dip5, two_extra_lives);
+            space_invaders_arcade_ref
+                .borrow_mut()
+                .update_input(si_arcade::GameInput::Dip6, extra_ship_enabled_early);
+            space_invaders_arcade_ref
+                .borrow_mut()
+                .update_input(si_arcade::GameInput::Dip7, coin_info_demo);
         }) as Box<dyn FnMut(_)>);
 
+        // Add the event listener to the window
         window().add_event_listener_with_callback("keydown", closure.as_ref().unchecked_ref())?;
         window().add_event_listener_with_callback("keyup", closure.as_ref().unchecked_ref())?;
 
