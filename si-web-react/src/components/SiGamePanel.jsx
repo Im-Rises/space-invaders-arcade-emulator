@@ -10,12 +10,12 @@ const SiGamePanel = () => {
 	const [romDataG, setRomDataG] = useState(null);
 	const [romDataF, setRomDataF] = useState(null);
 	const [romDataE, setRomDataE] = useState(null);
-	const screenModeSelectRef = React.createRef();
+	const screenModeSelectRef = React.useRef(null);
 	const [isBackgroundVisible, setIsBackgroundVisible] = React.useState(true);
-	const oneAdditionalCheckboxRef = React.createRef();
-	const twoAdditionalCheckboxRef = React.createRef();
-	const earlyUfoCheckboxRef = React.createRef();
-	const coinDemoCheckboxRef = React.createRef();
+	const oneAdditionalCheckboxRef = React.useRef(null);
+	const twoAdditionalCheckboxRef = React.useRef(null);
+	const earlyUfoCheckboxRef = React.useRef(null);
+	const coinDemoCheckboxRef = React.useRef(null);
 
 	return (
 		<>
@@ -63,12 +63,12 @@ const SiGamePanel = () => {
 				isRomLoaded && (
 					<SiEmulator
 						canvasId={canvasId}
-						// screenMode={screenModeSelectRef.current.value}
-						// isBackgroundVisible={isBackgroundVisible}
-						// oneAdditional={oneAdditionalCheckboxRef.current.checked}
-						// twoAdditional={twoAdditionalCheckboxRef.current.checked}
-						// earlyUfo={earlyUfoCheckboxRef.current.checked}
-						// coinDemo={coinDemoCheckboxRef.current.checked}
+						screenMode={screenModeSelectRef.current.value}
+						isBackgroundVisible={isBackgroundVisible}
+						oneAdditional={oneAdditionalCheckboxRef.current.checked}
+						twoAdditional={twoAdditionalCheckboxRef.current.checked}
+						earlyUfo={earlyUfoCheckboxRef.current.checked}
+						coinDemo={coinDemoCheckboxRef.current.checked}
 						romDataH={romDataH}
 						romDataG={romDataG}
 						romDataF={romDataF}
