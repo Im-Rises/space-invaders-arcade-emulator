@@ -1,10 +1,9 @@
 import React from 'react';
 import {InputFile} from './InputFile';
-import {run} from '../../si-emu-pkg';
 import {useState} from 'react';
 import SiEmulator from './SiEmulator';
 
-export const SiGamePanel = () => {
+const SiGamePanel = () => {
 	const [isRomLoaded, setRomsLoaded] = React.useState(false);
 	const canvasId = 'si-canvas-id';
 	const [romDataH, setRomDataH] = useState(null);
@@ -20,61 +19,56 @@ export const SiGamePanel = () => {
 
 	return (
 		<>
-			{
-				isRomLoaded ? (
-					<div className={'setup-panel'}>
-						<div className={'screen-mode-panel'}>
-							<select id={'screen-mode'} ref={screenModeSelectRef}>
-								<option value={'SV'}>Black and white (SV)</option>
-								<option value={'TV'}>Original (TV)</option>
-								<option value={'CV'}>Colored (CV)</option>
-							</select>
-							<select id={'background'} onChange={e => {
-								setIsBackgroundVisible(e.target.value === 'visible');
-							}}>
-								<option value={'visible'}>Visible</option>
-								<option value={'hidden'}>Hidden</option>
-							</select>
-							<div>
-								<input type={'checkbox'} onChange={e => {
-								}} ref={oneAdditionalCheckboxRef}/>
-								<input type={'checkbox'} onChange={e => {
-								}} ref={twoAdditionalCheckboxRef}/>
-								<input type={'checkbox'} onChange={e => {
-								}} ref={earlyUfoCheckboxRef}/>
-								<input type={'checkbox'} onChange={e => {
-								}} ref={coinDemoCheckboxRef}/>
-							</div>
-						</div>
-						<div className={'load-rom-panel'}>
-							<p>Load ROM H</p>
-							<InputFile setRomData={setRomDataH}/>
-							<p>Load ROM G</p>
-							<InputFile setRomData={setRomDataG}/>
-							<p>Load ROM F</p>
-							<InputFile setRomData={setRomDataF}/>
-							<p>Load ROM E</p>
-							<InputFile setRomData={setRomDataE}/>
-							<button onClick={() => {
-								if (!romDataH || !romDataG || !romDataF || !romDataE) {
-									return;
-								}
-
-								setRomsLoaded(true);
-							}
-							}>Run
-							</button>
-						</div>
+			<div className={'setup-panel'}>
+				<div className={'screen-mode-panel'}>
+					<select id={'screen-mode'} ref={screenModeSelectRef}>
+						<option value={'SV'}>Black and white (SV)</option>
+						<option value={'TV'}>Original (TV)</option>
+						<option value={'CV'}>Colored (CV)</option>
+					</select>
+					<select id={'background'} onChange={e => {
+						setIsBackgroundVisible(e.target.value === 'visible');
+					}}>
+						<option value={'visible'}>Visible</option>
+						<option value={'hidden'}>Hidden</option>
+					</select>
+					<div>
+						<input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
+						<input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
+						<input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
+						<input type={'checkbox'} ref={coinDemoCheckboxRef}/>
 					</div>
-				) : (
+				</div>
+				<div className={'load-rom-panel'}>
+					<p>Load ROM H</p>
+					<InputFile setRomData={setRomDataH}/>
+					<p>Load ROM G</p>
+					<InputFile setRomData={setRomDataG}/>
+					<p>Load ROM F</p>
+					<InputFile setRomData={setRomDataF}/>
+					<p>Load ROM E</p>
+					<InputFile setRomData={setRomDataE}/>
+					<button onClick={() => {
+						if (!romDataH || !romDataG || !romDataF || !romDataE) {
+							// return;
+						}
+
+						setRomsLoaded(true);
+					}
+					}>Run
+					</button>
+				</div>
+			</div>
+			{
+				isRomLoaded && (
 					<SiEmulator
 						canvasId={canvasId}
-						screenMode={screenModeSelectRef.current ? screenModeSelectRef.current.value : 'SV'}
-						isBackgroundVisible={isBackgroundVisible}
-						oneAdditional={oneAdditionalCheckboxRef.current ? oneAdditionalCheckboxRef.current.checked : false}
-						twoAdditional={twoAdditionalCheckboxRef.current ? twoAdditionalCheckboxRef.current.checked : false}
-						earlyUfo={earlyUfoCheckboxRef.current ? earlyUfoCheckboxRef.current.checked : false}
-						coinDemo={coinDemoCheckboxRef.current ? coinDemoCheckboxRef.current.checked : false}
+						// screenMode={screenModeSelectRef.current.value}
+						// isBackgroundVisible={isBackgroundVisible}
+						// oneAdditional={oneAdditionalCheckboxRef.current.checked}
+						// twoAdditional={twoAdditionalCheckboxRef.current.checked}
+						// earlyUfo={earlyUfoCheckboxRef.current.checked}
+						// coinDemo={coinDemoCheckboxRef.current.checked}
 						romDataH={romDataH}
 						romDataG={romDataG}
 						romDataF={romDataF}
@@ -85,3 +79,5 @@ export const SiGamePanel = () => {
 		</>
 	);
 };
+
+export default SiGamePanel;
