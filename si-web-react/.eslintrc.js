@@ -26,6 +26,7 @@ module.exports = {
 		'no-mixed-spaces-and-tabs': 'off',
 		'max-len': ['error', {code: 140, ignoreComments: true}],
 		'max-lines-per-function': ['error', {max: 140, skipBlankLines: true, skipComments: true}],
+		'no-negated-condition': 'off',
 		'max-params': [
 			'error',
 			6,
