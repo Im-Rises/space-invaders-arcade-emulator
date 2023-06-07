@@ -8,24 +8,37 @@ const SiEmulator = props => {
 	const siScreenWidth = 224;
 	const siScreenHeight = 256;
 
+	const backgroundImageRef = React.useRef(null);
+
 	useEffect(() => {
 		init().then(() => {
 			// run(props.canvasId, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo, props.romDataH, props.romDataG, props.romDataF, props.romDataE);
 			run(props.canvasId, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo);
 		});
+
+		const handleResize = () => {
+			console.log('resize');
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
 	}, []);
 
 	return (
 		<div className={'si-emulator'}>
 			<div className={'screen-panel'}>
+				<img ref={backgroundImageRef} src={SIBackground} alt={''}/>
 				<canvas id={props.canvasId} width={siScreenWidth} height={siScreenHeight}
 					style={{
-						backgroundColor: props.isBackgroundVisible ? 'transparent' : 'black',
-						backgroundImage: `url(${props.isBackgroundVisible ? SIBackground : ''})`,
-						backgroundSize: 'contain',
-						backgroundPosition: 'center',
-						backgroundRepeat: 'no-repeat',
-						objectFit: 'fit-content',
+						// backgroundColor: props.isBackgroundVisible ? 'transparent' : 'black',
+						// backgroundImage: `url(${props.isBackgroundVisible ? SIBackground : ''})`,
+						// backgroundSize: 'contain',
+						// backgroundPosition: 'center',
+						// backgroundRepeat: 'no-repeat',
+						// objectFit: 'fit-content',
 					}}
 				/>
 			</div>
