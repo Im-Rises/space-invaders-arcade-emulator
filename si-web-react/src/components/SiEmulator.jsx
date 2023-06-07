@@ -9,6 +9,7 @@ const SiEmulator = props => {
 	const siScreenHeight = 256;
 
 	const backgroundImageRef = React.useRef(null);
+	const siGameCanvasRef = React.useRef(null);
 
 	useEffect(() => {
 		init().then(() => {
@@ -31,7 +32,7 @@ const SiEmulator = props => {
 		<div className={'si-emulator'}>
 			<div className={'screen-panel'}>
 				<img ref={backgroundImageRef} src={SIBackground} alt={''}/>
-				<canvas id={props.canvasId} width={siScreenWidth} height={siScreenHeight}
+				<canvas ref={siGameCanvasRef} id={props.canvasId} width={siScreenWidth} height={siScreenHeight}
 					style={{
 						// backgroundColor: props.isBackgroundVisible ? 'transparent' : 'black',
 						// backgroundImage: `url(${props.isBackgroundVisible ? SIBackground : ''})`,
