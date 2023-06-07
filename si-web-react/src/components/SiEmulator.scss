@@ -6,6 +6,9 @@
 .screen-panel {
   width: 100%;
   height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   img {
     z-index: 0;
