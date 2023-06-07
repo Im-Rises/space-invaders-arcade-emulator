@@ -18,12 +18,16 @@ const SiEmulator = props => {
 	return (
 		<div className={'si-emulator'}>
 			<div className={'screen-panel'}>
-				{
-					props.isBackgroundVisible
-						? (<img src={SIBackground} alt={'Space Invaders BG'}/>)
-						: (<div style={{backgroundColor: 'black'}}/>)
-				}
-				<canvas id={props.canvasId} width={siScreenWidth} height={siScreenHeight}/>
+				<canvas id={props.canvasId} width={siScreenWidth} height={siScreenHeight}
+					style={{
+						backgroundColor: props.isBackgroundVisible ? 'transparent' : 'black',
+						backgroundImage: `url(${props.isBackgroundVisible ? SIBackground : ''})`,
+						backgroundSize: 'contain',
+						backgroundPosition: 'center',
+						backgroundRepeat: 'no-repeat',
+						objectFit: 'fit-content',
+					}}
+				/>
 			</div>
 			<div className={'control-panel'}>
 				<button>Up</button>
