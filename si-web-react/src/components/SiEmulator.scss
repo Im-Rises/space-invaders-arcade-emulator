@@ -10,18 +10,24 @@
   img {
     z-index: 0;
     position: absolute;
-    width: 100%;
-    height: 80%;
-    object-fit: contain;
+    left: 50%;
+    transform: translateX(-50%);
+    //width: 100%;
+    //height: 80%;
+    //object-fit: contain;
     //background-color: red;// Color of the arcade
+    //left: 50%;
+    //transform: translateX(-50%);
   }
 
   canvas {
     z-index: 1;
     position: absolute;
-    width: 100%;
-    height: 80%;
-    object-fit: contain;
+    //width: 100%;
+    //height: 80%;
+    //object-fit: contain;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 

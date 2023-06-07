@@ -10,6 +10,7 @@ const SiEmulator = props => {
 
 	const backgroundImageRef = React.useRef(null);
 	const siGameCanvasRef = React.useRef(null);
+	const screenPanelRef = React.useRef(null);
 
 	useEffect(() => {
 		init().then(() => {
@@ -18,7 +19,25 @@ const SiEmulator = props => {
 		});
 
 		const handleResize = () => {
-			console.log('resize');
+			const screenPanel = screenPanelRef.current;
+			const screenPanelWidth = screenPanel.clientWidth;
+			const screenPanelHeight = screenPanel.clientHeight;
+			const screenPanelAspectRatio = screenPanelWidth / screenPanelHeight;
+
+			const backgroundImage = backgroundImageRef.current;
+			const backgroundImageWidth = backgroundImage.clientWidth;
+			const backgroundImageHeight = backgroundImage.clientHeight;
+			const backgroundImageAspectRatio = backgroundImageWidth / backgroundImageHeight;
+
+			if (screenPanelAspectRatio > backgroundImageAspectRatio) {
+				backgroundImageRef.current.style.width = `${screenPanelHeight * backgroundImageAspectRatio}px`;
+				backgroundImageRef.current.style.height = `${screenPanelHeight}px`;
+				siGameCanvasRef.current.style.height = `${screenPanelHeight}px`;
+			} else {
+				backgroundImageRef.current.style.width = `${screenPanelWidth}px`;
+				backgroundImageRef.current.style.height = `${screenPanelWidth / backgroundImageAspectRatio}px`;
+				siGameCanvasRef.current.style.height = `${screenPanelWidth / backgroundImageAspectRatio}px`;
+			}
 		};
 
 		window.addEventListener('resize', handleResize);
@@ -30,18 +49,17 @@ const SiEmulator = props => {
 
 	return (
 		<div className={'si-emulator'}>
-			<div className={'screen-panel'}>
+			<div ref={screenPanelRef} className={'screen-panel'}>
 				<img ref={backgroundImageRef} src={SIBackground} alt={''}/>
-				<canvas ref={siGameCanvasRef} id={props.canvasId} width={siScreenWidth} height={siScreenHeight}
-					style={{
-						// backgroundColor: props.isBackgroundVisible ? 'transparent' : 'black',
-						// backgroundImage: `url(${props.isBackgroundVisible ? SIBackground : ''})`,
-						// backgroundSize: 'contain',
-						// backgroundPosition: 'center',
-						// backgroundRepeat: 'no-repeat',
-						// objectFit: 'fit-content',
-					}}
-				/>
+				<canvas ref={siGameCanvasRef} id={props.canvasId} width={siScreenWidth} height={siScreenHeight}/>
+				{/*	style={{ */}
+				{/*		// backgroundColor: props.isBackgroundVisible ? 'transparent' : 'black', */}
+				{/*		// backgroundImage: `url(${props.isBackgroundVisible ? SIBackground : ''})`, */}
+				{/*		// backgroundSize: 'contain', */}
+				{/*		// backgroundPosition: 'center', */}
+				{/*		// backgroundRepeat: 'no-repeat', */}
+				{/*		// objectFit: 'fit-content', */}
+				{/*	}} */}
 			</div>
 			<div className={'control-panel'}>
 				<button>Up</button>
