@@ -26,6 +26,13 @@ const SiEmulator = props => {
 				<canvas id={props.canvasId} width={siScreenWidth} height={siScreenHeight}/>
 			</div>
 			<div className={'control-panel'}>
+				<button>Up</button>
+				<button>Left</button>
+				<button>Right</button>
+				<button>Coin</button>
+				<button>Start</button>
+				<button>1P</button>
+				<button>2P</button>
 			</div>
 		</div>
 	);
