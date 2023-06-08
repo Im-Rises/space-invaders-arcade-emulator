@@ -10,11 +10,11 @@ pub enum SoundType {
 
 impl PartialEq for SoundType {
     fn eq(&self, other: &Self) -> bool {
-        match (self, other) {
+        matches!(
+            (self, other),
             (SoundType::UniqueSound, SoundType::UniqueSound)
-            | (SoundType::VariableLengthSound, SoundType::VariableLengthSound) => true,
-            _ => false,
-        }
+                | (SoundType::VariableLengthSound, SoundType::VariableLengthSound)
+        )
     }
 }
 

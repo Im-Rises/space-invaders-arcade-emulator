@@ -1,4 +1,4 @@
-# space_invaders_arcade_emulator
+# space-invaders-arcade-emulator
 
 <p align="center">
     <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="rustLogo" style="height:60px;"/>
@@ -19,9 +19,17 @@ SV), normal screen mode (TV) or in colored mode (CV).
 
 ## Images
 
+### Using background
+
 | SV version                                                                                                                                 | TV version                                                                                                                                 | CV version                                                                                                                                 |
 |--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | ![si_web_sv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/7f2f9ab0-00ed-40d2-b0ec-0b754c8f3d47) | ![si_web_tv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c4e52a7a-02ac-4be3-812f-9e1c4119b378) | ![si_web_cv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/b218fdad-6d72-478c-a127-d4d026a05d28) |
+
+### Without background
+
+| SV version                                                                                                                              | TV version                                                                                                                              | CV version                                                                                                                              |
+|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| ![si_no_bg_sv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c6c386fd-6c4e-48af-8a79-f78a67fb5a66) | ![si_no_bg_tv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/9717f304-53c1-463e-aaa2-3fa170f378ab) | ![si_no_bg_cv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/dcc827b4-42ec-4fc3-b2f9-de9dfc397d94) |
 
 ## Videos
 
@@ -43,21 +51,9 @@ You can use the keyboard to play the game.
 | P2 ←           | S                 |
 | P2 →           | F                 |
 
-The original game is mapped with some inputs that allow the constructor to choose the difficulty. I Mapped those inputs
-to the keyboard. This allows you to increase the numer of lives and change the extra ship necessity points.
-
-Before pressing start with player 1 or 2, you can choose the number of life you want to have for a game party.
-
-| Emulator/Keyboard | Emulator buttons                   |
-|-------------------|------------------------------------|
-| K                 | 1 more life                        |
-| L                 | 2 more lives                       |
-| M                 | extra ship at 1000 instead of 1500 |
-
-> **Note**  
-> If you don't keep pressed K or L before pressing start and starting a new game you will have 3 lives.  
-> In the same way, you can enable the extra ship to came at 1000 points instead of 1500, but you just need to press
-> the button one time (a confirmation will be displayed in the console).
+The original game is mapped with some inputs that allow the constructor to choose the difficulty. This allows you to
+increase the numer of lives and change the extra ship necessity points. To change those settings check the checkboxes
+before starting the game.
 
 ## GitHub Actions
 

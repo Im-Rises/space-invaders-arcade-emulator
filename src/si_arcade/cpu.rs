@@ -47,7 +47,7 @@ impl Cpu {
     }
 
     pub fn fetch_word(&mut self) -> u16 {
-        (self.fetch_byte() as u16 | (self.fetch_byte() as u16) << 8) as u16
+        self.fetch_byte() as u16 | (self.fetch_byte() as u16) << 8
     }
 
     fn read(&self, address: u16) -> u8 {
@@ -464,6 +464,7 @@ pub mod tests {
         test_finished
     }
 
+    //noinspection RsExternalLinter
     fn write_debug_to_file(cpu: &mut Cpu, file: &mut File, cycles: u64) {
         writeln!(
             file,

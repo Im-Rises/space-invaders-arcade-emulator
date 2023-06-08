@@ -1,4 +1,3 @@
-use image;
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{WebGl2RenderingContext, WebGlBuffer, WebGlProgram, WebGlShader, WebGlTexture, WebGlVertexArrayObject};
 
@@ -19,9 +18,9 @@ impl MyWebGl2 {
         let canvas = document.get_element_by_id(&canvas_id).unwrap();
         let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()?;
 
-        // Set the canvas width and height
-        canvas.set_width(canvas_height);
-        canvas.set_height(canvas_width);
+        // // Set the canvas width and height
+        // canvas.set_width(canvas_height);
+        // canvas.set_height(canvas_width);
 
         // Get the WebGL2 context
         let context = canvas
@@ -30,7 +29,6 @@ impl MyWebGl2 {
             .dyn_into::<WebGl2RenderingContext>()?;
 
         // Set the viewport
-        // context.viewport(0, 0, canvas_width as i32, canvas_height as i32);
         context.viewport(0, 0, canvas_height as i32, canvas_width as i32);
 
         // Create the vertex shader
@@ -82,7 +80,7 @@ impl MyWebGl2 {
                             if (color.rgb == vec3(0.0)) {
                                 color.a = 0.0; // Set alpha to 0 for black color
                             } else {
-                                // color.a = 1.0; // Set alpha to 1 for non-black colors
+                                // color.a = 0.9; // Set alpha to 1 for non-black colors
                                 color = texture(u_overlay_texture, v_texcoord).rgba; // Set color to overlay texture color
                             }
                             o_outColor = color;
@@ -232,7 +230,7 @@ impl MyWebGl2 {
         let gl = &self.gl;
         let texture = &self.game_texture;
 
-        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
+        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(texture));
 
         gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
             WebGl2RenderingContext::TEXTURE_2D,
@@ -256,7 +254,7 @@ impl MyWebGl2 {
         let gl = &self.gl;
         let texture = &self.overlay_texture;
 
-        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
+        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(texture));
 
         gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
             WebGl2RenderingContext::TEXTURE_2D,
@@ -289,26 +287,13 @@ impl MyWebGl2 {
         self.gl.active_texture(WebGl2RenderingContext::TEXTURE0);
         self.gl
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.game_texture));
-        // self.gl.uniform1i(
-        //     Some(&self.gl.get_uniform_location(&self.program, "u_texture").unwrap()),
-        //     0,
-        // );
 
         self.gl.active_texture(WebGl2RenderingContext::TEXTURE1);
         self.gl
             .bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&self.overlay_texture));
-        // self.gl.uniform1i(
-        //     Some(
-        //         &self
-        //             .gl
-        //             .get_uniform_location(&self.program, "u_overlay_texture")
-        //             .unwrap(),
-        //     ),
-        //     1,
-        // );
 
         self.gl
-            .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count as i32);
+            .draw_arrays(WebGl2RenderingContext::TRIANGLES, 0, self.vertex_count);
 
         self.gl.bind_vertex_array(None);
         self.gl.bind_buffer(WebGl2RenderingContext::ARRAY_BUFFER, None);

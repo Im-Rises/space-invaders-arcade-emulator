@@ -34,6 +34,14 @@
   }
 }
 
+.no-background {
+  background-color: black;
+  height: 80%;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
 .canvas-si {
   object-fit: contain;
   width: 100%;
