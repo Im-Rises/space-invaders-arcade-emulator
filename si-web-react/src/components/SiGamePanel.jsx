@@ -10,12 +10,13 @@ const SiGamePanel = () => {
 	const [romDataG, setRomDataG] = useState(null);
 	const [romDataF, setRomDataF] = useState(null);
 	const [romDataE, setRomDataE] = useState(null);
-	const screenModeSelectRef = React.useRef(null);
+	// const screenModeSelectRef = React.useRef(null);
 	const [isBackgroundVisible, setIsBackgroundVisible] = React.useState(true);
 	const oneAdditionalCheckboxRef = React.useRef(null);
 	const twoAdditionalCheckboxRef = React.useRef(null);
 	const earlyUfoCheckboxRef = React.useRef(null);
 	const coinDemoCheckboxRef = React.useRef(null);
+	const [screenMode, setScreenMode] = React.useState('CV');
 
 	return (
 		<>
@@ -23,7 +24,11 @@ const SiGamePanel = () => {
 				!isRomLoaded ? (
 					<div className={'setup-panel'}>
 						<div className={'screen-mode-panel'}>
-							<select id={'screen-mode'} ref={screenModeSelectRef}>
+							<select id={'screen-mode'} onChange={
+								e => {
+									setScreenMode(e.target.value);
+								}
+							}>
 								<option value={'SV'}>Black and white (SV)</option>
 								<option value={'TV'}>Original (TV)</option>
 								<option value={'CV'}>Colored (CV)</option>
@@ -35,12 +40,14 @@ const SiGamePanel = () => {
 								<option value={'hidden'}>Hidden</option>
 							</select>
 							<div>
-								<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>One additional
-                                        life</label>
-								<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>Two additional
-                                        lives</label>
-								<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>UFO at 1000 points</label>
-								<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>Coin in demo</label>
+								<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
+                                        One additional life</label>
+								<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
+                                        Two additional lives</label>
+								<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
+                                        UFO at 1000 points</label>
+								<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
+                                        Coin in demo</label>
 							</div>
 						</div>
 						<div className={'load-rom-panel'}>
@@ -67,7 +74,7 @@ const SiGamePanel = () => {
 					: (
 						<SiEmulator
 							canvasId={canvasId}
-							screenMode={screenModeSelectRef.current.value}
+							screenMode={screenMode}
 							isBackgroundVisible={isBackgroundVisible}
 							oneAdditional={oneAdditionalCheckboxRef.current.checked}
 							twoAdditional={twoAdditionalCheckboxRef.current.checked}
