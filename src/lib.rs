@@ -102,6 +102,27 @@ pub fn run(
         closure.forget();
     }
 
+    // Set up the HTML buttons callback
+    {
+        let space_invaders_arcade_ref = Rc::clone(&space_invaders_arcade);
+
+        let button_up = document().get_element_by_id("si-button-up").unwrap();
+        let callback_up = Closure::wrap(Box::new(move || {
+            space_invaders_arcade_ref
+                .borrow_mut()
+                .update_input(si_arcade::GameInput::Shot, true);
+        }) as Box<dyn Fn()>);
+        button_up.add_event_listener_with_callback("click", callback_up.as_ref().unchecked_ref())?;
+
+        // let button_left = document().get_element_by_id("si-button-left").unwrap();
+        // let button_right = document().get_element_by_id("si-button-right").unwrap();
+        // let button_coin = document().get_element_by_id("si-button-coin").unwrap();
+        // let button_1p = document().get_element_by_id("si-button-1p").unwrap();
+        // let button_2p = document().get_element_by_id("si-button-2p").unwrap();
+
+        callback_up.forget();
+    }
+
     setup_clock(Rc::clone(&space_invaders_arcade))?;
     Ok(())
 }
@@ -121,4 +142,8 @@ fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>
 
 fn window() -> web_sys::Window {
     web_sys::window().expect("no global `window` exists")
+}
+
+fn document() -> web_sys::Document {
+    window().document().expect("no global `document` exists")
 }

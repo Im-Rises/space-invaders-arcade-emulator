@@ -81,7 +81,7 @@ impl MyWebGl2 {
                                 color.a = 0.0;
                             } else {
                                 color = texture(u_overlay_texture, v_texcoord).rgba; // Set color to overlay texture color
-                                color.a = 0.8;
+                                color.a = 0.9;
                             }
                             o_outColor = color;
                         }
