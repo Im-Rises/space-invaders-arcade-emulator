@@ -78,10 +78,10 @@ impl MyWebGl2 {
                             
                             vec4 color = texture(u_texture, v_texcoord);
                             if (color.rgb == vec3(0.0)) {
-                                color.a = 0.0; // Set alpha to 0 for black color
+                                color.a = 0.0;
                             } else {
-                                // color.a = 0.9; // Set alpha to 1 for non-black colors
                                 color = texture(u_overlay_texture, v_texcoord).rgba; // Set color to overlay texture color
+                                color.a = 0.8;
                             }
                             o_outColor = color;
                         }
@@ -206,12 +206,12 @@ impl MyWebGl2 {
         context.bind_vertex_array(None);
 
         // // Allow transparency
-        // context.enable(WebGl2RenderingContext::BLEND);
+        context.enable(WebGl2RenderingContext::BLEND);
         // context.enable(WebGl2RenderingContext::DEPTH_TEST);
-        // context.blend_func(
-        //     WebGl2RenderingContext::SRC_ALPHA,
-        //     WebGl2RenderingContext::ONE_MINUS_SRC_ALPHA,
-        // );
+        context.blend_func(
+            WebGl2RenderingContext::SRC_ALPHA,
+            WebGl2RenderingContext::ONE_MINUS_SRC_ALPHA,
+        );
         // context.blend_equation(WebGl2RenderingContext::FUNC_ADD);
 
         // Create the struct
