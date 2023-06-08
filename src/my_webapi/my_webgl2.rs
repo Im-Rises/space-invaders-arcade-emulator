@@ -80,7 +80,7 @@ impl MyWebGl2 {
                             if (color.rgb == vec3(0.0)) {
                                 color.a = 0.0; // Set alpha to 0 for black color
                             } else {
-                                // color.a = 1.0; // Set alpha to 1 for non-black colors
+                                // color.a = 0.9; // Set alpha to 1 for non-black colors
                                 color = texture(u_overlay_texture, v_texcoord).rgba; // Set color to overlay texture color
                             }
                             o_outColor = color;
@@ -230,7 +230,7 @@ impl MyWebGl2 {
         let gl = &self.gl;
         let texture = &self.game_texture;
 
-        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
+        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(texture));
 
         gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
             WebGl2RenderingContext::TEXTURE_2D,
@@ -254,7 +254,7 @@ impl MyWebGl2 {
         let gl = &self.gl;
         let texture = &self.overlay_texture;
 
-        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(&texture));
+        gl.bind_texture(WebGl2RenderingContext::TEXTURE_2D, Some(texture));
 
         gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
             WebGl2RenderingContext::TEXTURE_2D,

@@ -1,6 +1,6 @@
 use std::fs::File;
 use std::io;
-use std::io::{Error, Read};
+use std::io::Read;
 
 // const MEMORY_SIZE: usize = 0x4000;
 const MEMORY_SIZE: usize = 0x10000;

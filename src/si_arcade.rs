@@ -17,6 +17,7 @@ const SCREEN_REFRESH_TIME: u128 = 16;
 const INTERRUPT_VBLANK_COUNTER: usize = cpu::CLOCK_FREQUENCY / ppu::SCREEN_FREQUENCY;
 const INTERRUPT_MIDDLE_VBLANK: usize = INTERRUPT_VBLANK_COUNTER / 2;
 
+//noinspection RsExternalLinter
 pub struct SpaceInvadersArcade {
     cpu: cpu::Cpu,
     ppu: ppu::Ppu,
@@ -193,7 +194,7 @@ impl SpaceInvadersArcade {
         self.my_api.play_audio_sound(self.spu.get_sounds_states());
     }
 
-    pub fn update_input(&mut self, game_input: inputs_outputs::GameInput, value: bool) {
+    pub fn update_input(&mut self, game_input: GameInput, value: bool) {
         self.inputs_outputs.update_input(game_input, value);
     }
 

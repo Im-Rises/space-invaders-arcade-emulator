@@ -1,4 +1,4 @@
-# space_invaders_arcade_emulator
+# space-invaders-arcade-emulator
 
 <p align="center">
     <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="rustLogo" style="height:60px;"/>
@@ -51,21 +51,9 @@ You can use the keyboard to play the game.
 | P2 ←           | S                 |
 | P2 →           | F                 |
 
-The original game is mapped with some inputs that allow the constructor to choose the difficulty. I Mapped those inputs
-to the keyboard. This allows you to increase the numer of lives and change the extra ship necessity points.
-
-Before pressing start with player 1 or 2, you can choose the number of life you want to have for a game party.
-
-| Emulator/Keyboard | Emulator buttons                   |
-|-------------------|------------------------------------|
-| K                 | 1 more life                        |
-| L                 | 2 more lives                       |
-| M                 | extra ship at 1000 instead of 1500 |
-
-> **Note**  
-> If you don't keep pressed K or L before pressing start and starting a new game you will have 3 lives.  
-> In the same way, you can enable the extra ship to came at 1000 points instead of 1500, but you just need to press
-> the button one time (a confirmation will be displayed in the console).
+The original game is mapped with some inputs that allow the constructor to choose the difficulty. This allows you to
+increase the numer of lives and change the extra ship necessity points. To change those settings check the checkboxes
+before starting the game.
 
 ## GitHub Actions
 
