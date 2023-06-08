@@ -10,7 +10,7 @@ const SiGamePanel = () => {
 	const [romDataG, setRomDataG] = useState(null);
 	const [romDataF, setRomDataF] = useState(null);
 	const [romDataE, setRomDataE] = useState(null);
-	const [isBackgroundVisible, setIsBackgroundVisible] = React.useState(true);
+	const [backgroundVersion, setBackgroundVersion] = React.useState('background_1');
 	const oneAdditionalCheckboxRef = React.useRef(null);
 	const twoAdditionalCheckboxRef = React.useRef(null);
 	const earlyUfoCheckboxRef = React.useRef(null);
@@ -32,11 +32,14 @@ const SiGamePanel = () => {
 								<option value={'TV'}>Original (TV)</option>
 								<option value={'CV'}>Colored (CV)</option>
 							</select>
-							<select id={'background'} onChange={e => {
-								setIsBackgroundVisible(e.target.value === 'visible');
-							}}>
-								<option value={'visible'}>Visible</option>
+							<select id={'background'} onChange={
+								e => {
+									setBackgroundVersion(e.target.value);
+								}
+							}>
 								<option value={'hidden'}>Hidden</option>
+								<option value={'background_1'}>Version 1</option>
+								<option value={'background_2'}>Version 2</option>
 							</select>
 							<div>
 								<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
@@ -60,7 +63,7 @@ const SiGamePanel = () => {
 							<InputFile setRomData={setRomDataE}/>
 							<button onClick={() => {
 								if (!romDataH || !romDataG || !romDataF || !romDataE) {
-									return;
+									// return;
 								}
 
 								setRomsLoaded(true);
@@ -74,7 +77,7 @@ const SiGamePanel = () => {
 						<SiEmulator
 							canvasId={canvasId}
 							screenMode={screenMode}
-							isBackgroundVisible={isBackgroundVisible}
+							backgroundVersion={backgroundVersion}
 							oneAdditional={oneAdditionalCheckboxRef.current.checked}
 							twoAdditional={twoAdditionalCheckboxRef.current.checked}
 							earlyUfo={earlyUfoCheckboxRef.current.checked}

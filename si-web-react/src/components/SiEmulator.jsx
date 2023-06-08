@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import init, {run} from 'si-emu-pkg';
 import './SiEmulator.scss';
-import SIBackground from '../images/background/bg_invaders.png';
 import BlackBackground from '../images/background/bg_black.png';
+import SIBackground1 from '../images/background/bg_invaders_1.png';
+import SIBackground2 from '../images/background/bg_invaders_2.png';
 import PropTypes from 'prop-types';
 
 const SiEmulator = props => {
@@ -12,6 +13,22 @@ const SiEmulator = props => {
 	const backgroundImageRef = React.useRef(null);
 	const siGameCanvasRef = React.useRef(null);
 	const screenPanelRef = React.useRef(null);
+
+	let backgroundVersion;
+	switch (props.backgroundVersion) {
+		case 'hidden':
+			backgroundVersion = BlackBackground;
+			break;
+		case 'background_1':
+			backgroundVersion = SIBackground1;
+			break;
+		case 'background_2':
+			backgroundVersion = SIBackground2;
+			break;
+		default:
+			backgroundVersion = BlackBackground;
+			break;
+	}
 
 	const handleResize = () => {
 		const screenPanel = screenPanelRef.current;
@@ -54,7 +71,7 @@ const SiEmulator = props => {
 			<div ref={screenPanelRef} className={'screen-panel'}>
 				<img ref={backgroundImageRef} onLoad={handleResize}
 					className={'background-image'}
-					src={props.isBackgroundVisible ? SIBackground : BlackBackground} alt={''}/>
+					src={backgroundVersion} alt={''}/>
 				<canvas ref={siGameCanvasRef} id={props.canvasId} width={siScreenWidth} height={siScreenHeight}/>
 			</div>
 			<div className={'control-panel'}>
@@ -73,7 +90,7 @@ const SiEmulator = props => {
 SiEmulator.propTypes = {
 	canvasId: PropTypes.string.isRequired,
 	screenMode: PropTypes.string.isRequired,
-	isBackgroundVisible: PropTypes.bool.isRequired,
+	backgroundVersion: PropTypes.string.isRequired,
 	oneAdditional: PropTypes.bool.isRequired,
 	twoAdditional: PropTypes.bool.isRequired,
 	earlyUfo: PropTypes.bool.isRequired,
