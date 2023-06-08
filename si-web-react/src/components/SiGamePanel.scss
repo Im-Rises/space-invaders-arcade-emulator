@@ -14,14 +14,18 @@
   }
 
   .screen-mode-panel {
-    height: 60%;
+    height: 80%;
     justify-content: center;
     align-items: center;
     display: flex;
     flex-flow: column;
 
-    img {
+    .img-demo {
       height: 80%;
+
+      img {
+        height: 100%;
+      }
     }
 
     .control-mode {
@@ -39,7 +43,7 @@
 
   .load-rom-panel {
     // Grid 2x2 for input roms and button at the bottom
-    height: 30%;
+    height: 10%;
 
     display: flex;
     justify-content: center;

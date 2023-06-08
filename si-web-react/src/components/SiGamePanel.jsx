@@ -8,6 +8,9 @@ import {AUTHOR, REPO} from '../settings/github-constants';
 import DemoVideoMode1 from '../images/demo/si-demo-1-sv.png';
 import DemoVideoMode2 from '../images/demo/si-demo-2-tv.png';
 import DemoVideoMode3 from '../images/demo/si-demo-3-cv.png';
+import BlackBackground from '../images/background/bg_black.png';
+import SIBackground1 from '../images/background/bg_invaders_1.png';
+import SIBackground2 from '../images/background/bg_invaders_2.png';
 
 const SiGamePanel = () => {
 	const [isRomLoaded, setRomsLoaded] = React.useState(false);
@@ -34,7 +37,10 @@ const SiGamePanel = () => {
 								<h1>Space Invaders Arcade Emulator</h1>
 							</div>
 							<div className={'screen-mode-panel'}>
-								<img src={DemoVideoMode1} alt={'background_1'}/>
+								<div className={'img-demo'}>
+									<img src={DemoVideoMode3} alt={'demo-game-screen'}/>
+									<img src={BlackBackground} alt={'demo-game-screen'}/>
+								</div>
 								<div className={'control-mode'}>
 									<select id={'screen-mode'} defaultValue={'CV'} ref={screenModeRef}>
 										<option value={'SV'}>Black and white (SV)</option>
@@ -81,19 +87,25 @@ const SiGamePanel = () => {
 					</>
 				)
 					: (
-						<SiEmulator
-							canvasId={canvasId}
-							screenMode={screenModeRef.current.value}
-							backgroundVersion={backgroundVersionRef.current.value}
-							oneAdditional={oneAdditionalCheckboxRef.current.checked}
-							twoAdditional={twoAdditionalCheckboxRef.current.checked}
-							earlyUfo={earlyUfoCheckboxRef.current.checked}
-							coinDemo={coinDemoCheckboxRef.current.checked}
-							romDataH={romDataH}
-							romDataG={romDataG}
-							romDataF={romDataF}
-							romDataE={romDataE}
-						/>
+						<>
+							<SiEmulator
+								canvasId={canvasId}
+								screenMode={screenModeRef.current.value}
+								backgroundVersion={backgroundVersionRef.current.value}
+								oneAdditional={oneAdditionalCheckboxRef.current.checked}
+								twoAdditional={twoAdditionalCheckboxRef.current.checked}
+								earlyUfo={earlyUfoCheckboxRef.current.checked}
+								coinDemo={coinDemoCheckboxRef.current.checked}
+								romDataH={romDataH}
+								romDataG={romDataG}
+								romDataF={romDataF}
+								romDataE={romDataE}
+							/>
+							<button onClick={() => {
+								setRomsLoaded(false);
+							}}>Back
+							</button>
+						</>
 					)
 			}
 		</>
