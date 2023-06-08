@@ -15,20 +15,11 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    //width: 100%;
-    //height: 80%;
-    //object-fit: contain;
-    //background-color: red;// Color of the arcade
-    //left: 50%;
-    //transform: translateX(-50%);
   }
 
   canvas {
     z-index: 1;
     position: absolute;
-    //width: 100%;
-    //height: 80%;
-    //object-fit: contain;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -37,4 +28,8 @@
 .control-panel {
   width: 100%;
   height: 20%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
 }

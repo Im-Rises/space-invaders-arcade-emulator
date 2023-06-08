@@ -1,0 +1,47 @@
+.setup-panel {
+  width: 100vw;
+  height: 100vh;
+
+  .title {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      text-align: center;
+    }
+  }
+
+  .screen-mode-panel {
+    height: 60%;
+
+    img {
+      height: 80%;
+    }
+
+    .control-mode {
+      height: 20%;
+
+      select {
+        height: 60%;
+      }
+
+      div {
+        height: 20%;
+      }
+    }
+  }
+
+  .load-rom-panel {
+    // Grid 2x2 for input roms and button at the bottom
+    height: 30%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap;
+  }
+}
+
+
