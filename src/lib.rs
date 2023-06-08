@@ -112,13 +112,20 @@ pub fn run(
                 .borrow_mut()
                 .update_input(si_arcade::GameInput::Shot, true);
         }) as Box<dyn Fn()>);
-        button_up.add_event_listener_with_callback("click", callback_up.as_ref().unchecked_ref())?;
+        button_up.add_event_listener_with_callback("mousedown", callback_up.as_ref().unchecked_ref())?;
 
-        // let button_left = document().get_element_by_id("si-button-left").unwrap();
-        // let button_right = document().get_element_by_id("si-button-right").unwrap();
-        // let button_coin = document().get_element_by_id("si-button-coin").unwrap();
-        // let button_1p = document().get_element_by_id("si-button-1p").unwrap();
-        // let button_2p = document().get_element_by_id("si-button-2p").unwrap();
+        callback_up.forget();
+    }
+    {
+        let space_invaders_arcade_ref = Rc::clone(&space_invaders_arcade);
+
+        let button_up = document().get_element_by_id("si-button-up").unwrap();
+        let callback_up = Closure::wrap(Box::new(move || {
+            space_invaders_arcade_ref
+                .borrow_mut()
+                .update_input(si_arcade::GameInput::Shot, false);
+        }) as Box<dyn Fn()>);
+        button_up.add_event_listener_with_callback("mouseup", callback_up.as_ref().unchecked_ref())?;
 
         callback_up.forget();
     }
