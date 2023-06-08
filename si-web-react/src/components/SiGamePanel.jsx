@@ -38,8 +38,8 @@ const SiGamePanel = () => {
 							</div>
 							<div className={'screen-mode-panel'}>
 								<div className={'img-demo'}>
-									<img src={DemoVideoMode3} alt={'demo-game-screen'}/>
-									<img src={BlackBackground} alt={'demo-game-screen'}/>
+									<img src={DemoVideoMode2} alt={'demo-game-screen'} className={'img-demo'}/>
+									<img src={SIBackground2} alt={'demo-game-screen'} className={'img-bg'}/>
 								</div>
 								<div className={'control-mode'}>
 									<select id={'screen-mode'} defaultValue={'CV'} ref={screenModeRef}>

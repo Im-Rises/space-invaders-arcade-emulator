@@ -24,8 +24,22 @@
       height: 80%;
 
       img {
-        height: 100%;
+        position: absolute;
+        height: 60%;
+        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        object-fit: contain;
       }
+
+      .img-demo {
+        z-index: 2;
+      }
+
+      .img-bg {
+        z-index: 1;
+      }
+
     }
 
     .control-mode {

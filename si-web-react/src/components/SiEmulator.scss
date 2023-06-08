@@ -4,24 +4,27 @@
 }
 
 .screen-panel {
-  width: 100%;
+  width: 95%; // 100%; if no top in img, canvas{}
   height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  img {
-    z-index: 0;
+  img, canvas {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    top: 2%;
+  }
+
+  img {
+    z-index: 0;
+    border-radius: 0.625rem;
+    border: 0.3125rem solid #fff;
   }
 
   canvas {
     z-index: 1;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
 
