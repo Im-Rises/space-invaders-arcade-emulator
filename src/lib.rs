@@ -23,14 +23,14 @@ fn init() -> Result<(), JsValue> {
 pub fn run(
     canvas_id: String,
     display_mode: String,
-    rom_h: js_sys::Uint8Array,
-    rom_g: js_sys::Uint8Array,
-    rom_f: js_sys::Uint8Array,
-    rom_e: js_sys::Uint8Array,
     one_extra_life: bool,
     two_extra_lives: bool,
     extra_ship_enabled_early: bool,
     coin_info_demo: bool,
+    rom_h: js_sys::Uint8Array,
+    rom_g: js_sys::Uint8Array,
+    rom_f: js_sys::Uint8Array,
+    rom_e: js_sys::Uint8Array,
 ) -> Result<(), JsValue> {
     // /* Debug code */
     // let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
