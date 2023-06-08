@@ -22,11 +22,11 @@
 
     .img-demo {
       height: 80%;
+      width: 95%;
 
       img {
         position: absolute;
         height: 60%;
-        width: 100%;
         left: 50%;
         transform: translateX(-50%);
         object-fit: contain;
@@ -38,8 +38,9 @@
 
       .img-bg {
         z-index: 1;
+        border-radius: 0.625rem;
+        border: 0.3125rem solid #fff;
       }
-
     }
 
     .control-mode {
