@@ -35,10 +35,12 @@ const SiGamePanel = () => {
 								<option value={'hidden'}>Hidden</option>
 							</select>
 							<div>
-								<input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
-								<input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
-								<input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
-								<input type={'checkbox'} ref={coinDemoCheckboxRef}/>
+								<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>One additional
+                                        life</label>
+								<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>Two additional
+                                        lives</label>
+								<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>UFO at 1000 points</label>
+								<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>Coin in demo</label>
 							</div>
 						</div>
 						<div className={'load-rom-panel'}>

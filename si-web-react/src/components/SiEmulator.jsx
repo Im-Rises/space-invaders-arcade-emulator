@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import init, {run} from 'si-emu-pkg';
 import './SiEmulator.scss';
-import SIBackground from '../images/background/invaders.png';
+import SIBackground from '../images/background/bg_invaders.png';
+import BlackBackground from '../images/background/bg_black.png';
 import PropTypes from 'prop-types';
 
 const SiEmulator = props => {
@@ -50,16 +51,10 @@ const SiEmulator = props => {
 	return (
 		<div className={'si-emulator'}>
 			<div ref={screenPanelRef} className={'screen-panel'}>
-				<img ref={backgroundImageRef} src={SIBackground} alt={''}/>
+				<img ref={backgroundImageRef}
+					className={'background-image'}
+					src={props.isBackgroundVisible ? SIBackground : BlackBackground} alt={''}/>
 				<canvas ref={siGameCanvasRef} id={props.canvasId} width={siScreenWidth} height={siScreenHeight}/>
-				{/*	style={{ */}
-				{/*		// backgroundColor: props.isBackgroundVisible ? 'transparent' : 'black', */}
-				{/*		// backgroundImage: `url(${props.isBackgroundVisible ? SIBackground : ''})`, */}
-				{/*		// backgroundSize: 'contain', */}
-				{/*		// backgroundPosition: 'center', */}
-				{/*		// backgroundRepeat: 'no-repeat', */}
-				{/*		// objectFit: 'fit-content', */}
-				{/*	}} */}
 			</div>
 			<div className={'control-panel'}>
 				<button>Up</button>
