@@ -15,6 +15,10 @@
 
   .screen-mode-panel {
     height: 60%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-flow: column;
 
     img {
       height: 80%;
@@ -41,6 +45,22 @@
     justify-content: center;
     align-items: center;
     flex-flow: wrap;
+
+    button {
+      color: #fff;
+      background-color: #282c34;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #fff;
+        color: #282c34;
+      }
+    }
   }
 }
 
