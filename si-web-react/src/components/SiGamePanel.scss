@@ -33,11 +33,11 @@
       }
 
       .img-demo {
-        z-index: 2;
+        z-index: 1;
       }
 
       .img-bg {
-        z-index: 1;
+        z-index: 0;
         border-radius: 0.625rem;
         border: 0.3125rem solid #fff;
       }
@@ -46,12 +46,18 @@
     .control-mode {
       height: 20%;
 
+      //align-items: center;
+      //justify-content: center;
+      //display: flex;
+      //flex-flow: column;
+
       select {
-        height: 60%;
+        height: 50%;
+        width: 50%;
       }
 
       div {
-        height: 20%;
+        height: 50%;
       }
     }
   }

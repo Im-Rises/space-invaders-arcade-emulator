@@ -5,17 +5,18 @@ import SiEmulator from './SiEmulator';
 import GitHubProjectPanel from './GitHubProjectPanel';
 import './SiGamePanel.scss';
 import {AUTHOR, REPO} from '../settings/github-constants';
-import DemoVideoMode1 from '../images/demo/si-demo-1-sv.png';
+// import DemoVideoMode1 from '../images/demo/si-demo-1-sv.png';
 import DemoVideoMode2 from '../images/demo/si-demo-2-tv.png';
-import DemoVideoMode3 from '../images/demo/si-demo-3-cv.png';
-import BlackBackground from '../images/background/bg_black.png';
-import SIBackground1 from '../images/background/bg_invaders_1.png';
+// import DemoVideoMode3 from '../images/demo/si-demo-3-cv.png';
+// import BlackBackground from '../images/background/bg_black.png';
+// import SIBackground1 from '../images/background/bg_invaders_1.png';
 import SIBackground2 from '../images/background/bg_invaders_2.png';
+import SelectorButton from './SelectorButton';
 
 const SiGamePanel = () => {
 	const [isRomLoaded, setRomsLoaded] = React.useState(false);
 	const canvasId = 'si-canvas-id';
-	const screenModeRef = React.useRef(null);
+	// const screenModeRef = React.useRef(null);
 	const oneAdditionalCheckboxRef = React.useRef(null);
 	const twoAdditionalCheckboxRef = React.useRef(null);
 	const earlyUfoCheckboxRef = React.useRef(null);
@@ -24,7 +25,32 @@ const SiGamePanel = () => {
 	const [romDataG, setRomDataG] = useState(null);
 	const [romDataF, setRomDataF] = useState(null);
 	const [romDataE, setRomDataE] = useState(null);
-	const backgroundVersionRef = React.useRef(null);
+	// const backgroundVersionRef = React.useRef(null);
+
+	const imgDemoRef = React.useRef(null);
+	const imgBackgroundRef = React.useRef(null);
+
+	const screenModeList = [{
+		value: 'SV',
+		label: 'Black and white (SV)',
+	}, {
+		value: 'TV',
+		label: 'Original (TV)',
+	}, {
+		value: 'CV',
+		label: 'Colored (CV)',
+	}];
+
+	const backgroundVersionList = [{
+		value: 'hidden',
+		label: 'Hidden',
+	}, {
+		value: '1',
+		label: 'Version 1',
+	}, {
+		value: '2',
+		label: 'Version 2',
+	}];
 
 	return (
 		<>
@@ -38,20 +64,22 @@ const SiGamePanel = () => {
 							</div>
 							<div className={'screen-mode-panel'}>
 								<div className={'img-demo'}>
-									<img src={DemoVideoMode2} alt={'demo-game-screen'} className={'img-demo'}/>
-									<img src={SIBackground2} alt={'demo-game-screen'} className={'img-bg'}/>
+									<img src={DemoVideoMode2} alt={'demo-game-screen'} className={'img-demo'}
+										ref={imgDemoRef}/>
+									<img src={SIBackground2} alt={'demo-game-screen'} className={'img-bg'}
+										ref={imgBackgroundRef}/>
 								</div>
 								<div className={'control-mode'}>
-									<select id={'screen-mode'} defaultValue={'CV'} ref={screenModeRef}>
-										<option value={'SV'}>Black and white (SV)</option>
-										<option value={'TV'}>Original (TV)</option>
-										<option value={'CV'}>Colored (CV)</option>
-									</select>
-									<select id={'background'} ref={backgroundVersionRef} defaultValue={'background_1'}>
-										<option value={'hidden'}>Hidden</option>
-										<option value={'background_1'}>Version 1</option>
-										<option value={'background_2'}>Version 2</option>
-									</select>
+									<div>
+										<SelectorButton elementList={screenModeList}
+											// defaultValue={screenModeList[2].value}
+										/>
+									</div>
+									<div>
+										<SelectorButton elementList={backgroundVersionList}
+											// defaultValue={backgroundVersionList[2].value}
+										/>
+									</div>
 									<div>
 										<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
                                                 One additional life</label>
@@ -90,8 +118,8 @@ const SiGamePanel = () => {
 						<>
 							<SiEmulator
 								canvasId={canvasId}
-								screenMode={screenModeRef.current.value}
-								backgroundVersion={backgroundVersionRef.current.value}
+								// screenMode={screenModeRef.current.value}
+								// backgroundVersion={backgroundVersionRef.current.value}
 								oneAdditional={oneAdditionalCheckboxRef.current.checked}
 								twoAdditional={twoAdditionalCheckboxRef.current.checked}
 								earlyUfo={earlyUfoCheckboxRef.current.checked}
