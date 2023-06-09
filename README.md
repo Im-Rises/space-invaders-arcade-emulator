@@ -17,6 +17,11 @@ Complete Emulator of the Intel 8080, the app is implemented to run the Space Inv
 The game is implemented with all the 10 sounds of the original game and can be played in black and white or in color (
 SV), normal screen mode (TV) or in colored mode (CV).
 
+## To do
+
+- [ ] Correct the web UI (code and design)
+- [ ] Button not working for mobile devices
+
 ## Images
 
 ### Without background

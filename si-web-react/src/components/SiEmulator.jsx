@@ -57,7 +57,7 @@ const SiEmulator = props => {
 				<canvas ref={siGameCanvasRef} id={props.canvasId} width={siScreenWidth} height={siScreenHeight}/>
 			</div>
 			<div className={'control-panel'}>
-				<button id={'si-button-up'}>Up</button>
+				<button onClick={() => console.log('sqdqsd')} id={'si-button-up'}>Up</button>
 				<button id={'si-button-left'}>Left</button>
 				<button id={'si-button-right'}>Right</button>
 				<button id={'si-button-coin'}>Coin</button>
