@@ -47,22 +47,22 @@ const SiGamePanel = () => {
 						</div>
 
 						<div className={'screen-mode-panel'}>
-							<div className={'img-demo'}>
+							<div className={'demo-screen'}>
 								<img src={screenModeList.find(element => element.value === screenMode).image}
-									alt={'demo-game-screen'} className={'img-game'}/>
+									alt={'demo-game-version'} className={'img-game'}/>
 								<img
 									src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
-									alt={'demo-game-screen'} className={'img-bg'}/>
+									alt={'demo-background-version'} className={'img-bg'}/>
 							</div>
-							<div className={'screen-background-mode'}>
-								<div className={'select-screen-mode'}>
+							<div className={'screen-mode-controller'}>
+								<div className={'game-mode-controller'}>
 									<SelectorButton
 										setSelectedOptionValue={setScreenMode}
 										elementList={screenModeList}
 										defaultValue={screenMode}
 									/>
 								</div>
-								<div className={'select-background-version'}>
+								<div className={'background-version-controller'}>
 									<SelectorButton
 										setSelectedOptionValue={setBackgroundVersion}
 										elementList={backgroundVersionList}
