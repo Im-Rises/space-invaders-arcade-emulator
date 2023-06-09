@@ -28,6 +28,12 @@ const SiGamePanel = () => {
 	const [romDataF, setRomDataF] = useState(null);
 	const [romDataE, setRomDataE] = useState(null);
 
+	// const handleResize = () => {
+	//
+	// };
+	//
+	// window.addEventListener('resize', handleResize);
+
 	return (
 		<>
 			{

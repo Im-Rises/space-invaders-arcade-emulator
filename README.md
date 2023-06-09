@@ -157,6 +157,12 @@ tobiasvl.github.io:
 trcf.net:  
 <https://tcrf.net/Space_Invaders_(Arcade)>
 
+eab.abime.net:  
+<https://eab.abime.net/showthread.php?t=105132&page=2>
+
+ArcadeArtwork:  
+<https://www.arcadeartwork.org/index.php?%2Fcategory%2F57>
+
 ## Contributors
 
 Quentin MOREL :
