@@ -4,7 +4,7 @@
 }
 
 .screen-panel {
-  width: 95%; // 100%; if no top in img, canvas{}
+  width: 95%;
   height: 80%;
   display: flex;
   justify-content: center;
@@ -15,6 +15,11 @@
     left: 50%;
     transform: translateX(-50%);
     top: 2%;
+
+    @media (max-width: 800px) {
+      top: 40%;
+      transform: translate(-50%, -40%);
+    }
   }
 
   img {

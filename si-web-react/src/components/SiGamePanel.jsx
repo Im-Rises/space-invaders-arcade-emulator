@@ -30,12 +30,11 @@ const SiGamePanel = () => {
 
 	return (
 		<>
-			<GitHubProjectPanel link={REPO} author={AUTHOR}/>
 			{
 				!isRomLoaded ? (
 					<>
 						<ToastContainer/>
-						{/* <div className={'setup-panel'}> */}
+						<GitHubProjectPanel link={REPO} author={AUTHOR}/>
 
 						<div className={'title'}>
 							<h1>Space Invaders Arcade Emulator</h1>
@@ -110,7 +109,6 @@ const SiGamePanel = () => {
                                         Coin in demo</label>
 							</div>
 						</div>
-						{/* </div> */}
 					</>
 				)
 					: (

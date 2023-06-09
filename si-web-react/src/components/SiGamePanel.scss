@@ -1,7 +1,3 @@
-//.setup-panel {
-//width: 100vw;
-//height: 100vh;
-
 .title {
   height: 10vh;
   display: flex;
@@ -22,11 +18,11 @@
 
   .img-demo {
     height: 80%;
-    width: 95%;
 
     img {
       position: absolute;
       height: 60%;
+      width: 95%;
       left: 50%;
       transform: translateX(-50%);
       object-fit: contain;
@@ -38,8 +34,8 @@
 
     .img-bg {
       z-index: 0;
-      border-radius: 0.625rem;
-      border: 0.3125rem solid #fff;
+      //border-radius: 0.625rem;
+      //border: 0.3125rem solid #fff;
     }
   }
 
@@ -79,6 +75,14 @@
         text-align: center;
       }
     }
+
+    @media (max-width: 900px) {
+      width: 50%;
+    }
+
+    @media (max-width: 600px) {
+      width: 90%;
+    }
   }
 }
 
@@ -89,8 +93,6 @@
 
   button {
     width: 20%;
-    //color: #fff;
-    //background-color: #282c34;
 
     color: #282c34;
     background-color: #fff;
@@ -103,9 +105,6 @@
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      //background-color: #fff;
-      //color: #282c34;
-
       background-color: #282c34;
       color: #fff;
     }
