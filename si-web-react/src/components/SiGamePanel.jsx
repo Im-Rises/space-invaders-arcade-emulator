@@ -7,6 +7,8 @@ import './SiGamePanel.scss';
 import {AUTHOR, REPO} from '../settings/github-constants';
 import SelectorButton from './SelectorButton';
 import {screenModeList, backgroundVersionList} from '../constants/screen-constants';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SiGamePanel = () => {
 	const [isRomLoaded, setRomsLoaded] = React.useState(false);
@@ -32,6 +34,7 @@ const SiGamePanel = () => {
 				!isRomLoaded ? (
 					<>
 						<GitHubProjectPanel link={REPO} author={AUTHOR}/>
+						<ToastContainer/>
 						<div className={'setup-panel'}>
 							<div className={'title'}>
 								<h1>Space Invaders Arcade Emulator</h1>
@@ -82,7 +85,8 @@ const SiGamePanel = () => {
 								<InputFile setRomData={setRomDataE}/>
 								<button onClick={() => {
 									if (!romDataH || !romDataG || !romDataF || !romDataE) {
-										// return;
+										toast.error('Please load all ROMs');
+										return;
 									}
 
 									setRomsLoaded(true);

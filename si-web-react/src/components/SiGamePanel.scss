@@ -52,24 +52,44 @@
       //flex-flow: column;
 
       .select-screen-mode {
-        height: 40%;
+        height: 35%;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        button {
+          width: 20%;
+        }
+
+        select {
+          width: 40%;
+          text-align: center;
+        }
+
       }
 
       .select-background-version {
-        height: 40%;
+        height: 35%;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        button {
+          width: 20%;
+        }
+
+        select {
+          width: 40%;
+          text-align: center;
+        }
       }
 
       .select-options {
-        height: 20%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        height: 30%;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
       }
     }
   }
