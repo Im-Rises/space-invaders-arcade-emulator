@@ -1,6 +1,6 @@
-import DemoVideoMode1 from '../images/demo/si-demo-1-sv.png';
-import DemoVideoMode2 from '../images/demo/si-demo-2-tv.png';
-import DemoVideoMode3 from '../images/demo/si-demo-3-cv.png';
+import GameVideoMode1 from '../images/game/si-game-1-sv.png';
+import GameVideoMode2 from '../images/game/si-game-2-tv.png';
+import GameVideoMode3 from '../images/game/si-game-3-cv.png';
 import BlackBackground from '../images/background/bg_black.png';
 import SIBackground1 from '../images/background/bg_invaders_1.png';
 import SIBackground2 from '../images/background/bg_invaders_2.png';
@@ -8,15 +8,15 @@ import SIBackground2 from '../images/background/bg_invaders_2.png';
 const screenModeList = [{
 	value: 'SV',
 	label: 'Black and white (SV)',
-	image: DemoVideoMode1,
+	image: GameVideoMode1,
 }, {
 	value: 'TV',
 	label: 'Original (TV)',
-	image: DemoVideoMode2,
+	image: GameVideoMode2,
 }, {
 	value: 'CV',
 	label: 'Colored (CV)',
-	image: DemoVideoMode3,
+	image: GameVideoMode3,
 }];
 
 const backgroundVersionList = [{

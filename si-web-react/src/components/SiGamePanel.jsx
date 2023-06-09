@@ -43,7 +43,7 @@ const SiGamePanel = () => {
 						<div className={'screen-mode-panel'}>
 							<div className={'img-demo'}>
 								<img src={screenModeList.find(element => element.value === screenMode).image}
-									alt={'demo-game-screen'} className={'img-demo'}/>
+									alt={'demo-game-screen'} className={'img-game'}/>
 								<img
 									src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
 									alt={'demo-game-screen'} className={'img-bg'}/>
