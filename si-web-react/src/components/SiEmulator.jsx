@@ -2,8 +2,6 @@ import React, {useEffect} from 'react';
 import init, {run} from 'si-emu-pkg';
 import './SiEmulator.scss';
 import PropTypes from 'prop-types';
-
-import BlackBackground from '../images/background/bg_black.png';
 import {backgroundVersionList} from '../constants/screen-constants';
 
 const SiEmulator = props => {

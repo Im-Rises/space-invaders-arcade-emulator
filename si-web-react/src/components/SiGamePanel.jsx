@@ -28,8 +28,12 @@ const SiGamePanel = () => {
 	const [romDataF, setRomDataF] = useState(null);
 	const [romDataE, setRomDataE] = useState(null);
 
-	// const handleResize = () => {
+	// // Responsive handling
+	// const screenGameRef = React.useRef(null);
+	// const screenBackgroundRef = React.useRef(null);
 	//
+	// const handleResize = () => {
+	// 	screenBackgroundRef.current.height = screenGameRef.current.style.height;
 	// };
 	//
 	// window.addEventListener('resize', handleResize);
@@ -48,9 +52,12 @@ const SiGamePanel = () => {
 
 						<div className={'screen-mode-panel'}>
 							<div className={'demo-screen'}>
-								<img src={screenModeList.find(element => element.value === screenMode).image}
+								<img
+									// ref={screenGameRef}
+									src={screenModeList.find(element => element.value === screenMode).image}
 									alt={'demo-game-version'} className={'img-game'}/>
 								<img
+									// ref={screenBackgroundRef}
 									src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
 									alt={'demo-background-version'} className={'img-bg'}/>
 							</div>
@@ -106,13 +113,13 @@ const SiGamePanel = () => {
 							</div>
 							<div className={'select-options'}>
 								<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
-                                        One additional life</label>
+										One additional life</label>
 								<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
-                                        Two additional lives</label>
+										Two additional lives</label>
 								<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
-                                        UFO at 1000 points</label>
+										UFO at 1000 points</label>
 								<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
-                                        Coin in demo</label>
+										Coin in demo</label>
 							</div>
 						</div>
 					</>
