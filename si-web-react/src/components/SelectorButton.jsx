@@ -17,13 +17,15 @@ const SelectorButton = props => {
 				onClick={() => {
 					const index = props.elementList.findIndex(option => option.value === selectedOption.value);
 
+					let element;
 					if (index === 0) {
-						setSelectedOption(props.elementList[props.elementList.length - 1]);
+						element = props.elementList[props.elementList.length - 1];
 					} else {
-						setSelectedOption(props.elementList[index - 1]);
+						element = props.elementList[index - 1];
 					}
 
-					props.setSelectedOptionValue(selectedOption.value);
+					setSelectedOption(element);
+					props.setSelectedOptionValue(element.value);
 				}}
 			>Previous
 			</button>
@@ -38,13 +40,15 @@ const SelectorButton = props => {
 				onClick={() => {
 					const index = props.elementList.findIndex(option => option.value === selectedOption.value);
 
+					let element;
 					if (index === props.elementList.length - 1) {
-						setSelectedOption(props.elementList[0]);
+						element = props.elementList[0];
 					} else {
-						setSelectedOption(props.elementList[index + 1]);
+						element = props.elementList[index + 1];
 					}
 
-					props.setSelectedOptionValue(selectedOption.value);
+					setSelectedOption(element);
+					props.setSelectedOptionValue(element.value);
 				}}
 			>Next
 			</button>
