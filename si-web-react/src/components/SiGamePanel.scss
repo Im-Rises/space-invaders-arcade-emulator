@@ -51,13 +51,25 @@
       //display: flex;
       //flex-flow: column;
 
-      select {
-        height: 50%;
-        width: 50%;
+      .select-screen-mode {
+        height: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
-      div {
-        height: 50%;
+      .select-background-version {
+        height: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .select-options {
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }

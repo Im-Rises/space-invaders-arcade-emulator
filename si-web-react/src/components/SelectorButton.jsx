@@ -3,10 +3,12 @@ import {useState} from 'react';
 import React from 'react';
 
 const SelectorButton = props => {
-	const [selectedOption, setSelectedOption] = useState(props.defaultValue || props.elementList[0]);
+	const defaultValue = props.elementList.find(option => option.value === props.defaultValue) || props.elementList[0];
+	const [selectedOption, setSelectedOption] = useState(defaultValue);
 
 	const handleSelectChange = event => {
-		setSelectedOption(event.target.value);
+		setSelectedOption(props.elementList.find(option => option.value === event.target.value));
+		props.setSelectedOptionValue(selectedOption.value);
 	};
 
 	return (
@@ -20,6 +22,8 @@ const SelectorButton = props => {
 					} else {
 						setSelectedOption(props.elementList[index - 1]);
 					}
+
+					props.setSelectedOptionValue(selectedOption.value);
 				}}
 			>Previous
 			</button>
@@ -39,6 +43,8 @@ const SelectorButton = props => {
 					} else {
 						setSelectedOption(props.elementList[index + 1]);
 					}
+
+					props.setSelectedOptionValue(selectedOption.value);
 				}}
 			>Next
 			</button>
@@ -47,6 +53,7 @@ const SelectorButton = props => {
 };
 
 SelectorButton.propTypes = {
+	setSelectedOptionValue: PropTypes.func.isRequired,
 	elementList: PropTypes.arrayOf(PropTypes.shape({
 		value: PropTypes.string.isRequired,
 		label: PropTypes.string.isRequired,
