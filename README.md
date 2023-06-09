@@ -21,6 +21,7 @@ SV), normal screen mode (TV) or in colored mode (CV).
 
 - [ ] Correct the web UI (code and design)
 - [ ] Button not working for mobile devices
+- [ ] Correct GitHub link over the game screen
 
 ## Images
 

@@ -69,8 +69,8 @@ const SiGamePanel = () => {
 						<div className={'start-panel'}>
 							<button onClick={() => {
 								if (!romDataH || !romDataG || !romDataF || !romDataE) {
-									toast.error('Please load all ROMs');
-									return;
+									// toast.error('Please load all ROMs');
+									// return;
 								}
 
 								setRomsLoaded(true);
