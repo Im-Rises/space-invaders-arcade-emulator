@@ -47,7 +47,7 @@ const SiGamePanel = () => {
 										src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
 										alt={'demo-game-screen'} className={'img-bg'}/>
 								</div>
-								<div className={'control-mode'}>
+								<div className={'screen-background-mode'}>
 									<div className={'select-screen-mode'}>
 										<SelectorButton
 											setSelectedOptionValue={setScreenMode}
@@ -67,8 +67,8 @@ const SiGamePanel = () => {
 							<div className={'start-panel'}>
 								<button onClick={() => {
 									if (!romDataH || !romDataG || !romDataF || !romDataE) {
-										// toast.error('Please load all ROMs');
-										// return;
+										toast.error('Please load all ROMs');
+										return;
 									}
 
 									setRomsLoaded(true);
@@ -124,10 +124,10 @@ const SiGamePanel = () => {
 								romDataF={romDataF}
 								romDataE={romDataE}
 							/>
-							<button onClick={() => {
-								setRomsLoaded(false);
-							}}>Back
-							</button>
+							{/* <button onClick={() => { */}
+							{/*	setRomsLoaded(false); */}
+							{/* }}>Back */}
+							{/* </button> */}
 						</>
 					)
 			}
