@@ -35,78 +35,82 @@ const SiGamePanel = () => {
 					<>
 						<GitHubProjectPanel link={REPO} author={AUTHOR}/>
 						<ToastContainer/>
-						<div className={'setup-panel'}>
-							<div className={'title'}>
-								<h1>Space Invaders Arcade Emulator</h1>
-							</div>
-							<div className={'screen-mode-panel'}>
-								<div className={'img-demo'}>
-									<img src={screenModeList.find(element => element.value === screenMode).image}
-										alt={'demo-game-screen'} className={'img-demo'}/>
-									<img
-										src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
-										alt={'demo-game-screen'} className={'img-bg'}/>
-								</div>
-								<div className={'screen-background-mode'}>
-									<div className={'select-screen-mode'}>
-										<SelectorButton
-											setSelectedOptionValue={setScreenMode}
-											elementList={screenModeList}
-											defaultValue={screenMode}
-										/>
-									</div>
-									<div className={'select-background-version'}>
-										<SelectorButton
-											setSelectedOptionValue={setBackgroundVersion}
-											elementList={backgroundVersionList}
-											defaultValue={backgroundVersion}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className={'start-panel'}>
-								<button onClick={() => {
-									if (!romDataH || !romDataG || !romDataF || !romDataE) {
-										toast.error('Please load all ROMs');
-										return;
-									}
+						{/* <div className={'setup-panel'}> */}
 
-									setRomsLoaded(true);
-								}
-								}>Run
-								</button>
+						<div className={'title'}>
+							<h1>Space Invaders Arcade Emulator</h1>
+						</div>
+
+						<div className={'screen-mode-panel'}>
+							<div className={'img-demo'}>
+								<img src={screenModeList.find(element => element.value === screenMode).image}
+										 alt={'demo-game-screen'} className={'img-demo'}/>
+								<img
+									src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
+									alt={'demo-game-screen'} className={'img-bg'}/>
 							</div>
-							<div className={'rom-and-settings'}>
-								<div className={'load-rom-panel'}>
-									<div>
-										<p>Load ROM H</p>
-										<InputFile setRomData={setRomDataH}/>
-									</div>
-									<div>
-										<p>Load ROM G</p>
-										<InputFile setRomData={setRomDataG}/>
-									</div>
-									<div>
-										<p>Load ROM F</p>
-										<InputFile setRomData={setRomDataF}/>
-									</div>
-									<div>
-										<p>Load ROM E</p>
-										<InputFile setRomData={setRomDataE}/>
-									</div>
+							<div className={'screen-background-mode'}>
+								<div className={'select-screen-mode'}>
+									<SelectorButton
+										setSelectedOptionValue={setScreenMode}
+										elementList={screenModeList}
+										defaultValue={screenMode}
+									/>
 								</div>
-								<div className={'select-options'}>
-									<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
-                                            One additional life</label>
-									<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
-                                            Two additional lives</label>
-									<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
-                                            UFO at 1000 points</label>
-									<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
-                                            Coin in demo</label>
+								<div className={'select-background-version'}>
+									<SelectorButton
+										setSelectedOptionValue={setBackgroundVersion}
+										elementList={backgroundVersionList}
+										defaultValue={backgroundVersion}
+									/>
 								</div>
 							</div>
 						</div>
+
+						<div className={'start-panel'}>
+							<button onClick={() => {
+								if (!romDataH || !romDataG || !romDataF || !romDataE) {
+									toast.error('Please load all ROMs');
+									return;
+								}
+
+								setRomsLoaded(true);
+							}
+							}>Run
+							</button>
+						</div>
+						
+						<div className={'rom-and-settings'}>
+							<div className={'load-rom-panel'}>
+								<div>
+									<p>Load ROM H</p>
+									<InputFile setRomData={setRomDataH}/>
+								</div>
+								<div>
+									<p>Load ROM G</p>
+									<InputFile setRomData={setRomDataG}/>
+								</div>
+								<div>
+									<p>Load ROM F</p>
+									<InputFile setRomData={setRomDataF}/>
+								</div>
+								<div>
+									<p>Load ROM E</p>
+									<InputFile setRomData={setRomDataE}/>
+								</div>
+							</div>
+							<div className={'select-options'}>
+								<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
+										One additional life</label>
+								<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
+										Two additional lives</label>
+								<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
+										UFO at 1000 points</label>
+								<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
+										Coin in demo</label>
+							</div>
+						</div>
+						{/* </div> */}
 					</>
 				)
 					: (
