@@ -62,37 +62,49 @@ const SiGamePanel = () => {
 											defaultValue={backgroundVersion}
 										/>
 									</div>
-									<div className={'select-options'}>
-										<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
-                                                One additional life</label>
-										<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
-                                                Two additional lives</label>
-										<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
-                                                UFO at 1000 points</label>
-										<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
-                                                Coin in demo</label>
-									</div>
 								</div>
 							</div>
-							<div className={'load-rom-panel'}>
-								<p>Load ROM H</p>
-								<InputFile setRomData={setRomDataH}/>
-								<p>Load ROM G</p>
-								<InputFile setRomData={setRomDataG}/>
-								<p>Load ROM F</p>
-								<InputFile setRomData={setRomDataF}/>
-								<p>Load ROM E</p>
-								<InputFile setRomData={setRomDataE}/>
+							<div className={'start-panel'}>
 								<button onClick={() => {
 									if (!romDataH || !romDataG || !romDataF || !romDataE) {
-										toast.error('Please load all ROMs');
-										return;
+										// toast.error('Please load all ROMs');
+										// return;
 									}
 
 									setRomsLoaded(true);
 								}
 								}>Run
 								</button>
+							</div>
+							<div className={'rom-and-settings'}>
+								<div className={'load-rom-panel'}>
+									<div>
+										<p>Load ROM H</p>
+										<InputFile setRomData={setRomDataH}/>
+									</div>
+									<div>
+										<p>Load ROM G</p>
+										<InputFile setRomData={setRomDataG}/>
+									</div>
+									<div>
+										<p>Load ROM F</p>
+										<InputFile setRomData={setRomDataF}/>
+									</div>
+									<div>
+										<p>Load ROM E</p>
+										<InputFile setRomData={setRomDataE}/>
+									</div>
+								</div>
+								<div className={'select-options'}>
+									<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
+                                            One additional life</label>
+									<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
+                                            Two additional lives</label>
+									<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
+                                            UFO at 1000 points</label>
+									<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
+                                            Coin in demo</label>
+								</div>
 							</div>
 						</div>
 					</>

@@ -45,11 +45,7 @@
 
     .control-mode {
       height: 20%;
-
-      //align-items: center;
-      //justify-content: center;
-      //display: flex;
-      //flex-flow: column;
+      width: 30%;
 
       .select-screen-mode {
         height: 35%;
@@ -62,7 +58,7 @@
         }
 
         select {
-          width: 40%;
+          width: 60%;
           text-align: center;
         }
 
@@ -79,30 +75,14 @@
         }
 
         select {
-          width: 40%;
+          width: 60%;
           text-align: center;
         }
-      }
-
-      .select-options {
-        height: 30%;
-
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
       }
     }
   }
 
-  .load-rom-panel {
-    // Grid 2x2 for input roms and button at the bottom
-    height: 10%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: wrap;
-
+  .start-panel {
     button {
       color: #fff;
       background-color: #282c34;
@@ -116,6 +96,45 @@
       &:hover {
         background-color: #fff;
         color: #282c34;
+      }
+    }
+  }
+
+  .rom-and-settings {
+    display: flex;
+
+    .load-rom-panel {
+      width: 50%;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+      }
+    }
+
+    .select-options {
+      width: 50%;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+
+      label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column-reverse;
+      }
+
+      input {
+        width: 50%;
+        text-align: center;
       }
     }
   }

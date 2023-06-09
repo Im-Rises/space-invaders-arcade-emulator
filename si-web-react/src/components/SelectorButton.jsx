@@ -7,8 +7,9 @@ const SelectorButton = props => {
 	const [selectedOption, setSelectedOption] = useState(defaultValue);
 
 	const handleSelectChange = event => {
-		setSelectedOption(props.elementList.find(option => option.value === event.target.value));
-		props.setSelectedOptionValue(selectedOption.value);
+		const element = props.elementList.find(option => option.value === event.target.value);
+		setSelectedOption(element);
+		props.setSelectedOptionValue(element.value);
 	};
 
 	return (
