@@ -3,7 +3,7 @@ import {useState} from 'react';
 import React from 'react';
 
 const SelectorButton = props => {
-	const defaultValue = props.elementList.find(option => option.value === props.defaultValue) || props.elementList[0];
+	const defaultValue = props.elementList.find(option => option.value === props.defaultValue);
 	const [selectedOption, setSelectedOption] = useState(defaultValue);
 
 	const handleSelectChange = event => {
@@ -58,7 +58,7 @@ SelectorButton.propTypes = {
 		value: PropTypes.string.isRequired,
 		label: PropTypes.string.isRequired,
 	})).isRequired,
-	defaultValue: PropTypes.string,
+	defaultValue: PropTypes.string.isRequired,
 };
 
 export default SelectorButton;
