@@ -30,10 +30,10 @@ const SiGamePanel = () => {
 
 	return (
 		<>
+			<GitHubProjectPanel link={REPO} author={AUTHOR}/>
 			{
 				!isRomLoaded ? (
 					<>
-						<GitHubProjectPanel link={REPO} author={AUTHOR}/>
 						<ToastContainer/>
 						{/* <div className={'setup-panel'}> */}
 
@@ -44,7 +44,7 @@ const SiGamePanel = () => {
 						<div className={'screen-mode-panel'}>
 							<div className={'img-demo'}>
 								<img src={screenModeList.find(element => element.value === screenMode).image}
-										 alt={'demo-game-screen'} className={'img-demo'}/>
+									alt={'demo-game-screen'} className={'img-demo'}/>
 								<img
 									src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
 									alt={'demo-game-screen'} className={'img-bg'}/>
@@ -79,7 +79,7 @@ const SiGamePanel = () => {
 							}>Run
 							</button>
 						</div>
-						
+
 						<div className={'rom-and-settings'}>
 							<div className={'load-rom-panel'}>
 								<div>
@@ -101,13 +101,13 @@ const SiGamePanel = () => {
 							</div>
 							<div className={'select-options'}>
 								<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
-										One additional life</label>
+                                        One additional life</label>
 								<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
-										Two additional lives</label>
+                                        Two additional lives</label>
 								<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
-										UFO at 1000 points</label>
+                                        UFO at 1000 points</label>
 								<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
-										Coin in demo</label>
+                                        Coin in demo</label>
 							</div>
 						</div>
 						{/* </div> */}
