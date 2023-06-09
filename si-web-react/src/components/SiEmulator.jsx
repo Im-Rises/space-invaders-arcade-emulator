@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import init, {run} from 'si-emu-pkg';
 import './SiEmulator.scss';
 import PropTypes from 'prop-types';
+
+import BlackBackground from '../images/background/bg_black.png';
 import {backgroundVersionList} from '../constants/screen-constants';
 
 const SiEmulator = props => {
@@ -52,11 +54,12 @@ const SiEmulator = props => {
 			<div ref={screenPanelRef} className={'screen-panel'}>
 				<img ref={backgroundImageRef} onLoad={handleResize}
 					className={'background-image'}
-					src={backgroundVersionList[props.backgroundVersion].image} alt={''}/>
+					src={backgroundVersionList.find(backgroundVersion => backgroundVersion.value === props.backgroundVersion).image}
+					alt={'background-img'}/>
 				<canvas ref={siGameCanvasRef} id={props.canvasId} width={siScreenWidth} height={siScreenHeight}/>
 			</div>
 			<div className={'control-panel'}>
-				<button onClick={() => console.log('sqdqsd')} id={'si-button-up'}>Up</button>
+				<button id={'si-button-up'}>Up</button>
 				<button id={'si-button-left'}>Left</button>
 				<button id={'si-button-right'}>Right</button>
 				<button id={'si-button-coin'}>Coin</button>
