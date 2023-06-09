@@ -15,9 +15,9 @@ export const InputFile = ({setRomData}) => {
 	};
 
 	return (
-		<div>
+		<>
 			<input type='file' ref={inputRef} onChange={onFileChange}/>
-		</div>
+		</>
 	);
 };
 

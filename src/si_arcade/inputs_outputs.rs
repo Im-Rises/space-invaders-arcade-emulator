@@ -1,3 +1,4 @@
+#[derive(Clone)]
 pub enum GameInput {
     Coin,
     Player1Start,

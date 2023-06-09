@@ -102,6 +102,56 @@ pub fn run(
         closure.forget();
     }
 
+    // Set up the HTML buttons callback
+    // Set up the HTML buttons callback
+    {
+        setup_button_callback(
+            "si-button-up",
+            si_arcade::GameInput::Shot,
+            Rc::clone(&space_invaders_arcade),
+        )?;
+    }
+
+    {
+        setup_button_callback(
+            "si-button-left",
+            si_arcade::GameInput::Left,
+            Rc::clone(&space_invaders_arcade),
+        )?;
+    }
+
+    {
+        setup_button_callback(
+            "si-button-right",
+            si_arcade::GameInput::Right,
+            Rc::clone(&space_invaders_arcade),
+        )?;
+    }
+
+    {
+        setup_button_callback(
+            "si-button-coin",
+            si_arcade::GameInput::Coin,
+            Rc::clone(&space_invaders_arcade),
+        )?;
+    }
+
+    {
+        setup_button_callback(
+            "si-button-1p",
+            si_arcade::GameInput::Player1Start,
+            Rc::clone(&space_invaders_arcade),
+        )?;
+    }
+
+    {
+        setup_button_callback(
+            "si-button-2p",
+            si_arcade::GameInput::Player2Start,
+            Rc::clone(&space_invaders_arcade),
+        )?;
+    }
+
     setup_clock(Rc::clone(&space_invaders_arcade))?;
     Ok(())
 }
@@ -121,4 +171,33 @@ fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>
 
 fn window() -> web_sys::Window {
     web_sys::window().expect("no global `window` exists")
+}
+
+fn document() -> web_sys::Document {
+    window().document().expect("no global `document` exists")
+}
+
+fn setup_button_callback(
+    button_id: &str,
+    game_input: si_arcade::GameInput,
+    space_invaders_arcade_ref: Rc<RefCell<si_arcade::SpaceInvadersArcade>>,
+) -> Result<(), JsValue> {
+    let button = document().get_element_by_id(button_id).unwrap();
+    let is_press = Rc::new(RefCell::new(false));
+    let space_invaders_arcade_ref = Rc::clone(&space_invaders_arcade_ref);
+
+    let callback = Closure::wrap(Box::new(move || {
+        let game_input_clone = game_input.clone();
+        let is_pressed = !*is_press.borrow();
+        space_invaders_arcade_ref
+            .borrow_mut()
+            .update_input(game_input_clone, is_pressed);
+        *is_press.borrow_mut() = is_pressed;
+    }) as Box<dyn FnMut()>);
+
+    button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
+
+    callback.forget();
+    Ok(())
 }
