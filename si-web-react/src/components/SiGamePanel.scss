@@ -17,8 +17,8 @@
     height: 100%;
     //width: 80%;
 
-    max-width: 80vw;
-    max-height: 80vh;
+    max-width: 70vw;
+    max-height: 70vh;
   }
 
   .img-game {
@@ -37,68 +37,41 @@
 }
 
 .screen-mode-controller {
-  display: none;
-  //height: 20%;
-  //width: 30%;
+  margin-top: 2rem;
 
-  .game-mode-controller {
-    //height: 35%;
-    //display: flex;
-    //justify-content: center;
-    //align-items: center;
+  .selector-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     button {
-      //width: 20%;
+      width: 5rem;
     }
 
     select {
-      //width: 60%;
-      //text-align: center;
-    }
-
-  }
-
-  .background-version-controller {
-    //height: 35%;
-    //display: flex;
-    //justify-content: center;
-    //align-items: center;
-
-    button {
-      //width: 20%;
-    }
-
-    select {
-      //width: 60%;
-      //text-align: center;
+      width: 15rem;
+      text-align: center;
     }
   }
-
-  //@media (max-width: 900px) {
-  //  width: 50%;
-  //}
-
-  //@media (max-width: 600px) {
-  //  width: 90%;
-  //}
 }
 
 .start-panel {
-  display: none;
+  margin-top: 1rem;
+  display: flex;
   align-items: center;
   justify-content: center;
-  //display: flex;
 
   button {
-    width: 20%;
+    width: 10rem;
 
     color: #282c34;
     background-color: #fff;
 
-    border: 1px solid #fff;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border: 0.1rem solid #fff;
+    border-radius: 0.625rem;
+    padding: 0.5rem 1rem;
     font-size: 1.5rem;
+
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
@@ -110,8 +83,11 @@
 }
 
 .rom-and-settings {
-  //display: flex;
-  display: none;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .load-rom-panel {
     width: 50%;
@@ -134,7 +110,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-
+  
     label {
       display: flex;
       justify-content: center;

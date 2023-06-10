@@ -28,16 +28,6 @@ const SiGamePanel = () => {
 	const [romDataF, setRomDataF] = useState(null);
 	const [romDataE, setRomDataE] = useState(null);
 
-	// // Responsive handling
-	// const screenGameRef = React.useRef(null);
-	// const screenBackgroundRef = React.useRef(null);
-	//
-	// const handleResize = () => {
-	// 	screenBackgroundRef.current.height = screenGameRef.current.style.height;
-	// };
-	//
-	// window.addEventListener('resize', handleResize);
-
 	return (
 		<>
 			{
@@ -50,28 +40,24 @@ const SiGamePanel = () => {
 							<h1>Space Invaders Arcade Emulator</h1>
 						</div>
 
-						{/* <div className={'screen-mode-panel'}> */}
 						<div className={'demo-screen'}>
 							<img
-								// ref={screenGameRef}
 								src={screenModeList.find(element => element.value === screenMode).image}
 								alt={'demo-game-version'} className={'img-game'}/>
 							<img
-								// ref={screenBackgroundRef}
 								src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
 								alt={'demo-background-version'} className={'img-bg'}/>
 						</div>
-						{/* </div> */}
 
 						<div className={'screen-mode-controller'}>
-							<div className={'game-mode-controller'}>
+							<div className={'selector-button'}>
 								<SelectorButton
 									setSelectedOptionValue={setScreenMode}
 									elementList={screenModeList}
 									defaultValue={screenMode}
 								/>
 							</div>
-							<div className={'background-version-controller'}>
+							<div className={'selector-button'}>
 								<SelectorButton
 									setSelectedOptionValue={setBackgroundVersion}
 									elementList={backgroundVersionList}
