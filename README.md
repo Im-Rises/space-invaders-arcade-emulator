@@ -17,6 +17,11 @@ Complete Emulator of the Intel 8080, the app is implemented to run the Space Inv
 The game is implemented with all the 10 sounds of the original game and can be played in black and white or in color (
 SV), normal screen mode (TV) or in colored mode (CV).
 
+## To do
+
+- [ ] Button not working for mobile devices
+- [ ] Correct button keeping pressed state button callback
+
 ## Images
 
 ### Without background
@@ -148,6 +153,12 @@ tobiasvl.github.io:
 
 trcf.net:  
 <https://tcrf.net/Space_Invaders_(Arcade)>
+
+eab.abime.net:  
+<https://eab.abime.net/showthread.php?t=105132&page=2>
+
+ArcadeArtwork:  
+<https://www.arcadeartwork.org/index.php?%2Fcategory%2F57>
 
 ## Contributors
 

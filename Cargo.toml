@@ -26,7 +26,6 @@ image = "0.24.6"
 version = "0.3.61"
 features = [
     'Document',
-    #    'Element',
     'HtmlCanvasElement',
     'WebGlBuffer',
     'WebGlVertexArrayObject',
@@ -34,7 +33,6 @@ features = [
     'WebGlProgram',
     'WebGlShader',
     'Window',
-    'Performance',
     'WebGlTexture',
     'console',
     'HtmlAudioElement',

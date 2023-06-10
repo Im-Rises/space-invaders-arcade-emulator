@@ -2,9 +2,9 @@ import React from 'react';
 import {InputFile} from './InputFile';
 import {useState} from 'react';
 import SiEmulator from './SiEmulator';
-import GitHubProjectPanel from './GitHubProjectPanel';
+// import GitHubProjectPanel from './GitHubProjectPanel';
 import './SiGamePanel.scss';
-import {AUTHOR, REPO} from '../settings/github-constants';
+// import {AUTHOR, REPO} from '../settings/github-constants';
 import SelectorButton from './SelectorButton';
 import {screenModeList, backgroundVersionList} from '../constants/screen-constants';
 import {ToastContainer, toast} from 'react-toastify';
@@ -34,35 +34,35 @@ const SiGamePanel = () => {
 				!isRomLoaded ? (
 					<>
 						<ToastContainer/>
-						<GitHubProjectPanel link={REPO} author={AUTHOR}/>
+						{/* <GitHubProjectPanel link={REPO} author={AUTHOR}/> */}
 
 						<div className={'title'}>
 							<h1>Space Invaders Arcade Emulator</h1>
 						</div>
 
-						<div className={'screen-mode-panel'}>
-							<div className={'img-demo'}>
-								<img src={screenModeList.find(element => element.value === screenMode).image}
-									alt={'demo-game-screen'} className={'img-demo'}/>
-								<img
-									src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
-									alt={'demo-game-screen'} className={'img-bg'}/>
+						<div className={'demo-screen'}>
+							<img
+								src={screenModeList.find(element => element.value === screenMode).image}
+								alt={'demo-game-version'} className={'img-game'}/>
+							<img
+								src={backgroundVersionList.find(element => element.value === backgroundVersion).image}
+								alt={'demo-background-version'} className={'img-bg'}/>
+						</div>
+
+						<div className={'screen-mode-controller'}>
+							<div className={'selector-button'}>
+								<SelectorButton
+									setSelectedOptionValue={setScreenMode}
+									elementList={screenModeList}
+									defaultValue={screenMode}
+								/>
 							</div>
-							<div className={'screen-background-mode'}>
-								<div className={'select-screen-mode'}>
-									<SelectorButton
-										setSelectedOptionValue={setScreenMode}
-										elementList={screenModeList}
-										defaultValue={screenMode}
-									/>
-								</div>
-								<div className={'select-background-version'}>
-									<SelectorButton
-										setSelectedOptionValue={setBackgroundVersion}
-										elementList={backgroundVersionList}
-										defaultValue={backgroundVersion}
-									/>
-								</div>
+							<div className={'selector-button'}>
+								<SelectorButton
+									setSelectedOptionValue={setBackgroundVersion}
+									elementList={backgroundVersionList}
+									defaultValue={backgroundVersion}
+								/>
 							</div>
 						</div>
 
