@@ -103,7 +103,6 @@ pub fn run(
     }
 
     // Set up the HTML buttons callback
-    // Set up the HTML buttons callback
     {
         setup_button_callback(
             "si-button-up",
@@ -195,8 +194,10 @@ fn setup_button_callback(
         *is_press.borrow_mut() = is_pressed;
     }) as Box<dyn FnMut()>);
 
-    button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
-    button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
+    // button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
+    // button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("touchstart", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("touchend", callback.as_ref().unchecked_ref())?;
 
     callback.forget();
     Ok(())
