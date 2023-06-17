@@ -28,21 +28,21 @@ pub fn run(
     two_extra_lives: bool,
     extra_ship_enabled_early: bool,
     coin_info_demo: bool,
-    // rom_h: js_sys::Uint8Array,
-    // rom_g: js_sys::Uint8Array,
-    // rom_f: js_sys::Uint8Array,
-    // rom_e: js_sys::Uint8Array,
+    rom_h: js_sys::Uint8Array,
+    rom_g: js_sys::Uint8Array,
+    rom_f: js_sys::Uint8Array,
+    rom_e: js_sys::Uint8Array,
 ) -> Result<(), JsValue> {
     // /* Debug code */
-    let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
-    let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
-    let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
-    let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
+    // let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
+    // let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
+    // let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
+    // let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
 
-    // let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
-    // let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
-    // let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
-    // let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
+    let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
+    let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
+    let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
+    let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
 
     let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
         canvas_id,
