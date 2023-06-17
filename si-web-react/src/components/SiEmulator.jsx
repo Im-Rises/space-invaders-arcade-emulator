@@ -1,17 +1,21 @@
 import React, {useEffect} from 'react';
 import init, {run} from 'si-emu-pkg';
-import './SiEmulator.scss';
 import PropTypes from 'prop-types';
 import {backgroundVersionList} from '../constants/screen-constants';
+import {ActionButtonStyle} from './subcomponents/ActionButtonStyle';
+import {StateButtonStyle} from './subcomponents/StateButtonStyle';
+import './SiEmulator.scss';
 
 const SiEmulator = props => {
+	const canvasId = 'si-canvas-id';
+	const buttonPrefix = 'si-button';
 	const siScreenWidth = 224;
 	const siScreenHeight = 256;
 
 	useEffect(() => {
 		init().then(() => {
 			// run(props.canvasId, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo, props.romDataH, props.romDataG, props.romDataF, props.romDataE);
-			run(props.canvasId, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo);// Debug
+			run(canvasId, buttonPrefix, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo);// Debug
 		});
 	}, []);
 	return (
@@ -21,15 +25,24 @@ const SiEmulator = props => {
 					className={'background-image'}
 					src={backgroundVersionList.find(backgroundVersion => backgroundVersion.value === props.backgroundVersion).image}
 					alt={'background-img'}/>
-				<canvas id={props.canvasId} width={siScreenWidth} height={siScreenHeight}/>
+				<canvas id={canvasId} width={siScreenWidth} height={siScreenHeight}/>
 			</div>
 			<div className={'control-panel'}>
-				<button id={'si-button-up'} className={'no-select'}>Up</button>
-				<button id={'si-button-left'} className={'no-select'}>Left</button>
-				<button id={'si-button-right'} className={'no-select'}>Right</button>
-				<button id={'si-button-coin'} className={'no-select'}>Coin</button>
-				<button id={'si-button-1p'} className={'no-select'}>1P</button>
-				<button id={'si-button-2p'} className={'no-select'}>2P</button>
+				{/* <button id={buttonPrefix + '-up'} className={'no-select'}>Up</button> */}
+				{/* <button id={buttonPrefix + '-left'} className={'no-select'}>Left</button> */}
+				{/* <button id={buttonPrefix + '-right'} className={'no-select'}>Right</button> */}
+				{/* <button id={buttonPrefix + '-coin'} className={'no-select'}>Coin</button> */}
+				{/* <button id={buttonPrefix + '-1p'} className={'no-select'}>1P</button> */}
+				{/* <button id={buttonPrefix + '-2p'} className={'no-select'}>2P</button> */}
+				<ActionButtonStyle id={buttonPrefix + '-left'} label={'←'}
+					className={'no-select'}>Left</ActionButtonStyle>
+				<ActionButtonStyle id={buttonPrefix + '-up'} label={'↑'} className={'no-select'}>Up</ActionButtonStyle>
+				<ActionButtonStyle id={buttonPrefix + '-right'} label={'→'}
+					className={'no-select'}>Right</ActionButtonStyle>
+				<ActionButtonStyle id={buttonPrefix + '-coin'} label={'$'}
+					className={'no-select'}>Coin</ActionButtonStyle>
+				<StateButtonStyle id={buttonPrefix + '-1p'} label={'1P'} className={'no-select'}>1P</StateButtonStyle>
+				<StateButtonStyle id={buttonPrefix + '-2p'} label={'2P'} className={'no-select'}>2P</StateButtonStyle>
 			</div>
 		</div>
 	);
