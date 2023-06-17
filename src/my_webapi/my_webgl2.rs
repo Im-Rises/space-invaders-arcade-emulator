@@ -69,13 +69,6 @@ impl MyWebGl2 {
                         out vec4 o_outColor;
                 
                         void main() {
-                            // // No transparency
-                            // o_outColor = texture(u_texture, v_texcoord);
-                            
-                            // // // Debug show
-                            // o_outColor = texture(u_overlay_texture, v_texcoord);
-                            // o_outColor = texture(u_texture, v_texcoord);
-                            
                             vec4 color = texture(u_texture, v_texcoord);
                             if (color.rgb == vec3(0.0)) {
                                 color.a = 0.0;
@@ -83,6 +76,31 @@ impl MyWebGl2 {
                                 color = texture(u_overlay_texture, v_texcoord).rgba; // Set color to overlay texture color
                                 color.a = 0.9;
                             }
+                            
+                            // // Apply vignette effect
+                            // vec2 vignetteCenter = vec2(0.5, 0.5); // Center of the vignette (adjust as needed)
+                            // float vignetteRadius = 0.7; // Radius of the vignette (adjust as needed)
+                            // float vignetteSoftness = 0.3; // Softness of the vignette (adjust as needed)
+                            // 
+                            // float vignette = smoothstep(vignetteRadius, vignetteRadius - vignetteSoftness, distance(v_texcoord, vignetteCenter));
+                            // color.rgb *= vignette;
+                            // 
+                            // // Apply glow effect
+                            // vec2 glowCenter = vec2(0.5, 0.5); // Center of the glow (adjust as needed)
+                            // float glowRadius = 0.2; // Radius of the glow (adjust as needed)
+                            // float glowIntensity = 0.5; // Intensity of the glow (adjust as needed)
+                            // 
+                            // float glow = smoothstep(glowRadius, glowRadius - glowIntensity, distance(v_texcoord, glowCenter));
+                            // color.rgb += glow;
+                            // 
+                            // // Apply distortion effect
+                            // vec2 distortionCenter = vec2(0.5, 0.5); // Center of the distortion (adjust as needed)
+                            // float distortionAmount = 0.2; // Amount of distortion (adjust as needed)
+                            // 
+                            // vec2 distortion = (v_texcoord - distortionCenter) * distortionAmount;
+                            // vec2 distortedCoords = v_texcoord + distortion;
+                            // vec4 distortedColor = texture(u_texture, distortedCoords);
+                            
                             o_outColor = color;
                         }
                         "##,

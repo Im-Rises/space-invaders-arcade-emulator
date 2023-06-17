@@ -22,6 +22,7 @@ fn init() -> Result<(), JsValue> {
 #[wasm_bindgen]
 pub fn run(
     canvas_id: String,
+    button_id_prefix: String,
     display_mode: String,
     one_extra_life: bool,
     two_extra_lives: bool,
@@ -103,10 +104,10 @@ pub fn run(
     }
 
     // Set up the HTML buttons callback
-    // Set up the HTML buttons callback
     {
         setup_button_callback(
-            "si-button-up",
+            // "si-button-up",
+            (button_id_prefix.clone() + "-up").as_str(),
             si_arcade::GameInput::Shot,
             Rc::clone(&space_invaders_arcade),
         )?;
@@ -114,7 +115,8 @@ pub fn run(
 
     {
         setup_button_callback(
-            "si-button-left",
+            // "si-button-left",
+            (button_id_prefix.clone() + "-left").as_str(),
             si_arcade::GameInput::Left,
             Rc::clone(&space_invaders_arcade),
         )?;
@@ -122,7 +124,7 @@ pub fn run(
 
     {
         setup_button_callback(
-            "si-button-right",
+            (button_id_prefix.clone() + "-right").as_str(),
             si_arcade::GameInput::Right,
             Rc::clone(&space_invaders_arcade),
         )?;
@@ -130,7 +132,7 @@ pub fn run(
 
     {
         setup_button_callback(
-            "si-button-coin",
+            (button_id_prefix.clone() + "-coin").as_str(),
             si_arcade::GameInput::Coin,
             Rc::clone(&space_invaders_arcade),
         )?;
@@ -138,7 +140,7 @@ pub fn run(
 
     {
         setup_button_callback(
-            "si-button-1p",
+            (button_id_prefix.clone() + "-1p").as_str(),
             si_arcade::GameInput::Player1Start,
             Rc::clone(&space_invaders_arcade),
         )?;
@@ -146,7 +148,7 @@ pub fn run(
 
     {
         setup_button_callback(
-            "si-button-2p",
+            (button_id_prefix.clone() + "-2p").as_str(),
             si_arcade::GameInput::Player2Start,
             Rc::clone(&space_invaders_arcade),
         )?;
@@ -195,8 +197,10 @@ fn setup_button_callback(
         *is_press.borrow_mut() = is_pressed;
     }) as Box<dyn FnMut()>);
 
-    button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
-    button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
+    // button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
+    // button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("touchstart", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("touchend", callback.as_ref().unchecked_ref())?;
 
     callback.forget();
     Ok(())

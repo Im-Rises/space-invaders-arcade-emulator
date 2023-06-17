@@ -30,17 +30,20 @@ SV), normal screen mode (TV) or in colored mode (CV).
 |-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | ![si_no_bg_sv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c6c386fd-6c4e-48af-8a79-f78a67fb5a66) | ![si_no_bg_tv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/9717f304-53c1-463e-aaa2-3fa170f378ab) | ![si_no_bg_cv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/dcc827b4-42ec-4fc3-b2f9-de9dfc397d94) |
 
-### Using background
+[//]: # (### Using background 2)
+
+[//]: # ()
+[//]: # (| SV version                                                                                                                                   | TV version                                                                                                                                   | CV version                                                                                                                                   |)
+
+[//]: # (|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|)
+
+[//]: # (| ![si_web_sv_mode_2]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/0e726ef5-5458-4284-ac61-c92009680ccd&#41; | ![si_web_tv_mode_2]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/1cec0a2b-cc5f-4da9-b9a5-69718d261edd&#41; | ![si_web_cv_mode_2]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c72c3e70-3726-49ab-befd-f9cf3d9c5a36&#41; |)
+
+### Using background 2
 
 | SV version                                                                                                                                 | TV version                                                                                                                                 | CV version                                                                                                                                 |
 |--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | ![si_web_sv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/7f2f9ab0-00ed-40d2-b0ec-0b754c8f3d47) | ![si_web_tv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c4e52a7a-02ac-4be3-812f-9e1c4119b378) | ![si_web_cv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/b218fdad-6d72-478c-a127-d4d026a05d28) |
-
-### Using background 2
-
-| SV version                                                                                                                                   | TV version                                                                                                                                   | CV version                                                                                                                                   |
-|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| ![si_web_sv_mode_2](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/0e726ef5-5458-4284-ac61-c92009680ccd) | ![si_web_tv_mode_2](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/1cec0a2b-cc5f-4da9-b9a5-69718d261edd) | ![si_web_cv_mode_2](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c72c3e70-3726-49ab-befd-f9cf3d9c5a36) |
 
 ## Videos
 
@@ -159,6 +162,10 @@ eab.abime.net:
 
 ArcadeArtwork:  
 <https://www.arcadeartwork.org/index.php?%2Fcategory%2F57>
+
+codepen.io:  
+<https://codepen.io/DanielWeiner/pen/naybVd>
+
 
 ## Contributors
 

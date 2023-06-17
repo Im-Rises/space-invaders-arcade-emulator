@@ -1,19 +1,15 @@
 import React from 'react';
-import {InputFile} from './InputFile';
+import {InputFile} from './subcomponents/InputFile';
 import {useState} from 'react';
 import SiEmulator from './SiEmulator';
-// import GitHubProjectPanel from './GitHubProjectPanel';
-import './SiGamePanel.scss';
-// import {AUTHOR, REPO} from '../settings/github-constants';
-import SelectorButton from './SelectorButton';
+import SelectorButton from './subcomponents/SelectorButton';
 import {screenModeList, backgroundVersionList} from '../constants/screen-constants';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './SiGamePanel.scss';
 
 const SiGamePanel = () => {
 	const [isRomLoaded, setRomsLoaded] = React.useState(false);
-
-	const canvasId = 'si-canvas-id';
 
 	const [screenMode, setScreenMode] = useState('TV');
 	const [backgroundVersion, setBackgroundVersion] = useState('2');
@@ -70,7 +66,7 @@ const SiGamePanel = () => {
 							<button onClick={() => {
 								if (!romDataH || !romDataG || !romDataF || !romDataE) {
 									toast.error('Please load all ROMs');
-									return;
+									// return;
 								}
 
 								setRomsLoaded(true);
@@ -114,7 +110,6 @@ const SiGamePanel = () => {
 					: (
 						<>
 							<SiEmulator
-								canvasId={canvasId}
 								screenMode={screenMode}
 								backgroundVersion={backgroundVersion}
 								oneAdditional={oneAdditionalCheckboxRef.current.checked}

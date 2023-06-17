@@ -7,6 +7,12 @@
 <body>
 <div class="canvas-panel">
     <canvas class="canvas-si" height="256" id="canvas-si" width="224"></canvas>
+    <button class="no-select" id="si-button-coin">Coin button</button>
+    <button class="no-select" id="si-button-1p">1P button</button>
+    <button class="no-select" id="si-button-2p">2P button</button>
+    <button class="no-select" id="si-button-left">Left button</button>
+    <button class="no-select" id="si-button-up">Up button</button>
+    <button class="no-select" id="si-button-right">Right button</button>
 </div>
 <div class="inputs-roms-holder">
     <div class="rom-input">
@@ -72,11 +78,11 @@
 
     const startEmulation = (uint8Arrays) => {
         console.log("All roms loaded");
-        run("canvas-si", "CV", true, true, true, true, uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
+        run("canvas-si", "si-button", "CV", true, true, true, true, uint8Arrays[0], uint8Arrays[1], uint8Arrays[2], uint8Arrays[3]);
     }
 
     const debugPlay = () => {
-        run("canvas-si", "TV", true, true, true, true);
+        run("canvas-si", "si-button", "TV", true, true, true, true);
     }
 
     const debugPlayButton = document.getElementById("debug-play");
