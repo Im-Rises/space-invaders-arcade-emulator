@@ -7,7 +7,7 @@ import SIBackground2 from '../images/background/bg_invaders_2.png';
 
 const screenModeList = [{
 	value: 'SV',
-	label: 'Black and white (SV)',
+	label: 'Black/white (SV)',
 	image: GameVideoMode1,
 }, {
 	value: 'TV',
