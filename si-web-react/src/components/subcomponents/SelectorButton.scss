@@ -1,6 +1,23 @@
-.start-btn {
+.selector-button-btn {
+
+  font-size: 20pt;
+  font-family: "Press Start 2p";
+  text-align: center;
+  display: inline-block;
+  font-weight: bold;
+  padding: 10px 20px 10px 20px;
+  //background-color: lightgray;
+  text-shadow: -1px -1px black, 1px 1px white;
+  color: gray;
+  border-radius: 7px;
+  //box-shadow: 0 0.2em gray;
+  cursor: pointer;
+}
+
+.selector-button-select {
   font-size: 20pt;
   font-family: 'Press Start 2p';
+  width: 20rem;
 
   text-align: center;
   display: inline-block;
@@ -23,12 +40,3 @@
   top: .2em;
 }
 
-
-.no-select {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  //-khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera, and Firefox */
-}

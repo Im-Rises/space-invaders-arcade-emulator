@@ -7,6 +7,7 @@ import {screenModeList, backgroundVersionList} from '../constants/screen-constan
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SiGamePanel.scss';
+import './subcomponents/ActionButtonStyle.scss';
 
 const SiGamePanel = () => {
 	const [isRomLoaded, setRomsLoaded] = React.useState(false);
@@ -63,10 +64,10 @@ const SiGamePanel = () => {
 						</div>
 
 						<div className={'start-panel'}>
-							<button onClick={() => {
+							<button className={'run-btn'} onClick={() => {
 								if (!romDataH || !romDataG || !romDataF || !romDataE) {
 									toast.error('Please load all ROMs');
-									return;
+									// return;
 								}
 
 								setRomsLoaded(true);
@@ -95,14 +96,22 @@ const SiGamePanel = () => {
 								</div>
 							</div>
 							<div className={'select-options'}>
-								<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
-                                        One additional life</label>
-								<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
-                                        Two additional lives</label>
-								<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
-                                        UFO at 1000 points</label>
-								<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
-                                        Coin in demo</label>
+								<div>
+									<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
+                                            One additional life</label>
+								</div>
+								<div>
+									<label><input type={'checkbox'} ref={twoAdditionalCheckboxRef}/>
+                                            Two additional lives</label>
+								</div>
+								<div>
+									<label><input type={'checkbox'} ref={earlyUfoCheckboxRef}/>
+                                            UFO at 1000 points</label>
+								</div>
+								<div>
+									<label><input type={'checkbox'} ref={coinDemoCheckboxRef}/>
+                                            Coin in demo</label>
+								</div>
 							</div>
 						</div>
 					</>

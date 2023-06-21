@@ -43,15 +43,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    button {
-      width: 5rem;
-    }
-
-    select {
-      width: 15rem;
-      text-align: center;
-    }
   }
 }
 
@@ -61,92 +52,68 @@
   align-items: center;
   justify-content: center;
 
-  button {
-    width: 10rem;
-
-    color: #282c34;
-    background-color: #fff;
-
-    border: 0.1rem solid #fff;
-    border-radius: 0.625rem;
-    padding: 0.5rem 1rem;
-    font-size: 1.5rem;
-
+  .run-btn {
+    font-size: 20pt;
+    font: bold 1.5em/1.5em 'Press Start 2p', Arial, sans-serif;
+    margin: 5px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 20px 10px 20px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    background-color: red;
+    -webkit-box-shadow: 0 .2em maroon;
+    -moz-box-shadow: 0 .2em maroon;
+    -o-box-shadow: 0 .2em maroon;
+    box-shadow: 0 .2em maroon;
+    color: red;
+    text-shadow: 1px 1px pink, -1px -1px maroon;
+    background-image: -o-linear-gradient(to right bottom, pink 3%, red 22%, maroon 99%);
+    background-image: -moz-linear-gradient(to right bottom, pink 3%, red 22%, maroon 99%);
+    background-image: -webkit-linear-gradient(to right bottom, pink 3%, red 22%, maroon 99%);
+    background-image: linear-gradient(to right bottom, pink 3%, red 22%, maroon 99%);
 
-    &:hover {
-      background-color: #282c34;
-      color: #fff;
+    &:active {
+      box-shadow: none;
+      position: relative;
+      top: .2em;
     }
   }
 }
 
 .rom-and-settings {
   margin-top: 2rem;
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   .load-rom-panel {
-    width: 50%;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap row;
 
     div {
-      display: flex;
       justify-content: center;
       align-items: center;
+      display: flex;
       flex-flow: column;
     }
   }
 
   .select-options {
-    width: 50%;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap row;
+    align-items: center;
 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-  
-    label {
-      display: flex;
+    div {
+      width: 20rem;
       justify-content: center;
       align-items: center;
-      flex-flow: column-reverse;
-    }
-
-    input {
-      width: 50%;
-      text-align: center;
+      display: flex;
+      margin-bottom: 1rem;
     }
   }
 
-  @media (max-width: 900px) {
-    flex-flow: column;
-
-    .load-rom-panel {
-      width: 100%;
-      margin: 10px 0;
-    }
-
-    .select-options {
-      width: 100%;
-      margin: 10px 0;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .load-rom-panel {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
-    }
-
-    .select-options {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
-    }
-  }
+  margin-bottom: 2rem;
 }

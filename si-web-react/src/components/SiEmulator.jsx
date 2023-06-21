@@ -29,12 +29,6 @@ const SiEmulator = props => {
 				<canvas id={canvasId} width={siScreenWidth} height={siScreenHeight}/>
 			</div>
 			<div className={'control-panel'}>
-				{/* <button id={buttonPrefix + '-up'} className={'no-select'}>Up</button> */}
-				{/* <button id={buttonPrefix + '-left'} className={'no-select'}>Left</button> */}
-				{/* <button id={buttonPrefix + '-right'} className={'no-select'}>Right</button> */}
-				{/* <button id={buttonPrefix + '-coin'} className={'no-select'}>Coin</button> */}
-				{/* <button id={buttonPrefix + '-1p'} className={'no-select'}>1P</button> */}
-				{/* <button id={buttonPrefix + '-2p'} className={'no-select'}>2P</button> */}
 				<ActionButtonStyle id={buttonPrefix + '-left'} label={'←'}
 					className={'no-select'}>Left</ActionButtonStyle>
 				<ActionButtonStyle id={buttonPrefix + '-up'} label={'↑'} className={'no-select'}>Up</ActionButtonStyle>

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import {useState} from 'react';
 import React from 'react';
+import './SelectorButton.scss';
 
 const SelectorButton = props => {
 	const defaultValue = props.elementList.find(option => option.value === props.defaultValue);
@@ -14,7 +15,7 @@ const SelectorButton = props => {
 
 	return (
 		<>
-			<button
+			<button className={'selector-button-btn'}
 				onClick={() => {
 					const index = props.elementList.findIndex(option => option.value === selectedOption.value);
 
@@ -28,16 +29,16 @@ const SelectorButton = props => {
 					setSelectedOption(element);
 					props.setSelectedOptionValue(element.value);
 				}}
-			>Previous
+			>←
 			</button>
-			<select value={selectedOption.value} onChange={handleSelectChange}>
+			<select className={'selector-button-select'} value={selectedOption.value} onChange={handleSelectChange}>
 				{props.elementList.map((option, index) => (
 					<option key={index} value={option.value}>
 						{props.elementList[index].label}
 					</option>
 				))}
 			</select>
-			<button
+			<button className={'selector-button-btn'}
 				onClick={() => {
 					const index = props.elementList.findIndex(option => option.value === selectedOption.value);
 
@@ -52,7 +53,7 @@ const SelectorButton = props => {
 					props.setSelectedOptionValue(element.value);
 					console.log(element);
 				}}
-			>Next
+			>→
 			</button>
 		</>
 	);
