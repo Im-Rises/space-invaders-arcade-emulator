@@ -1,5 +1,5 @@
 .video-game-button {
-  font-size: 30pt;
+  //font-size: 30pt;
   font-family: 'Press Start 2p';
 
   text-shadow: 0.0625rem 0.0625rem pink, -0.0625rem -0.0625rem maroon;
@@ -7,16 +7,16 @@
   line-height: 1.5em;
   text-align: center;
   display: inline-block;
-  width: 1.5em;
-  -webkit-border-radius: .75em;
-  -moz-border-radius: .75em;
-  -o-border-radius: .75em;
-  border-radius: .75em;
+  width: 1.5rem;
+  -webkit-border-radius: .75rem;
+  -moz-border-radius: .75rem;
+  -o-border-radius: .75rem;
+  border-radius: .75rem;
   background-color: red;
-  -webkit-box-shadow: 0 .2em maroon;
-  -moz-box-shadow: 0 .2em maroon;
-  -o-box-shadow: 0 .2em maroon;
-  box-shadow: 0 .2em maroon;
+  -webkit-box-shadow: 0 .2rem maroon;
+  -moz-box-shadow: 0 .2rem maroon;
+  -o-box-shadow: 0 .2rem maroon;
+  box-shadow: 0 .2rem maroon;
   color: red;
   margin: 0.3125rem;
   background-color: red;
@@ -31,7 +31,7 @@
 .video-game-button:active {
   box-shadow: none;
   position: relative;
-  top: .2em;
+  top: .2rem;
 }
 
 .no-select {
