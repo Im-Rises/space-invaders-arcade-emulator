@@ -28,7 +28,7 @@ const SiEmulator = props => {
 				<canvas id={canvasId} width={siScreenWidth} height={siScreenHeight}/>
 			</div>
 			<div className={'control-panel'}>
-				<div>
+				<div>{/* at the middle */}
 					<StateButtonStyle id={buttonPrefix + '-1p'} label={'1P'}
 						className={'no-select'}>1P</StateButtonStyle>
 					<ActionButtonStyle id={buttonPrefix + '-coin'} label={'$'}
@@ -36,13 +36,15 @@ const SiEmulator = props => {
 					<StateButtonStyle id={buttonPrefix + '-2p'} label={'2P'}
 						className={'no-select'}>2P</StateButtonStyle>
 				</div>
-				<div>
+				<div>{/* On the left */}
 					<ActionButtonStyle id={buttonPrefix + '-left'} label={'←'}
 						className={'no-select'}>Left</ActionButtonStyle>
-					<ActionButtonStyle id={buttonPrefix + '-up'} label={'↑'}
-						className={'no-select'}>Up</ActionButtonStyle>
 					<ActionButtonStyle id={buttonPrefix + '-right'} label={'→'}
 						className={'no-select'}>Right</ActionButtonStyle>
+				</div>
+				<div>{/* On the right */}
+					<ActionButtonStyle id={buttonPrefix + '-up'} label={'↑'}
+						className={'no-select'}>Up</ActionButtonStyle>
 				</div>
 			</div>
 		</div>
