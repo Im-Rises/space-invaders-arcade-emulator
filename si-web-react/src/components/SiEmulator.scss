@@ -23,7 +23,7 @@
     //width: 80%;
 
     max-width: 95vw;
-    max-height: 85vh;
+    max-height: 80vh;
   }
 
   canvas {
@@ -42,10 +42,12 @@
 }
 
 .control-panel {
-  height: 15vh;
+  height: 20vh;
 
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+  }
 }

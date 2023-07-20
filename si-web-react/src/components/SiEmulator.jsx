@@ -14,9 +14,8 @@ const SiEmulator = props => {
 
 	useEffect(() => {
 		init().then(() => {
-			// eslint-disable-next-line max-len
-			run(canvasId, buttonPrefix, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo, props.romDataH, props.romDataG, props.romDataF, props.romDataE);
-			// run(canvasId, buttonPrefix, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo);// Debug
+			// run(canvasId, buttonPrefix, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo, props.romDataH, props.romDataG, props.romDataF, props.romDataE);
+			run(canvasId, buttonPrefix, props.screenMode, props.oneAdditional, props.twoAdditional, props.earlyUfo, props.coinDemo);// Debug
 		});
 	}, []);
 	return (
@@ -29,32 +28,38 @@ const SiEmulator = props => {
 				<canvas id={canvasId} width={siScreenWidth} height={siScreenHeight}/>
 			</div>
 			<div className={'control-panel'}>
-				<ActionButtonStyle id={buttonPrefix + '-left'} label={'←'}
-					className={'no-select'}>Left</ActionButtonStyle>
-				<ActionButtonStyle id={buttonPrefix + '-up'} label={'↑'} className={'no-select'}>Up</ActionButtonStyle>
-				<ActionButtonStyle id={buttonPrefix + '-right'} label={'→'}
-					className={'no-select'}>Right</ActionButtonStyle>
-				<ActionButtonStyle id={buttonPrefix + '-coin'} label={'$'}
-					className={'no-select'}>Coin</ActionButtonStyle>
-				<StateButtonStyle id={buttonPrefix + '-1p'} label={'1P'} className={'no-select'}>1P</StateButtonStyle>
-				<StateButtonStyle id={buttonPrefix + '-2p'} label={'2P'} className={'no-select'}>2P</StateButtonStyle>
+				<div>
+					<StateButtonStyle id={buttonPrefix + '-1p'} label={'1P'}
+						className={'no-select'}>1P</StateButtonStyle>
+					<ActionButtonStyle id={buttonPrefix + '-coin'} label={'$'}
+						className={'no-select'}>Coin</ActionButtonStyle>
+					<StateButtonStyle id={buttonPrefix + '-2p'} label={'2P'}
+						className={'no-select'}>2P</StateButtonStyle>
+				</div>
+				<div>
+					<ActionButtonStyle id={buttonPrefix + '-left'} label={'←'}
+						className={'no-select'}>Left</ActionButtonStyle>
+					<ActionButtonStyle id={buttonPrefix + '-up'} label={'↑'}
+						className={'no-select'}>Up</ActionButtonStyle>
+					<ActionButtonStyle id={buttonPrefix + '-right'} label={'→'}
+						className={'no-select'}>Right</ActionButtonStyle>
+				</div>
 			</div>
 		</div>
 	);
 };
 
 SiEmulator.propTypes = {
-	canvasId: PropTypes.string.isRequired,
 	screenMode: PropTypes.string.isRequired,
 	backgroundVersion: PropTypes.string.isRequired,
 	oneAdditional: PropTypes.bool.isRequired,
 	twoAdditional: PropTypes.bool.isRequired,
 	earlyUfo: PropTypes.bool.isRequired,
 	coinDemo: PropTypes.bool.isRequired,
-	romDataH: PropTypes.object.isRequired,
-	romDataG: PropTypes.object.isRequired,
-	romDataF: PropTypes.object.isRequired,
-	romDataE: PropTypes.object.isRequired,
+	// romDataH: PropTypes.object.isRequired,
+	// romDataG: PropTypes.object.isRequired,
+	// romDataF: PropTypes.object.isRequired,
+	// romDataE: PropTypes.object.isRequired,
 };
 
 export default SiEmulator;
