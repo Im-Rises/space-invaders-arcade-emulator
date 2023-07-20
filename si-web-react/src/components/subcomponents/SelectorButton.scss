@@ -1,6 +1,6 @@
 .selector-button-btn {
 
-  font-size: 20pt;
+  //font-size: 20pt;
   font-family: "Press Start 2p";
   text-align: center;
   display: inline-block;
@@ -13,11 +13,17 @@
   //box-shadow: 0 0.2em gray;
   cursor: pointer;
   box-shadow: 0 0.2em gray;
+
+  &:active {
+    box-shadow: none;
+    position: relative;
+    top: .2em;
+  }
 }
 
 .selector-button-select {
   text-align: center;
-  font-size: 20pt;
+  //font-size: 20pt;
   font-family: 'Press Start 2p';
   width: 20rem;
   text-align: center;
@@ -43,18 +49,18 @@
 
 .selector-button-btn, .selector-button-select {
   @media (max-width: 768px) {
-    font-size: 16pt;
+    //font-size: 16pt;
   }
 
   @media (max-width: 576px) {
-    font-size: 12pt;
+    //font-size: 12pt;
   }
 
   @media (max-width: 320px) {
-    font-size: 10pt;
+    //font-size: 10pt;
   }
 
   @media (max-width: 285px) {
-    font-size: 8pt;
+    //font-size: 8pt;
   }
 }

@@ -51,7 +51,6 @@ const SelectorButton = props => {
 
 					setSelectedOption(element);
 					props.setSelectedOptionValue(element.value);
-					console.log(element);
 				}}
 			>→
 			</button>

@@ -28,21 +28,21 @@ pub fn run(
     two_extra_lives: bool,
     extra_ship_enabled_early: bool,
     coin_info_demo: bool,
-    rom_h: js_sys::Uint8Array,
-    rom_g: js_sys::Uint8Array,
-    rom_f: js_sys::Uint8Array,
-    rom_e: js_sys::Uint8Array,
+    // rom_h: js_sys::Uint8Array,
+    // rom_g: js_sys::Uint8Array,
+    // rom_f: js_sys::Uint8Array,
+    // rom_e: js_sys::Uint8Array,
 ) -> Result<(), JsValue> {
     // /* Debug code */
-    // let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
-    // let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
-    // let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
-    // let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
+    let array_h: [u8; 0x800] = include_bytes!("../game_roms/invaders.h").to_vec().try_into().unwrap();
+    let array_g: [u8; 0x800] = include_bytes!("../game_roms/invaders.g").to_vec().try_into().unwrap();
+    let array_f: [u8; 0x800] = include_bytes!("../game_roms/invaders.f").to_vec().try_into().unwrap();
+    let array_e: [u8; 0x800] = include_bytes!("../game_roms/invaders.e").to_vec().try_into().unwrap();
 
-    let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
-    let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
-    let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
-    let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
+    // let array_h: [u8; 0x800] = rom_h.to_vec().try_into().unwrap();
+    // let array_g: [u8; 0x800] = rom_g.to_vec().try_into().unwrap();
+    // let array_f: [u8; 0x800] = rom_f.to_vec().try_into().unwrap();
+    // let array_e: [u8; 0x800] = rom_e.to_vec().try_into().unwrap();
 
     let space_invaders_arcade = Rc::new(RefCell::new(si_arcade::SpaceInvadersArcade::new(
         canvas_id,
@@ -52,6 +52,20 @@ pub fn run(
         &array_f,
         &array_e,
     )));
+
+    // Set the dip switches
+    space_invaders_arcade
+        .borrow_mut()
+        .update_input(si_arcade::GameInput::Dip3, one_extra_life);
+    space_invaders_arcade
+        .borrow_mut()
+        .update_input(si_arcade::GameInput::Dip5, two_extra_lives);
+    space_invaders_arcade
+        .borrow_mut()
+        .update_input(si_arcade::GameInput::Dip6, extra_ship_enabled_early);
+    space_invaders_arcade
+        .borrow_mut()
+        .update_input(si_arcade::GameInput::Dip7, coin_info_demo);
 
     // Set up the keyboard event listener to handle key events
     {
@@ -80,20 +94,6 @@ pub fn run(
                     .update_input(si_arcade::GameInput::Player2Start, is_pressed),
                 _ => {}
             }
-
-            // Set the dip switches
-            space_invaders_arcade_ref
-                .borrow_mut()
-                .update_input(si_arcade::GameInput::Dip3, one_extra_life);
-            space_invaders_arcade_ref
-                .borrow_mut()
-                .update_input(si_arcade::GameInput::Dip5, two_extra_lives);
-            space_invaders_arcade_ref
-                .borrow_mut()
-                .update_input(si_arcade::GameInput::Dip6, extra_ship_enabled_early);
-            space_invaders_arcade_ref
-                .borrow_mut()
-                .update_input(si_arcade::GameInput::Dip7, coin_info_demo);
         }) as Box<dyn FnMut(_)>);
 
         // Add the event listener to the window
@@ -197,8 +197,8 @@ fn setup_button_callback(
         *is_press.borrow_mut() = is_pressed;
     }) as Box<dyn FnMut()>);
 
-    // button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
-    // button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
     button.add_event_listener_with_callback("touchstart", callback.as_ref().unchecked_ref())?;
     button.add_event_listener_with_callback("touchend", callback.as_ref().unchecked_ref())?;
 
