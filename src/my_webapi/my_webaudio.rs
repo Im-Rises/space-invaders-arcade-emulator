@@ -49,16 +49,15 @@ impl MyWebAudio {
                 SoundType::UniqueSound => {
                     // If is unique sound, play only on mounting state
                     if sounds_states[i] && !self.last_sounds_states[i] {
-                        sound.play();
+                        play_sound(sound);
                     }
                 }
                 SoundType::VariableLengthSound => {
                     // If is loop sound or VariableLengthSound, play on mounting state until the end or stop it before on unmounting state (before the end of the sound)
                     if sounds_states[i] && !self.last_sounds_states[i] {
-                        sound.play();
+                        play_sound(sound);
                     } else if !sounds_states[i] && self.last_sounds_states[i] {
-                        sound.pause();
-                        sound.set_current_time(0.0);
+                        pause_sound(sound);
                     }
                 } // SoundType::LoopSound => {
                   //     // If is loop sound or VariableLengthSound, play only on mounting state and stop on unmounting state
@@ -74,6 +73,27 @@ impl MyWebAudio {
 
         self.last_sounds_states = sounds_states.to_vec();
     }
+}
+
+fn play_sound(sound: &web_sys::HtmlAudioElement) {
+    let sound_result = sound.play();
+    match sound_result {
+        Ok(_) => {}
+        Err(_) => {
+            panic!("Error on play sound");
+        }
+    }
+}
+
+fn pause_sound(sound: &web_sys::HtmlAudioElement) {
+    let sound_result = sound.pause();
+    match sound_result {
+        Ok(_) => {}
+        Err(_) => {
+            panic!("Error on pause sound");
+        }
+    }
+    sound.set_current_time(0.0);
 }
 
 pub fn load_audio_from_u8array(u8array: &[u8]) -> Result<web_sys::HtmlAudioElement, JsValue> {

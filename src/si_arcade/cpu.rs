@@ -464,7 +464,7 @@ pub mod tests {
         test_finished
     }
 
-    //noinspection RsExternalLinter
+    #[allow(dead_code)]
     fn write_debug_to_file(cpu: &mut Cpu, file: &mut File, cycles: u64) {
         writeln!(
             file,
