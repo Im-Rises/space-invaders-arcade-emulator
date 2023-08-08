@@ -4,7 +4,6 @@ use wasm_bindgen::JsValue;
 #[derive(Clone, Copy)]
 pub enum SoundType {
     UniqueSound,
-    // LoopSound,
     VariableLengthSound,
 }
 
@@ -31,7 +30,6 @@ impl MyWebAudio {
         let mut sounds_types = Vec::new();
         for sound_bytes in sounds_data {
             let audio_element = load_audio_from_u8array(sound_bytes.0).unwrap();
-            // audio_element.set_loop(sound_bytes.1 == SoundType::LoopSound);
             sounds_types.push(sound_bytes.1);
             sounds_elements.push(audio_element);
         }
@@ -59,15 +57,7 @@ impl MyWebAudio {
                     } else if !sounds_states[i] && self.last_sounds_states[i] {
                         pause_sound(sound);
                     }
-                } // SoundType::LoopSound => {
-                  //     // If is loop sound or VariableLengthSound, play only on mounting state and stop on unmounting state
-                  //     if sounds_states[i] && !self.last_sounds_states[i] {
-                  //         sound.play();
-                  //     } else if !sounds_states[i] && self.last_sounds_states[i] {
-                  //         sound.pause();
-                  //         sound.set_current_time(0.0);
-                  //     }
-                  // }
+                }
             }
         }
 
