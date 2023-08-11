@@ -171,6 +171,12 @@ fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>
     Ok(())
 }
 
+#[wasm_bindgen]
+pub fn stop_interval(interval_handle: i32) {
+    // Clear the interval using the handle
+    window().clear_interval_with_handle(interval_handle);
+}
+
 fn window() -> web_sys::Window {
     web_sys::window().expect("no global `window` exists")
 }

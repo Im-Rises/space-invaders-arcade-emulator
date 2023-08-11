@@ -77,6 +77,7 @@ const SiGamePanel = () => {
 						</div>
 
 						<div className={'rom-and-settings'}>
+							<h2>Roms loading</h2>
 							<div className={'load-rom-panel'}>
 								<div>
 									<p>Load ROM H</p>
@@ -95,6 +96,7 @@ const SiGamePanel = () => {
 									<InputFile setRomData={setRomDataE}/>
 								</div>
 							</div>
+							<h2>Options</h2>
 							<div className={'select-options'}>
 								<div>
 									<label><input type={'checkbox'} ref={oneAdditionalCheckboxRef}/>
