@@ -33,8 +33,9 @@ SV), normal screen mode (TV) or in colored mode (CV).
 
 ### Using background 1
 
-| SV version | TV version | CV version |
-|------------|------------|------------|
+| SV version                                                                                                                    | TV version                                                                                                                 | CV version                                                                                                                    |
+|-------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| ![BG2_Green](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/433a9da2-cdb8-48f8-85b8-9e615766bdf9) | ![BG2_BW](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/7a5c9618-9fd6-48a5-81eb-81d5964aa98e) | ![BG2_Color](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/39adf0b0-2fe9-488d-a10f-b390c4c1141a) |
 
 ### Using background 2
 
