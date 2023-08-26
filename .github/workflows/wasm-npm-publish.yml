@@ -3,8 +3,6 @@ name: Wasm NPM Publish
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build-publish:
