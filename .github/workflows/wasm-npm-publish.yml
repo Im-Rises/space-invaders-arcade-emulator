@@ -2,25 +2,33 @@ name: Wasm NPM Publish
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Install wasm-pack
-        run: cargo install wasm-pack
+        run: |
+          cargo install wasm-pack
+          export PATH="$HOME/.cargo/bin:$PATH"
+
       - name: Build wasm
-        run: wasm-pack build --target web --out-dir si-emu-pkg --release
-      - name: Install Node.js
-      - uses: actions/setup-node@v3
+        run: wasm-pack build --target web --out-name index --out-dir si-emu-pkg --release
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://registry.npmjs.org/
+
       - name: Move to package directory
         run: cd si-emu-pkg
+
       - name: Publish to NPM
-      - run: npm publish
+        run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
