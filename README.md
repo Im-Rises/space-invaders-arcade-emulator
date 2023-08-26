@@ -81,10 +81,7 @@ before starting the game.
 [![rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
 [![rust-clippy analyze](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml)
 [![rustfmt check](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml)
-[![ESLint](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/eslint.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/eslint.yml)
-[![Node.js Wasm CI](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm.yml)
-[![Node.js Wasm CI publish](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm-publish.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/node-wasm-publish.yml)
-[![pages-build-deployment](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/actions/workflows/pages/pages-build-deployment)
+[![wasm](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/wasm.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/wasm.yml)
 
 The project is set with a set of different scripts:
 
