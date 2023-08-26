@@ -29,6 +29,8 @@ jobs:
         run: cd si-emu-pkg
 
       - name: Publish to NPM
-        run: npm publish
+        run: |
+          ls
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
