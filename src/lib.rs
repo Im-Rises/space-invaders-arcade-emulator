@@ -158,17 +158,18 @@ pub fn run(
     Ok(())
 }
 
-fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) -> Result<(), JsValue> {
+fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) -> Result<i32, JsValue> {
     update_time(space_invaders_arcade.clone());
     let a = Closure::<dyn Fn()>::new(move || update_time(space_invaders_arcade.clone()));
-    window().set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), UPDATE_INTERVAL_MS)?;
+    let handle = window()
+        .set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), UPDATE_INTERVAL_MS)?;
     fn update_time(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) {
         space_invaders_arcade.borrow_mut().emulate_cycle();
     }
 
     a.forget();
 
-    Ok(())
+    Ok(handle)
 }
 
 #[wasm_bindgen]
