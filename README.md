@@ -10,47 +10,37 @@
 
 ## Description
 
-Space Invaders' arcade game emulator written in Rust for the web.
+Space Invaders arcade game emulator written in Rust for the web.
 
 Complete Emulator of the Intel 8080, the app is implemented to run the Space Invaders Arcade game.
+
+## 🚀🚀[You can try it online from your browser](https://im-rises.github.io/space-invaders-arcade-emulator-website/) 🚀🚀
+
+The demo source code is available [here](https://github.com/Im-Rises/space-invaders-arcade-emulator-website) 🚀🚀
 
 The game is implemented with all the 10 sounds of the original game and can be played in black and white or in color (
 SV), normal screen mode (TV) or in colored mode (CV).
 
-## To do
-
-- [ ] Button not working for mobile devices
-- [ ] Correct button keeping pressed state button callback
+# 🚀🚀 [The package is available on npm](https://www.npmjs.com/package/space-invaders-arcade-emulator) 🚀🚀
 
 ## Images
 
 ### Without background
 
-| SV version                                                                                                                              | TV version                                                                                                                              | CV version                                                                                                                              |
-|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| ![si_no_bg_sv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c6c386fd-6c4e-48af-8a79-f78a67fb5a66) | ![si_no_bg_tv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/9717f304-53c1-463e-aaa2-3fa170f378ab) | ![si_no_bg_cv](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/dcc827b4-42ec-4fc3-b2f9-de9dfc397d94) |
-
-[//]: # (### Using background 2)
-
-[//]: # ()
-
-[//]: # (| SV version                                                                                                                                   | TV version                                                                                                                                   | CV version                                                                                                                                   |)
-
-[//]: # (|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|)
-
-[//]: # (| ![si_web_sv_mode_2]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/0e726ef5-5458-4284-ac61-c92009680ccd&#41; | ![si_web_tv_mode_2]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/1cec0a2b-cc5f-4da9-b9a5-69718d261edd&#41; | ![si_web_cv_mode_2]&#40;https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c72c3e70-3726-49ab-befd-f9cf3d9c5a36&#41; |)
+|                                                         SV version                                                          |                                                           TV version                                                           |                                                           CV version                                                           |
+|:---------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------:|
+| ![NOBG_BW](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/96276b2a-d75c-4eef-ae76-74624960ba19) | ![NOBG_Color](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/32bc3e25-7883-4229-bab3-7bbfae745e9e) | ![NOBG_Geeen](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/4ec1df0d-98e5-4327-b25c-da80e6a44470) |
 
 ### Using background 2
 
-| SV version                                                                                                                                 | TV version                                                                                                                                 | CV version                                                                                                                                 |
-|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| ![si_web_sv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/7f2f9ab0-00ed-40d2-b0ec-0b754c8f3d47) | ![si_web_tv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c4e52a7a-02ac-4be3-812f-9e1c4119b378) | ![si_web_cv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/b218fdad-6d72-478c-a127-d4d026a05d28) |
+| SV version                                                                                                                 | TV version                                                                                                                    | CV version                                                                                                                    |
+|----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| ![BG1_BW](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/d0a903f4-b92f-48a2-b4d2-f4173be2ce3d) | ![BG1_Green](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/7a31f2f5-38ba-4881-894c-bfacc2faf659) | ![BG1_Color](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/563ab206-1382-4311-b0b5-76d34b41a0aa) |
 
 ### Using background 3
 
-| SV version                                                                                                                                 | TV version                                                                                                                                 | CV version                                                                                                                                 |
-|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| ![si_web_sv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/7f2f9ab0-00ed-40d2-b0ec-0b754c8f3d47) | ![si_web_tv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/c4e52a7a-02ac-4be3-812f-9e1c4119b378) | ![si_web_cv_mode](https://github.com/Im-Rises/space-invaders-arcade-emulator-website/assets/59691442/b218fdad-6d72-478c-a127-d4d026a05d28) |
+| SV version | TV version | CV version |
+|------------|------------|------------|
 
 ## Videos
 
@@ -81,17 +71,16 @@ before starting the game.
 [![rust](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust.yml)
 [![rust-clippy analyze](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rust-clippy.yml)
 [![rustfmt check](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/rustfmt.yml)
-[![wasm](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/wasm.yml/badge.svg?branch=main)](https://github.com/Im-Rises/space_invaders_arcade_emulator/actions/workflows/wasm.yml)
+[![Wasm CI](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm.yml)
+[![Wasm NPM Publish](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-npm-publish.yml/badge.svg)](https://github.com/Im-Rises/space-invaders-arcade-emulator/actions/workflows/wasm-npm-publish.yml)
 
 The project is set with a set of different scripts:
 
 - Rust : Build the project in native mode and run the unit tests.
 - rust-clippy analyze : Evaluate the code quality (error, warnings, etc...).
 - rustfmt check :  Check the code good formatting
-- ESLint : Check the code good formatting
-- Node.js Wasm CI : Build the WebAssembly file and the website.
-- Node.js Wasm CI publish : Publish the website with the webassembly file on the gh-pages branch.
-- pages-build-deployment : Publish the website form the gh-pages branch to GitHub Pages.
+- Wasm CI : Build the project in wasm mode.
+- Wasm NPM Publish : Build the project in wasm mode and publish it on npm.
 
 ## Documentation
 
