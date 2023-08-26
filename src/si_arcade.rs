@@ -17,7 +17,7 @@ const SCREEN_REFRESH_TIME: u128 = 16;
 const INTERRUPT_VBLANK_COUNTER: usize = cpu::CLOCK_FREQUENCY / ppu::SCREEN_FREQUENCY;
 const INTERRUPT_MIDDLE_VBLANK: usize = INTERRUPT_VBLANK_COUNTER / 2;
 
-//noinspection RsExternalLinter
+#[allow(dead_code)]
 pub struct SpaceInvadersArcade {
     cpu: cpu::Cpu,
     ppu: ppu::Ppu,
@@ -148,13 +148,13 @@ impl SpaceInvadersArcade {
             }
             2 => {
                 data = 0b0000_0000;
-                data = set_reset_bit(data, 0, self.inputs_outputs.dip3);
-                data = set_reset_bit(data, 1, self.inputs_outputs.dip5);
-                data = set_reset_bit(data, 3, self.inputs_outputs.dip6);
+                data = set_reset_bit(data, 0, self.inputs_outputs.dip3); // One extra life
+                data = set_reset_bit(data, 1, self.inputs_outputs.dip5); // Two extra lives
+                data = set_reset_bit(data, 3, self.inputs_outputs.dip6); // Extra ship at 1000 or 1500
                 data = set_reset_bit(data, 4, self.inputs_outputs.player.shot); // player 2 shot
                 data = set_reset_bit(data, 5, self.inputs_outputs.player.left); // player 2 left
                 data = set_reset_bit(data, 6, self.inputs_outputs.player.right); // player 2 right
-                data = set_reset_bit(data, 7, self.inputs_outputs.dip7);
+                data = set_reset_bit(data, 7, self.inputs_outputs.dip7); // Coin in demo mode
             }
             3 => data = ((self.inputs_outputs.shift_register >> (8 - self.inputs_outputs.shift_offset)) & 0xFF) as u8,
             6 => (), //WATCHDOG
@@ -199,7 +199,7 @@ impl SpaceInvadersArcade {
     }
 
     #[allow(dead_code)]
-    pub fn get_screen(&self) -> &[u8; ppu::SCREEN_WIDTH * ppu::SCREEN_HEIGHT * 3] {
+    pub fn get_screen_data(&self) -> &[u8; ppu::SCREEN_WIDTH * ppu::SCREEN_HEIGHT * 3] {
         self.ppu.get_screen()
     }
 }

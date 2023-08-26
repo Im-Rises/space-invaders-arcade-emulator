@@ -53,6 +53,20 @@ pub fn run(
         &array_e,
     )));
 
+    // Set the dip switches
+    space_invaders_arcade
+        .borrow_mut()
+        .update_input(si_arcade::GameInput::Dip3, one_extra_life);
+    space_invaders_arcade
+        .borrow_mut()
+        .update_input(si_arcade::GameInput::Dip5, two_extra_lives);
+    space_invaders_arcade
+        .borrow_mut()
+        .update_input(si_arcade::GameInput::Dip6, extra_ship_enabled_early);
+    space_invaders_arcade
+        .borrow_mut()
+        .update_input(si_arcade::GameInput::Dip7, coin_info_demo);
+
     // Set up the keyboard event listener to handle key events
     {
         let space_invaders_arcade_ref = Rc::clone(&space_invaders_arcade);
@@ -80,20 +94,6 @@ pub fn run(
                     .update_input(si_arcade::GameInput::Player2Start, is_pressed),
                 _ => {}
             }
-
-            // Set the dip switches
-            space_invaders_arcade_ref
-                .borrow_mut()
-                .update_input(si_arcade::GameInput::Dip3, one_extra_life);
-            space_invaders_arcade_ref
-                .borrow_mut()
-                .update_input(si_arcade::GameInput::Dip5, two_extra_lives);
-            space_invaders_arcade_ref
-                .borrow_mut()
-                .update_input(si_arcade::GameInput::Dip6, extra_ship_enabled_early);
-            space_invaders_arcade_ref
-                .borrow_mut()
-                .update_input(si_arcade::GameInput::Dip7, coin_info_demo);
         }) as Box<dyn FnMut(_)>);
 
         // Add the event listener to the window
@@ -158,17 +158,24 @@ pub fn run(
     Ok(())
 }
 
-fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) -> Result<(), JsValue> {
+fn setup_clock(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) -> Result<i32, JsValue> {
     update_time(space_invaders_arcade.clone());
     let a = Closure::<dyn Fn()>::new(move || update_time(space_invaders_arcade.clone()));
-    window().set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), UPDATE_INTERVAL_MS)?;
+    let handle = window()
+        .set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), UPDATE_INTERVAL_MS)?;
     fn update_time(space_invaders_arcade: Rc<RefCell<si_arcade::SpaceInvadersArcade>>) {
         space_invaders_arcade.borrow_mut().emulate_cycle();
     }
 
     a.forget();
 
-    Ok(())
+    Ok(handle)
+}
+
+#[wasm_bindgen]
+pub fn stop_interval(interval_handle: i32) {
+    // Clear the interval using the handle
+    window().clear_interval_with_handle(interval_handle);
 }
 
 fn window() -> web_sys::Window {
@@ -197,8 +204,8 @@ fn setup_button_callback(
         *is_press.borrow_mut() = is_pressed;
     }) as Box<dyn FnMut()>);
 
-    // button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
-    // button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("mousedown", callback.as_ref().unchecked_ref())?;
+    button.add_event_listener_with_callback("mouseup", callback.as_ref().unchecked_ref())?;
     button.add_event_listener_with_callback("touchstart", callback.as_ref().unchecked_ref())?;
     button.add_event_listener_with_callback("touchend", callback.as_ref().unchecked_ref())?;
 
