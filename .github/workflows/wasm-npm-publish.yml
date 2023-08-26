@@ -25,12 +25,9 @@ jobs:
         with:
           node-version: 16
 
-      - name: Move to package directory
-        run: cd si-emu-pkg
-
       - name: Publish to NPM
         run: |
-          ls
+          cd si-emu-pkg
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
