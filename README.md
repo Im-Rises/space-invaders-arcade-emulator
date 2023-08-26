@@ -31,16 +31,17 @@ SV), normal screen mode (TV) or in colored mode (CV).
 |:---------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------:|
 | ![NOBG_BW](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/96276b2a-d75c-4eef-ae76-74624960ba19) | ![NOBG_Color](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/32bc3e25-7883-4229-bab3-7bbfae745e9e) | ![NOBG_Geeen](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/4ec1df0d-98e5-4327-b25c-da80e6a44470) |
 
+### Using background 1
+
+| SV version                                                                                                                    | TV version                                                                                                                 | CV version                                                                                                                    |
+|-------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| ![BG2_Green](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/433a9da2-cdb8-48f8-85b8-9e615766bdf9) | ![BG2_BW](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/7a5c9618-9fd6-48a5-81eb-81d5964aa98e) | ![BG2_Color](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/39adf0b0-2fe9-488d-a10f-b390c4c1141a) |
+
 ### Using background 2
 
 | SV version                                                                                                                 | TV version                                                                                                                    | CV version                                                                                                                    |
 |----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
 | ![BG1_BW](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/d0a903f4-b92f-48a2-b4d2-f4173be2ce3d) | ![BG1_Green](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/7a31f2f5-38ba-4881-894c-bfacc2faf659) | ![BG1_Color](https://github.com/Im-Rises/space-invaders-arcade-emulator/assets/59691442/563ab206-1382-4311-b0b5-76d34b41a0aa) |
-
-### Using background 3
-
-| SV version | TV version | CV version |
-|------------|------------|------------|
 
 ## Videos
 
